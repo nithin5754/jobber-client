@@ -1,5 +1,5 @@
 import { FC, ReactElement, useState } from 'react';
-import { LottieAnimation } from 'src/shared/lottie/components/LootieAnimation';
+
 
 import { categories, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
 

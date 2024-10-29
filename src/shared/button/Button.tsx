@@ -1,4 +1,4 @@
-import { FC, ReactElement, ReactNode } from 'react';
+import { FC, ReactElement } from 'react';
 import { IButtonProps } from '../shared.inferface';
 
 const Button: FC<IButtonProps> = (props): ReactElement => {
