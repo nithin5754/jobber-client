@@ -2,6 +2,8 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import tscongPaths from 'vite-tsconfig-paths';
 
+import commonjs from 'vite-plugin-commonjs';
+
 // https://vitejs.dev/config/
 export default defineConfig({
   root: '.',
@@ -9,7 +11,8 @@ export default defineConfig({
     react({
       include: '**/*.tsx'
     }),
-    tscongPaths()
+    tscongPaths(),
+    commonjs()
   ],
   resolve: {
     alias: {
@@ -23,3 +26,8 @@ export default defineConfig({
     port: 3000
   }
 });
+
+
+
+
+

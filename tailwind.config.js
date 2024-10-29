@@ -8,6 +8,12 @@ export default {
         success: "#5cb85c",
         error: "#d9534f",
         info: "#5bc0de",
+        customPurple: 'rgb(184, 44, 180)',
+        customViolet:'rgb(118, 33, 179)'
+      },
+      colors: {
+        customPurple: 'rgb(184, 44, 180)',
+        customViolet:'rgb(118, 33, 179)'
       },
       border: {
         grey: "#e8e8e8",

@@ -50,8 +50,8 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
                   <span className="relative text-sm font-semibold text-gray-600  dark:text-gray-300">Sign In</span>
                 </div>
                 <div
-                  className="relative  ml-auto flex  items-center justify-center rounded-full  bg-sky-500
-                            text-white font-bold sm:px-6 hover:bg-sky-400"
+                  className="relative  ml-auto flex  items-center justify-center rounded-full bg-customViolet hover:bg-customPurple transition-all
+                            text-white font-bold sm:px-6 "
                 >
                   <span className="relative text-sm font-semibold text-white">Sign Up</span>
                 </div>
