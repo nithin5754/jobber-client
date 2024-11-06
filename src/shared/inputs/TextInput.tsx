@@ -24,6 +24,8 @@ const TextInput: ForwardRefExoticComponent<Omit<ITextInputProps, 'ref'> & RefAtt
       onKeyUp={props.onKeyUp}
       onKeyDown={props.onKeyDown}
       autoComplete="false"
+      accept={props.accept}
+
     />
   );
 });

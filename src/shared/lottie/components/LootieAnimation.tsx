@@ -4,7 +4,7 @@ import { LootieProps } from "../interfaces/lottie.interface";
 
 
 
-export const LottieAnimation = ({ animationData, height, width }: LootieProps) => {
+const LottieAnimation = ({ animationData, height, width }: LootieProps) => {
   const styles = {
     height: height,
     width: width
@@ -16,10 +16,14 @@ export const LottieAnimation = ({ animationData, height, width }: LootieProps) =
     animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice"
-    },
+    }
   
  
   };
   const { View } = useLottie(defaultOptions, styles);
   return View;
 };
+
+
+
+export default LottieAnimation

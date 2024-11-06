@@ -1,6 +1,26 @@
-import { ChangeEvent, CSSProperties, KeyboardEvent, ReactNode } from 'react';
+import { ChangeEvent, CSSProperties, Dispatch, KeyboardEvent, ReactNode, SetStateAction } from 'react';
+import { IAuthUser, ISignUpPayload } from 'src/features/auth/interfaces/auth.interface';
 
 
+export type validationErrorsType =
+| ISignUpPayload
+
+export interface IResponse {
+  message?:string;
+  token?:string;
+  user?:IAuthUser;
+  browserName?: string;
+  deviceType?: string;
+}
+
+
+export type AuthEndPointsTypes =
+ |'REGISTER'
+ | 'LOGIN'
+ | 'VERIFY_EMAIL'
+
+
+ 
 export interface IButtonProps {
   label?: string |ReactNode;
   type?: 'button' | 'submit' | 'reset' | undefined;
@@ -23,6 +43,7 @@ export interface ITextInputProps {
   style?: CSSProperties;
   readOnly?: boolean;
   checked?: boolean;
+  accept?:string;
   rows?: number;
   autoFocus?: boolean;
   maxLength?: number;
@@ -34,4 +55,31 @@ export interface ITextInputProps {
   onBlur?: () => void;
   onKeyUp?: () => void;
   onKeyDown?: (event: KeyboardEvent) => void;
+}
+
+
+export interface IAlertProps {
+  type: string;
+  message: string;
+}
+
+
+export interface IAlertTypes {
+  [key: string]: string;
+  success: string;
+  error: string;
+  warning: string;
+}
+
+
+export interface IDropdownProps {
+  text: string;
+  values: string[];
+  maxHeight: string;
+  mainClassNames?: string;
+  dropdownClassNames?: string;
+  showSearchInput?: boolean;
+  style?: CSSProperties;
+  setValue?: Dispatch<SetStateAction<string>>;
+  onClick?: (item: string) => void;
 }

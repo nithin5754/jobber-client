@@ -17,12 +17,18 @@ export default {
       },
       border: {
         grey: "#e8e8e8",
+             customPurple: 'rgb(184, 44, 180)',
+        customViolet:'rgb(118, 33, 179)'
       },
       outline: {
         grey: "#e8e8e8",
+             customPurple: 'rgb(184, 44, 180)',
+        customViolet:'rgb(118, 33, 179)'
       },
       divide: {
         grey: "#e8e8e8",
+             customPurple: 'rgb(184, 44, 180)',
+        customViolet:'rgb(118, 33, 179)'
       },
     },
   },

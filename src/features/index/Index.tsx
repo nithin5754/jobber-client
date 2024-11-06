@@ -1,4 +1,5 @@
 import { FC, lazy, LazyExoticComponent, ReactElement, Suspense } from 'react';
+import Alert from 'src/shared/alert/Alert';
 import { IHeader } from 'src/shared/header/interface/header.inferface';
 
 
@@ -13,7 +14,7 @@ const Index: FC = (): ReactElement => {
       <Suspense>
         <IndexHeader
           navClass={
-            'navbar peer-checked:navbar-active fixed z-20 w-full border-b border-gray-100 bg-white/90 shadow-2xl shadow-gray-600/5 backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/80 dark:shadow-none'
+            'navbar peer-checked:navbar-active fixed top-0 z-20 w-full border-b border-gray-100 bg-white/90 shadow-2xl shadow-gray-600/5 backdrop-blur  dark:border-gray-800 dark:bg-gray-900/80 dark:shadow-none'
           }
         />
         <IndexHero />
@@ -22,6 +23,9 @@ const Index: FC = (): ReactElement => {
         <br/>
         <IndexCategories/>
       </Suspense>
+      {/* <div className="fixed z-50 bottom-0 right-10 lg:w-[250px] ">
+            <Alert type={'success'} message={'created the message'}/>
+      </div> */}
     </div>
   );
 };

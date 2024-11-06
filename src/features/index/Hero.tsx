@@ -1,13 +1,27 @@
-import { ChangeEvent, FC, FormEvent, ReactElement, RefObject, useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  FC,
+  FormEvent,
+  lazy,
+  LazyExoticComponent,
+  ReactElement,
+  RefObject,
+  Suspense,
+  useEffect,
+  useRef,
+  useState
+} from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { createSearchParams, NavigateFunction, useNavigate } from 'react-router-dom';
 import Button from 'src/shared/button/Button';
 import TextInput from 'src/shared/inputs/TextInput';
-import { LottieAnimation } from 'src/shared/lottie/components/LootieAnimation';
 import { categories as categoriesArray, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
 import Typed from 'typed.js';
 import { v4 as uuidv4 } from 'uuid';
 import animationMobile from 'src/assets/json/mobile.json';
+import { LootieProps } from 'src/shared/lottie/interfaces/lottie.interface';
+
+const HeroLottieAnimation: LazyExoticComponent<FC<LootieProps>> = lazy(() => import('src/shared/lottie/components/LootieAnimation'));
 
 const categories: string[] = categoriesArray();
 const Hero: FC = (): ReactElement => {
@@ -61,25 +75,25 @@ const Hero: FC = (): ReactElement => {
             </p>
             <div className="flex w-full justify-between gap-6 lg:gap-12">
               <form
-                className="mx-auto flex w-full items-center bg-white"
+                className="mx-auto flex w-full items-center bg-white rounded-lg"
                 onSubmit={(event: FormEvent) => {
                   event.preventDefault();
                   navigateToSearchPage();
                 }}
               >
-                <div className="w-full">
+                <div className="w-full ">
                   <TextInput
                     value={searchItem}
                     onChange={(event: ChangeEvent) => setSearchItem((event.target as HTMLInputElement).value)}
                     type="search"
                     className="w-full rounded-full px-4 py-1 text-gray-800 focus:outline-none"
-                    placeholder="search"
+                    placeholder="search the area that you mainly focus!"
                   />
                 </div>
-                <div className="bg-customViolet hover:bg-customPurple transition-all ">
+                <div className="bg-customViolet hover:bg-customPurple transition-all m-[6px] rounded-lg">
                   <Button
                     type="submit"
-                    className="flex h-12 w-12 items-center justify-center text-white"
+                    className="flex h-12 w-16 items-center justify-center text-white rounded-r-full"
                     label={<FaSearch className="w-5 h-5" />}
                     onClick={navigateToSearchPage}
                   />
@@ -91,9 +105,10 @@ const Hero: FC = (): ReactElement => {
                 .filter((_, index) => index < 4)
                 .map((category: string) => (
                   <div
-                    id={uuidv4()}
+                    key={uuidv4()}
                     className="w-full min-w-0 cursor-pointer rounded-full border border-gray-200 p-4 duration-300
-                  hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-600/20 dark:border-gray-700 dark:bg-gray-800 dark:hover:border-cyan-300/30"
+                  hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-600/20 dark:border-gray-700
+                    dark:bg-gray-800 dark:hover:border-cyan-300/30"
                   >
                     <div className="flex justify-center">
                       <span className="block truncate font-medium dark:text-white">
@@ -106,13 +121,9 @@ const Hero: FC = (): ReactElement => {
           </div>
           <div className="-right-10 hidden lg:col-span-2 lg:mt-0 lg:flex">
             <div className="relative w-full">
-              {/* <img
-                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
-                className="relative w-full "
-                alt=""
-                loading="lazy"
-              /> */}
-              <LottieAnimation animationData={animationMobile} height={400} width={600} />
+              <Suspense>
+                <HeroLottieAnimation animationData={animationMobile} height={400} width={500}  />
+              </Suspense>
             </div>
           </div>
         </div>

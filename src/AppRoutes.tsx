@@ -1,18 +1,37 @@
-import { FC } from 'react';
+import { FC, lazy, LazyExoticComponent, Suspense } from 'react';
 
 import { useRoutes, RouteObject } from 'react-router-dom';
-import AppPage from './features/AppPage';
-import Home from './features/home/Home';
+
+const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
+
+const Home: LazyExoticComponent<FC> = lazy(() => import('./features/home/Home'));
+const VerifyEmail: LazyExoticComponent<FC> = lazy(() => import('./features/auth/components/VerifyEmail'));
 
 const AppRouter: FC = () => {
   let routes: RouteObject[] = [
     {
       path: '/',
-      element: <AppPage />
-    },   
+      element: (
+        <Suspense>
+          <AppPage />
+        </Suspense>
+      )
+    },
     {
       path: '/',
-      element: <Home />
+      element: (
+        <Suspense>
+          <Home />
+        </Suspense>
+      )
+    },
+    {
+      path: 'confirm_email',
+      element: (
+        <Suspense>
+          <VerifyEmail />
+        </Suspense>
+      )
     }
   ];
 
