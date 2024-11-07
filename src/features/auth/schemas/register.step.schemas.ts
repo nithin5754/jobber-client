@@ -1,7 +1,7 @@
 
 
 import { object,ObjectSchema,string } from "yup";
-import { ISignInPayload, ISignUpPayload } from "../interfaces/auth.interface";
+import {  IResetPassword, ISignInPayload, ISignUpPayload } from "../interfaces/auth.interface";
 
 
 
@@ -20,3 +20,15 @@ export const loginUserSchema: ObjectSchema<ISignInPayload> = object({
   browserName: string().optional().nullable().notRequired(),
   deviceType: string().optional().nullable().notRequired()
 });
+
+
+
+
+export const resetPasswordSchema: ObjectSchema<IResetPassword> = object({
+  password: string().required({ password: 'Password is a required field' }).min(4, { password: 'Password is a required field' }),
+  confirmPassword: string()
+    .required({ confirmPassword: 'Confirm password is a required field' })
+    .min(4, { password: 'Password is a required field' })
+});
+
+

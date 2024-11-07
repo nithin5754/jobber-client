@@ -1,8 +1,6 @@
 import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 'react';
-import { FaEye, FaSpinner, FaTimes } from 'react-icons/fa';
-
+import { FaEye, FaEyeSlash, FaSpinner, FaTimes } from 'react-icons/fa';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
-
 import { IAlertProps, IButtonProps, IResponse, ITextInputProps } from 'src/shared/shared.inferface';
 import { ISignInPayload } from '../interfaces/auth.interface';
 import { useAppDispatch } from 'src/store/store';
@@ -22,6 +20,8 @@ const LoginTextInput: LazyExoticComponent<ForwardRefExoticComponent<Omit<ITextIn
 const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }): ReactElement => {
   const [alertMessage, setAlertMessage] = useState<string>('');
 
+  const [passwordType, setPasswordType] = useState<'password' | 'text'>('password');
+
   const [signIn, { isLoading }] = useSigInMutation();
 
   const [userInfo, setUserInfo] = useState<ISignInPayload>({
@@ -32,7 +32,6 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
   });
 
   const [schemaValidation, validationError] = useAuthSchema({ schema: loginUserSchema, userInfo });
-
   const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
@@ -50,9 +49,15 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
           dispatch(addAuthUser(result.user));
           dispatch(updateLogout(false));
           saveToSessionStorage(JSON.stringify(true), JSON.stringify(result.user?.username));
-        } else {
-          setAlertMessage(validationError[0].password || validationError[0].username);
+          setUserInfo({
+            username: '',
+            password: '',
+            browserName: '',
+            deviceType: ''
+          });
         }
+      } else {
+        setAlertMessage(validationError[0].password || validationError[0].username);
       }
     } catch (error) {
       setAlertMessage(error?.data?.message);
@@ -103,13 +108,17 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
               </label>
               <div className="relative mb-2 mt-2">
                 <div className="absolute right-0 flex h-full cursor-pointer items-center pr-3 text-gray-600">
-                  <FaEye />
+                  {passwordType === 'password' ? (
+                    <FaEyeSlash className="icon icon-tabler icon-tabler-info-circle" onClick={() => setPasswordType('text')} />
+                  ) : (
+                    <FaEye className="icon icon-tabler icon-tabler-info-circle" onClick={() => setPasswordType('password')} />
+                  )}
                 </div>
                 <Suspense>
                   <LoginTextInput
                     id="password"
                     name="password"
-                    type="password"
+                    type={passwordType}
                     value={userInfo.password}
                     onChange={(e: ChangeEvent) => setUserInfo({ ...userInfo, password: (e.target as HTMLInputElement).value })}
                     className="flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-sky-500/50 focus:outline-none"
@@ -119,7 +128,11 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
               </div>
             </div>
             <div className="flex justify-end">
-              <div className="mb-6 ml-2 cursor-pointer text-sm text-customPurple hover:underline dark:text-customPurple">
+              <div className="mb-6 ml-2 cursor-pointer text-sm text-customPurple hover:underline dark:text-customPurple" onClick={()=>{
+              if(onTogglePassword){
+                onTogglePassword(true)
+              }
+              }}>
                 Forgot Password?
               </div>
             </div>
@@ -127,10 +140,10 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
               <Suspense>
                 <LoginButton
                   testId="submit"
-                  disabled={isLoading}
+                  disabled={!userInfo.username || !userInfo.password}
                   onClick={handleSubmit}
-                  className="text-md block w-full cursor-pointer rounded bg-customPurple px-8 py-2 text-center 
-          font-bold text-white hover:bg-customPurple focus:outline-none"
+                  className={`text-md block w-full cursor-pointer rounded  px-8 py-2 text-center 
+          font-bold text-white ${!userInfo.password || !userInfo.username ? 'cursor-not-allowed bg-customPurple/50' : 'cursor-pointer bg-customPurple hover:bg-customViolet'}`}
                   label={isLoading ? <FaSpinner className="animate-spin " /> : 'LOGIN'}
                 />
               </Suspense>
@@ -140,7 +153,11 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
           <div className="px-5 py-4">
             <div className="ml-2 flex w-full justify-center text-sm font-medium">
               <div className="flex justify-center">
-                Not yet a memeber? <p className="ml-2 flex cursor-pointer text-customPurple hover:underline">Join Now</p>
+                Not yet a memeber? <p className="ml-2 flex cursor-pointer text-customPurple hover:underline" onClick={()=>{
+                  if(onToggle){
+                    onToggle(true)
+                  }
+                }}>Join Now</p>
               </div>
             </div>
           </div>

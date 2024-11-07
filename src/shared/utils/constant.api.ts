@@ -6,7 +6,7 @@ export const REFRESH_API_ENDPOINTS = (username: string) => {
   return '/auth/refresh-token' + username;
 };
 
-export const AUTH_API_ENDPOINTS = (endpoints_name: AuthEndPointsTypes): string => {
+export const AUTH_API_ENDPOINTS = (endpoints_name: AuthEndPointsTypes,data?:string): string => {
   switch (endpoints_name) {
     case 'REGISTER':
       return '/auth/register';
@@ -14,6 +14,11 @@ export const AUTH_API_ENDPOINTS = (endpoints_name: AuthEndPointsTypes): string =
       return '/auth/login';
     case 'VERIFY_EMAIL':
       return '/auth/verify-email'
+     case 'FORGOT_PASSWORD':
+      return '/auth/forgot-password' 
+     case 'RESET_PASSWORD' :
+      console.log("reset token",data)
+      return `/auth/reset-password/${data}` 
 
     default:
       return '';

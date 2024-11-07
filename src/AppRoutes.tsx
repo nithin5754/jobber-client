@@ -1,6 +1,7 @@
 import { FC, lazy, LazyExoticComponent, Suspense } from 'react';
 
 import { useRoutes, RouteObject } from 'react-router-dom';
+import ResetPasswordModal from './features/auth/components/ResetPassword';
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
@@ -32,7 +33,15 @@ const AppRouter: FC = () => {
           <VerifyEmail />
         </Suspense>
       )
-    }
+    },
+    {
+      path: 'forgot-password',
+      element: (
+        <Suspense>
+          <ResetPasswordModal />
+        </Suspense>
+      )
+    },
   ];
 
   return useRoutes(routes);

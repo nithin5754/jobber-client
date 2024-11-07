@@ -33,6 +33,7 @@ try {
 
   setStatus(FETCH_STATUS.SUCCESS)
   dispatch(addAuthUser(result.user))
+  
 
 } catch (error) {
   setStatus(FETCH_STATUS.ERROR)
@@ -41,6 +42,8 @@ try {
 }
 
   },[dispatch,searchParams,verifyEmail])
+
+
 
 useEffect(()=>{
   onVerifyEmail()

@@ -18,6 +18,8 @@ export type AuthEndPointsTypes =
  |'REGISTER'
  | 'LOGIN'
  | 'VERIFY_EMAIL'
+ | 'FORGOT_PASSWORD'
+ |'RESET_PASSWORD'
 
 
  

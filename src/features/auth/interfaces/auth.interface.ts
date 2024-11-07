@@ -35,10 +35,15 @@ export interface ISignInPayload {
   browserName: string | null | undefined;
   deviceType: string | null | undefined;
 }
+export interface IResetPassword {
+  [key: string]: string;
+  password: string;
+  confirmPassword: string;
+}
 
 export interface IUseAuthSchema {
-  schema: ObjectSchema<ISignUpPayload|ISignInPayload>;
-  userInfo: ISignUpPayload|ISignInPayload;
+  schema: ObjectSchema<ISignUpPayload|ISignInPayload|IResetPassword>;
+  userInfo: ISignUpPayload|ISignInPayload|IResetPassword;
 }
 
 export interface IReduxAuthPayload {
@@ -67,3 +72,5 @@ export const FETCH_STATUS={
   SUCCESS:'success',
   ERROR:'error'
 }
+
+

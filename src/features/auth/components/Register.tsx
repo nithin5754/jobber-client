@@ -11,6 +11,7 @@ import { useSignUpMutation } from '../services/auth.service';
 import { useAppDispatch } from 'src/store/store';
 import { addAuthUser } from '../reducers/auth.reducer';
 import { updateLogout } from '../reducers/logout.reducer';
+import { TbRuler3 } from 'react-icons/tb';
 
 const RegisterModalBg: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/shared/modal/ModalBg'));
 const RegisterAlert: LazyExoticComponent<FC<IAlertProps>> = lazy(() => import('src/shared/alert/Alert'));
@@ -22,7 +23,7 @@ const DropDown: LazyExoticComponent<FC<IDropdownProps>> = lazy(() => import('src
 
 
 
-const Register: FC<IModalBgProps> = ({ onClose }): ReactElement => {
+const Register: FC<IModalBgProps> = ({ onClose,onToggle }): ReactElement => {
   const [step, setStep] = useState<1 | 2>(1);
   const [country, setCountry] = useState(countriesList()[0]);
   const [passwordType, setPasswordType] = useState<'password' | 'text'>('password');
@@ -78,10 +79,20 @@ const Register: FC<IModalBgProps> = ({ onClose }): ReactElement => {
           dispatch(addAuthUser({ userInfo: result.user, token: result.token }));
           dispatch(updateLogout(false));
           saveToSessionStorage(JSON.stringify(true), JSON.stringify(result?.user?.username));
+          setUserInfo({
+          ...userInfo, browserName: '',
+          country: '',
+          deviceType: '',
+          email: '',
+          password: '',
+          profilePicture: '',
+          username: ''
+          })
+          setProfileImage('')
+          setIsProfilePicture(null)
+          setCountry(countriesList()[0])
         }
       } else {
-        console.log('hello error :REGISTERS');
-        console.log(validationErrors, 'error:');
         setAlertMessage(validationErrors[0].email || validationErrors[0].password || validationErrors[0].username);
       }
     } catch (error) {
@@ -299,7 +310,11 @@ const Register: FC<IModalBgProps> = ({ onClose }): ReactElement => {
           <div className="px-5 py-4">
             <div className="ml-2 flex w-full justify-center text-sm font-medium">
               <div className="flex justify-center">
-                Already a memeber? <p className="ml-2 flex cursor-pointer text-blue-600 hover:underline">Sign In</p>
+                Already a memeber? <p className="ml-2 flex cursor-pointer text-blue-600 hover:underline" onClick={()=>{
+                  if(onToggle){
+                    onToggle(true)
+                  }
+                }}>Sign In</p>
               </div>
             </div>
           </div>

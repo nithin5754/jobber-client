@@ -9,11 +9,12 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 
 
 
+
 const HeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const HeaderLogin:LazyExoticComponent<FC<IModalBgProps>>=lazy(()=>import('src/features/auth/components/Login'))
 const HeaderRegister:LazyExoticComponent<FC<IModalBgProps>>=lazy(()=>import('src/features/auth/components/Register'))
 const HeaderSideBar:LazyExoticComponent< FC<{setShowModal: React.Dispatch<React.SetStateAction<IHeaderModalProps>>,isOpen: boolean}>>=lazy(()=>import('src/shared/sideBar.tsx/SideBar'))
-
+const HeaderForgotPassword:LazyExoticComponent<FC<IModalBgProps>>=lazy(()=>import('src/features/auth/components/ForgotPassword'))
 const Header: FC<IHeader> = ({ navClass }): ReactElement => {
   const [showModal, setShowModal] = useState<IHeaderModalProps>({
     forgotPassword: false,
@@ -58,6 +59,20 @@ onTogglePassword={() => setShowModal((item: IHeaderModalProps) => ({ ...item,log
       </>
     )
    }
+   {
+    showModal&&showModal.forgotPassword&&(
+      <>
+      <Suspense >
+      <HeaderForgotPassword
+
+onClose={() => setShowModal((item: IHeaderModalProps) => ({ ...item, forgotPassword: false }))}
+onToggle={() => setShowModal((item: IHeaderModalProps) => ({ ...item, login: true, forgotPassword: false }))}
+
+/>
+      </Suspense>
+      </>
+    )
+   }
 {
   isSideBarOpen&&<Suspense>
     <HeaderSideBar isOpen={isSideBarOpen}  
@@ -68,6 +83,10 @@ onTogglePassword={() => setShowModal((item: IHeaderModalProps) => ({ ...item,log
   />
   </Suspense>
 }
+
+
+
+
     <header>
       <nav className={navClass}>
         <div className="m-auto px-6 xl:container md:px-12 lg:px-6 ">
