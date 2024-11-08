@@ -1,8 +1,19 @@
-import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, Suspense, useRef, useState } from 'react';
-import { FaCamera, FaChevronLeft, FaEye, FaEyeSlash, FaSpinner, FaTimes } from 'react-icons/fa';
+import {
+  ChangeEvent,
+  FC,
+  ForwardRefExoticComponent,
+  lazy,
+  LazyExoticComponent,
+  ReactElement,
+
+  Suspense,
+  useRef,
+  useState
+} from 'react';
+import { FaCamera, FaChevronLeft, FaSpinner, FaTimes } from 'react-icons/fa';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
 import { IAlertProps, IButtonProps, IDropdownProps, ITextInputProps } from 'src/shared/shared.inferface';
-import { ISignUpPayload } from '../interfaces/auth.interface';
+import { FETCH_STATUS, ISignUpPayload, IStepProps } from '../interfaces/auth.interface';
 import { countriesList, saveToSessionStorage } from 'src/shared/utils/utils.service';
 import { readAsBase64 } from 'src/shared/utils/image-utils.service';
 import useAuthSchema from '../hooks/useAuthSchema';
@@ -11,7 +22,6 @@ import { useSignUpMutation } from '../services/auth.service';
 import { useAppDispatch } from 'src/store/store';
 import { addAuthUser } from '../reducers/auth.reducer';
 import { updateLogout } from '../reducers/logout.reducer';
-import { TbRuler3 } from 'react-icons/tb';
 
 const RegisterModalBg: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/shared/modal/ModalBg'));
 const RegisterAlert: LazyExoticComponent<FC<IAlertProps>> = lazy(() => import('src/shared/alert/Alert'));
@@ -21,14 +31,14 @@ const RegisterTextInput: LazyExoticComponent<
 > = lazy(() => import('src/shared/inputs/TextInput'));
 const DropDown: LazyExoticComponent<FC<IDropdownProps>> = lazy(() => import('src/shared/dropdown/DropDown'));
 
+const RegisterStepOne: LazyExoticComponent<FC<IStepProps>> = lazy(() => import('src/features/auth/components/StepOne.Register'));
 
-
-const Register: FC<IModalBgProps> = ({ onClose,onToggle }): ReactElement => {
+const Register: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement => {
   const [step, setStep] = useState<1 | 2>(1);
   const [country, setCountry] = useState(countriesList()[0]);
   const [passwordType, setPasswordType] = useState<'password' | 'text'>('password');
   const [profileImage, setProfileImage] = useState('https://placehold.co/330/220?text=Profile+Image');
-
+  const [status, setStatus] = useState<string>(FETCH_STATUS.IDLE);
   const [showImageSelect, setShowImageSelect] = useState<boolean>(false);
   const [alertMessage, setAlertMessage] = useState<string>('');
   const [isProfilePicture, setIsProfilePicture] = useState<File | null>(null);
@@ -65,6 +75,7 @@ const Register: FC<IModalBgProps> = ({ onClose,onToggle }): ReactElement => {
   const handleSubmit = async () => {
     try {
       setAlertMessage('');
+      setStatus(FETCH_STATUS.IDLE);
       let isValid: boolean = await schemaValidation();
       if (isProfilePicture && isValid) {
         const formData = new FormData();
@@ -75,27 +86,32 @@ const Register: FC<IModalBgProps> = ({ onClose,onToggle }): ReactElement => {
         formData.append('profilePicture', isProfilePicture);
         let result = await signUp(formData).unwrap();
         console.log(result);
-        if (result && result.user) {
+        if (result && result.user && result.message) {
+          setStatus(FETCH_STATUS.SUCCESS);
+          setAlertMessage(result.message as string);
           dispatch(addAuthUser({ userInfo: result.user, token: result.token }));
           dispatch(updateLogout(false));
           saveToSessionStorage(JSON.stringify(true), JSON.stringify(result?.user?.username));
           setUserInfo({
-          ...userInfo, browserName: '',
-          country: '',
-          deviceType: '',
-          email: '',
-          password: '',
-          profilePicture: '',
-          username: ''
-          })
-          setProfileImage('')
-          setIsProfilePicture(null)
-          setCountry(countriesList()[0])
+            ...userInfo,
+            browserName: '',
+            country: '',
+            deviceType: '',
+            email: '',
+            password: '',
+            profilePicture: '',
+            username: ''
+          });
+          setProfileImage('');
+          setIsProfilePicture(null);
+          setCountry(countriesList()[0]);
         }
       } else {
+        setStatus(FETCH_STATUS.ERROR);
         setAlertMessage(validationErrors[0].email || validationErrors[0].password || validationErrors[0].username);
       }
     } catch (error) {
+      setStatus(FETCH_STATUS.ERROR);
       setAlertMessage(error?.data?.message);
     }
   };
@@ -148,84 +164,22 @@ const Register: FC<IModalBgProps> = ({ onClose,onToggle }): ReactElement => {
           <div className="px-5">
             {alertMessage && (
               <Suspense>
-                <RegisterAlert type="error" message={alertMessage} />
+                <RegisterAlert type={status} message={alertMessage} />
               </Suspense>
             )}
           </div>
 
           {step === 1 && (
-            <div className="relative px-5 py-5">
-              <div>
-                <label htmlFor="username" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
-                  Username
-                </label>
-                <Suspense>
-                  {' '}
-                  <RegisterTextInput
-                    id="username"
-                    name="username"
-                    type="text"
-                    value={userInfo.username}
-                    onChange={(e: ChangeEvent) => setUserInfo({ ...userInfo, username: (e.target as HTMLInputElement).value })}
-                    className="mb-5 mt-2 flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-gray-700 bg-gray-300/50 focus:outline-none"
-                    placeholder="Enter username"
-                  />
-                </Suspense>
-              </div>
-              <div>
-                <label htmlFor="email" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
-                  Email
-                </label>
-                <Suspense>
-                  {' '}
-                  <RegisterTextInput
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={userInfo.email}
-                    onChange={(e: ChangeEvent) => setUserInfo({ ...userInfo, email: (e.target as HTMLInputElement).value })}
-                    className="mb-5 mt-2 flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-gray-700 bg-gray-300/50 focus:outline-none"
-                    placeholder="Enter email"
-                  />
-                </Suspense>
-              </div>
-              <div>
-                <label htmlFor="password" className="text-sm font-bold leading-tight tracking-normal text-gray-800">
-                  Password
-                </label>
-                <div className="relative mb-5 mt-2">
-                  <div className="absolute right-0 flex h-full cursor-pointer items-center pr-3 text-gray-600">
-                    {passwordType === 'password' ? (
-                      <FaEyeSlash className="icon icon-tabler icon-tabler-info-circle" onClick={() => setPasswordType('text')} />
-                    ) : (
-                      <FaEye className="icon icon-tabler icon-tabler-info-circle" onClick={() => setPasswordType('password')} />
-                    )}
-                  </div>
-                  <Suspense>
-                    {' '}
-                    <RegisterTextInput
-                      id="password"
-                      name="password"
-                      type={passwordType}
-                      value={userInfo.password}
-                      onChange={(e: ChangeEvent) => setUserInfo({ ...userInfo, password: (e.target as HTMLInputElement).value })}
-                      className="mb-5 mt-2 flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-gray-700 bg-gray-300/50 focus:outline-none"
-                      placeholder="Enter password"
-                    />
-                  </Suspense>
-                </div>
-              </div>
-              <Suspense>
-                {' '}
-                <RegisterButton
-                  disabled={!userInfo.password || !userInfo.email || !userInfo.username}
-                  className={`text-md block w-full cursor-pointer rounded  px-8 py-2 text-center font-bold text-white  focus:outline-none ${!userInfo.password || !userInfo.email || !userInfo.username ? 'cursor-not-allowed bg-customPurple/50' : 'cursor-pointer bg-customPurple hover:bg-customViolet'}`}
-                  label="Continue"
-                  onClick={() => setStep(2)}
-                />
-              </Suspense>
-            </div>
+            <RegisterStepOne
+              setUserInfo={setUserInfo}
+              userInfo={userInfo}
+              setPasswordType={setPasswordType}
+              passwordType={passwordType}
+              step={step}
+              setStep={setStep}
+            />
           )}
+
           {step === 2 && (
             <div className="relative px-5 py-5">
               <div className="h-24">
@@ -310,11 +264,17 @@ const Register: FC<IModalBgProps> = ({ onClose,onToggle }): ReactElement => {
           <div className="px-5 py-4">
             <div className="ml-2 flex w-full justify-center text-sm font-medium">
               <div className="flex justify-center">
-                Already a memeber? <p className="ml-2 flex cursor-pointer text-blue-600 hover:underline" onClick={()=>{
-                  if(onToggle){
-                    onToggle(true)
-                  }
-                }}>Sign In</p>
+                Already a memeber?{' '}
+                <p
+                  className="ml-2 flex cursor-pointer text-blue-600 hover:underline"
+                  onClick={() => {
+                    if (onToggle) {
+                      onToggle(true);
+                    }
+                  }}
+                >
+                  Sign In
+                </p>
               </div>
             </div>
           </div>

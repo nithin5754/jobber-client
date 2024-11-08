@@ -74,3 +74,12 @@ export const FETCH_STATUS={
 }
 
 
+
+export interface IStepProps{
+  setUserInfo: React.Dispatch<React.SetStateAction<ISignUpPayload>>,
+  userInfo:ISignUpPayload,
+  setPasswordType: React.Dispatch<React.SetStateAction<"text" | "password">>
+  passwordType: "text" | "password",
+  setStep: React.Dispatch<React.SetStateAction<1 | 2>>;
+  step: 1 | 2
+}
