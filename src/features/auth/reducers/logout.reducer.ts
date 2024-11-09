@@ -34,5 +34,5 @@ const logoutSlice:Slice=createSlice({
 export const {updateLogout,logout}=logoutSlice.actions
 
 
- export const useUserDetails=(store:RootState)=>store.auth
+ export const useUserLogout=(store:RootState)=>store.logout
 export default logoutSlice.reducer

@@ -1,15 +1,4 @@
-import {
-  ChangeEvent,
-  FC,
-  ForwardRefExoticComponent,
-  lazy,
-  LazyExoticComponent,
-  ReactElement,
-
-  Suspense,
-  useRef,
-  useState
-} from 'react';
+import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, Suspense, useRef, useState } from 'react';
 import { FaCamera, FaChevronLeft, FaSpinner, FaTimes } from 'react-icons/fa';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
 import { IAlertProps, IButtonProps, IDropdownProps, ITextInputProps } from 'src/shared/shared.inferface';
@@ -89,7 +78,7 @@ const Register: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement => {
         if (result && result.user && result.message) {
           setStatus(FETCH_STATUS.SUCCESS);
           setAlertMessage(result.message as string);
-          dispatch(addAuthUser({ userInfo: result.user, token: result.token }));
+          dispatch(addAuthUser({ authInfo: result.user, token: result.token }));
           dispatch(updateLogout(false));
           saveToSessionStorage(JSON.stringify(true), JSON.stringify(result?.user?.username));
           setUserInfo({
@@ -170,14 +159,16 @@ const Register: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement => {
           </div>
 
           {step === 1 && (
-            <RegisterStepOne
-              setUserInfo={setUserInfo}
-              userInfo={userInfo}
-              setPasswordType={setPasswordType}
-              passwordType={passwordType}
-              step={step}
-              setStep={setStep}
-            />
+            <Suspense>
+              <RegisterStepOne
+                setUserInfo={setUserInfo}
+                userInfo={userInfo}
+                setPasswordType={setPasswordType}
+                passwordType={passwordType}
+                step={step}
+                setStep={setStep}
+              />
+            </Suspense>
           )}
 
           {step === 2 && (

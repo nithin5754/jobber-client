@@ -1,10 +1,10 @@
 import { initialAuthUserValues } from 'src/shared/utils/static.data';
 import { IAuthSliceType, IAuthUser, IReduxAddAuthUser } from '../interfaces/auth.interface';
-import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
+import { createSlice, Slice } from '@reduxjs/toolkit';
 import { RootState } from 'src/store/store';
 
 const initialValue: IAuthSliceType = {
-  details: initialAuthUserValues as IAuthUser,
+  authInfo: initialAuthUserValues as IAuthUser,
   token: null
 };
 
@@ -16,15 +16,15 @@ const authSlice: Slice = createSlice({
       state: IAuthSliceType,
       action: IReduxAddAuthUser
     ): {
-      details: IAuthUser;
-      token: string | null;
+      authInfo: IAuthUser;
+      token: string|null ;
     } => {
-      state = { ...action.payload } as unknown as IAuthSliceType;
+      state = { ...action.payload } as  IAuthSliceType;
       return state;
     },
     clearAuthUser: () => {
       return {
-        details: initialAuthUserValues as IAuthUser,
+        authInfo: initialAuthUserValues as IAuthUser,
         token: null
       };
     }
@@ -33,5 +33,8 @@ const authSlice: Slice = createSlice({
 
 export const { addAuthUser, clearAuthUser } = authSlice.actions;
 
-export const useUserDetails = (store: RootState) => store.auth;
+
+export const useAuthDetails = (store: RootState) => store.auth.authInfo;
+export const useCurrentToken=(store:RootState)=>store.auth.token
+export const useAuthUserName = (store: RootState) => store.auth.authInfo.username;
 export default authSlice.reducer;

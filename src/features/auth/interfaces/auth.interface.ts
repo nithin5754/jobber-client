@@ -57,7 +57,7 @@ export interface IReduxAddAuthUser {
 }
 
 export interface IAuthSliceType {
-  details: IAuthUser;
+  authInfo: IAuthUser;
   token: string | null;
 }
 

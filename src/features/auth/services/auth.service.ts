@@ -59,7 +59,26 @@ export const authApi = apiSlice.injectEndpoints({
         }
       },
       invalidatesTags: ['Auth']
-    })
+    }),
+
+
+    checkCurrentUser: build.query<IResponse, void>({
+      query: () => AUTH_API_ENDPOINTS('CURRENT_USER'),
+      providesTags: ['Currentuser']
+    }),
+
+
+    
+    logout: build.mutation<IResponse, void>({
+      query() {
+        return {
+          url: 'auth/signout',
+          method: 'POST',
+          body: {}
+        };
+      },
+      invalidatesTags: ['Auth']
+    }),
 
 
 })
@@ -70,5 +89,7 @@ export const {
   useVerifyEmailMutation,
   useSigInMutation ,
   useForgotPasswordMutation,
-  useResetPasswordMutation
+  useResetPasswordMutation,
+  useCheckCurrentUserQuery,
+  useLogoutMutation
 } = authApi;

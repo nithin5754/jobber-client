@@ -20,6 +20,8 @@ export type AuthEndPointsTypes =
  | 'VERIFY_EMAIL'
  | 'FORGOT_PASSWORD'
  |'RESET_PASSWORD'
+ | 'CURRENT_USER'
+| 'SIGN_OUT'
 
 
  

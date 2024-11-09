@@ -52,9 +52,6 @@ const ResetPasswordModal: FC<IModalBgProps> = ({ onClose }): ReactElement => {
 
       if (isValid) {
         let result: IResponse = await resetPassword(fetchData).unwrap();
-
-
-
         if (result&&result.message) {
           setStatus(FETCH_STATUS.SUCCESS)
           setAlertMessage(result.message);

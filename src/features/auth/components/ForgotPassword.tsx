@@ -5,41 +5,34 @@ import { IAlertProps, IButtonProps, IResponse, ITextInputProps } from 'src/share
 import { FETCH_STATUS } from '../interfaces/auth.interface';
 import { useForgotPasswordMutation } from '../services/auth.service';
 
-
-
 const LoginModalBg: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/shared/modal/ModalBg'));
 const LoginAlert: LazyExoticComponent<FC<IAlertProps>> = lazy(() => import('src/shared/alert/Alert'));
 const LoginButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const LoginTextInput: LazyExoticComponent<ForwardRefExoticComponent<Omit<ITextInputProps, 'ref'> & React.RefAttributes<HTMLInputElement>>> =
   lazy(() => import('src/shared/inputs/TextInput'));
 
-const ForgotPasswordModal: FC<IModalBgProps> = ({ onClose}): ReactElement => {
+const ForgotPasswordModal: FC<IModalBgProps> = ({ onClose }): ReactElement => {
   const [alertMessage, setAlertMessage] = useState<string>('');
 
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
-  const [status,setStatus]=useState<string>(FETCH_STATUS.IDLE)
+  const [status, setStatus] = useState<string>(FETCH_STATUS.IDLE);
 
-  const [email,setEmail]=useState<string>('')
-
+  const [email, setEmail] = useState<string>('');
 
   const handleSubmit = async () => {
-    setStatus(FETCH_STATUS.IDLE)
+    setStatus(FETCH_STATUS.IDLE);
     try {
+      if (email) {
+        let result: IResponse = await forgotPassword(email).unwrap();
 
-    if(email){
-      let result: IResponse = await forgotPassword(email).unwrap();
-
-       if(result&&result.message){
-        setStatus(FETCH_STATUS.SUCCESS)
-        setAlertMessage(result.message )
-       }
-      
-    }
-
-  
+        if (result && result.message) {
+          setStatus(FETCH_STATUS.SUCCESS);
+          setAlertMessage(result.message);
+        }
+      }
     } catch (error) {
-      setStatus(FETCH_STATUS.ERROR)
+      setStatus(FETCH_STATUS.ERROR);
       setAlertMessage(error?.data?.message);
     }
   };
@@ -81,12 +74,12 @@ const ForgotPasswordModal: FC<IModalBgProps> = ({ onClose}): ReactElement => {
                 />
               </Suspense>
             </div>
-          
+
             <div className="flex w-full items-center justify-center">
               <Suspense>
                 <LoginButton
                   testId="submit"
-                  disabled={!email||isLoading}
+                  disabled={!email || isLoading}
                   onClick={handleSubmit}
                   className={`text-md block w-full cursor-pointer rounded  px-8 py-2 text-center 
           font-bold text-white ${!email ? 'cursor-not-allowed bg-customPurple/50' : 'cursor-pointer bg-customPurple hover:bg-customViolet'}`}
@@ -109,4 +102,3 @@ const ForgotPasswordModal: FC<IModalBgProps> = ({ onClose}): ReactElement => {
   );
 };
 export default ForgotPasswordModal;
-  

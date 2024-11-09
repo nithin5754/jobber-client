@@ -6,9 +6,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: `${BASE_ENDPOINT}/api/v1`,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth.token
-
-
+    const token = (getState() as RootState).auth.token;
 
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
@@ -30,6 +28,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
        * @param {string} loggedInUsername - get logged username as the parameter
        * @returns {string -[/auth/refresh-token/:loggedInUsername]} -it return the refresh-token api endpoints
        */
+
       REFRESH_API_ENDPOINTS(loggedInUsername),
       api,
       extraOptions
@@ -59,6 +58,6 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
 export const apiSlice = createApi({
   reducerPath: 'clientApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Auth'],
+  tagTypes: ['Auth', 'Currentuser'],
   endpoints: () => ({})
 });

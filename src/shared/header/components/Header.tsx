@@ -5,6 +5,7 @@ import { IButtonProps } from 'src/shared/shared.inferface';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
 import { RxHamburgerMenu } from 'react-icons/rx';
 
+
 const HeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const HeaderLogin: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/features/auth/components/Login'));
 const HeaderRegister: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/features/auth/components/Register'));
@@ -19,6 +20,7 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
   });
 
   const [isSideBarOpen, setSideBarOpen] = useState<boolean>(false);
+
 
   return (
     <>
@@ -40,7 +42,6 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
             <HeaderRegister
               onClose={() => setShowModal((item: IHeaderModalProps) => ({ ...item, register: false }))}
               onToggle={() => setShowModal((item: IHeaderModalProps) => ({ ...item, login: true, register: false }))}
-
             />
           </Suspense>
         </>

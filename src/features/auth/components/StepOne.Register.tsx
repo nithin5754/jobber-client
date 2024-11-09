@@ -27,7 +27,7 @@ const StepOne:FC<IStepProps> = ({setUserInfo,userInfo,setPasswordType,passwordTy
                     id="username"
                     name="username"
                     type="text"
-                    value={userInfo.username}
+                    value={userInfo.username }
                     onChange={(e: ChangeEvent) => setUserInfo({ ...userInfo, username: (e.target as HTMLInputElement).value })}
                     className="mb-5 mt-2 flex h-10 w-full items-center rounded border border-gray-300 pl-3 text-sm font-normal text-gray-600 focus:border focus:border-gray-700 bg-gray-300/50 focus:outline-none"
                     placeholder="Enter username"
