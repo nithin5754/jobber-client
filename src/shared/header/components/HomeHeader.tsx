@@ -10,6 +10,8 @@ import { categories, replaceSpacesWithDash } from 'src/shared/utils/utils.servic
 import { useAppSelector } from 'src/store/store';
 import { v4 as uuidv4 } from 'uuid';
 import { IHomeHeaderProps } from '../interface/header.inferface';
+import { useResendEmailMutation } from 'src/features/auth/services/auth.service';
+import Banner from 'src/shared/banner/Banner';
 
 
 
@@ -17,7 +19,7 @@ const HomeHeaderButton:LazyExoticComponent<FC<IButtonProps>>=lazy(()=>import('sr
 
 const HomeHeader:FC<IHomeHeaderProps> = ({showCategoryContainer}) => {
   const authUser: IAuthUser|undefined = useAppSelector(useAuthDetails);
-
+const [resendEmail,{error}]=useResendEmailMutation()
   const notificationDropdownRef = useRef<HTMLDivElement | null>(null);
   const messageDropdownRef = useRef<HTMLDivElement | null>(null);
   const orderDropdownRef = useRef<HTMLDivElement | null>(null);
@@ -29,13 +31,30 @@ const HomeHeader:FC<IHomeHeaderProps> = ({showCategoryContainer}) => {
   const isOrderDropdownOpen = false;
   const isSettingsDropdown = false;
 
+
+  const handleResendEmail=async()=>{
+    
+     if(authUser&&authUser.email){
+      let result=await resendEmail({email:authUser?.email}).unwrap()
+
+      if(!result){
+        console.log(error)
+      }
+      console.log(result.message)
+     }
+  }
+
   
 
 
   return (
     <header>
       <nav className="navbar peer-checked:navbar-active relative z-[120] w-full border-b bg-white shadow-2xl shadow-gray-600/5 backdrop-blur dark:shadow-none">
-        {/* <!-- Add Banner component here --> */}
+   {
+    authUser&&!authUser.emailVerified&&(
+      <Banner bgColor={'bg-warning'} text={'Please verify your email before you proceed.'} showLink={true} linkText={'Resend Email'} onClick={handleResendEmail}/>
+    )
+   }
         <div className="m-auto px-6 xl:container md:px-12 lg:px-6">
           <div className="flex flex-wrap items-center justify-between gap-6 md:gap-0 md:py-3 lg:py-5">
             <div className="flex w-full gap-x-4 lg:w-6/12">
@@ -68,7 +87,7 @@ const HomeHeader:FC<IHomeHeaderProps> = ({showCategoryContainer}) => {
                       label={
                         <>
                           <FaRegBell />
-                          <span className="absolute -top-1 right-0 mr-3 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
+                          {/* <span className="absolute -top-1 right-0 mr-3 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span> */}
                         </>
                       }
                     />
@@ -93,7 +112,7 @@ const HomeHeader:FC<IHomeHeaderProps> = ({showCategoryContainer}) => {
                       label={
                         <>
                           <FaRegEnvelope />
-                          <span className="absolute -top-1 right-0 mr-2 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
+                          {/* <span className="absolute -top-1 right-0 mr-2 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span> */}
                         </>
                       }
                     />
@@ -145,7 +164,7 @@ const HomeHeader:FC<IHomeHeaderProps> = ({showCategoryContainer}) => {
                       className="relative flex gap-2 px-3 text-base font-medium"
                       label={
                         <>
-                          <img src="src/assets/profile-1.png" alt="profile" className="h-7 w-7 rounded-full object-cover" />
+                          <img src={authUser?.profilePicture?authUser.profilePicture:"src/assets/profile-1.png"} alt="profile" className="h-7 w-7 rounded-full object-cover" />
                           <span className="flex self-center">{authUser?.username}</span>
                         </>
                       }

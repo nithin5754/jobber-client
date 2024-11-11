@@ -22,6 +22,7 @@ export type AuthEndPointsTypes =
  |'RESET_PASSWORD'
  | 'CURRENT_USER'
 | 'SIGN_OUT'
+| 'RESEND_EMAIL'
 
 
  
@@ -86,4 +87,30 @@ export interface IDropdownProps {
   style?: CSSProperties;
   setValue?: Dispatch<SetStateAction<string>>;
   onClick?: (item: string) => void;
+}
+
+
+
+export interface IBannerProps {
+
+  bgColor:string;
+  text:string;
+  showLink:boolean;
+  linkText:string;
+  onClick?:()=>void;
+
+}
+
+
+
+export interface ISliderImagesText {
+  header: string;
+  subHeader: string;
+}
+
+
+export interface IStartRatingProps {
+   value?:number;
+   size?:number;
+   setReviewRating?:Dispatch<SetStateAction<number>>
 }

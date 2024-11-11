@@ -23,6 +23,8 @@ export const AUTH_API_ENDPOINTS = (endpoints_name: AuthEndPointsTypes,data?:stri
        return '/current/current-user'
       case  'SIGN_OUT':
         return '/auth/sign-out'
+      case 'RESEND_EMAIL':
+        return '/current/resend-email'
 
     default:
       return '';

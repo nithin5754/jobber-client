@@ -1,6 +1,6 @@
 import { initialAuthUserValues } from 'src/shared/utils/static.data';
 import { IAuthSliceType, IAuthUser, IReduxAddAuthUser } from '../interfaces/auth.interface';
-import { createSlice, Slice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit';
 import { RootState } from 'src/store/store';
 
 const initialValue: IAuthSliceType = {
@@ -22,6 +22,15 @@ const authSlice: Slice = createSlice({
       state = { ...action.payload } as  IAuthSliceType;
       return state;
     },
+
+
+    updateAuthUser: (
+      state: IAuthSliceType,
+      action: PayloadAction<IAuthUser>
+    ) => {
+      state.authInfo=action.payload
+      return state;
+    },
     clearAuthUser: () => {
       return {
         authInfo: initialAuthUserValues as IAuthUser,
@@ -31,7 +40,7 @@ const authSlice: Slice = createSlice({
   }
 });
 
-export const { addAuthUser, clearAuthUser } = authSlice.actions;
+export const { addAuthUser, clearAuthUser,updateAuthUser } = authSlice.actions;
 
 
 export const useAuthDetails = (store: RootState) => store.auth.authInfo;

@@ -1,4 +1,4 @@
-import { Dispatch } from '@reduxjs/toolkit';
+
 import countries, { LocalizedCountryNames } from 'i18n-iso-countries';
 import enLocale from 'i18n-iso-countries/langs/en.json';
 import { NavigateFunction } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { logout } from 'src/features/auth/reducers/logout.reducer';
 import { authApi } from 'src/features/auth/services/auth.service';
 import { apiSlice } from 'src/store/api';
 import { AppDispatch } from 'src/store/store';
+import { ISliderImagesText } from '../shared.inferface';
 
 
 
@@ -85,3 +86,29 @@ export const applicationLogout=(dispatch:AppDispatch,navigate:NavigateFunction):
   navigate('/')
 
 }
+
+
+
+export const sliderImages: string[] = [
+  'https://fiverr-res.cloudinary.com/q_auto,f_auto,w_1400,dpr_1.0/v1/attachments/generic_asset/asset/50218c41d277f7d85feeaf3efb4549bd-1599072608122/bg-signup-1400-x1.png',
+  'https://fiverr-res.cloudinary.com/q_auto,f_auto,w_1160,dpr_1.0/v1/attachments/generic_asset/asset/b49b1963f5f9008f5ff88bd449ec18f7-1608035772453/logo-maker-banner-wide-desktop-1352-2x.png',
+  'https://fiverr-res.cloudinary.com/image/upload/w_430/q_auto,f_auto/v1/attachments/generic_asset/asset/10f680cb84a2f3ef4473ecfdede3a1ba-1593438129320/business%20logo%20design-fiverr%20guide.jpg',
+  'https://fiverr-res.cloudinary.com/image/upload/w_430/f_auto,q_auto/v1/attachments/generic_asset/asset/b9495125dbb3432bf13275690d91a4f8-1656002118855/how%20to%20make%20a%20logo.jpg',
+  'https://img.freepik.com/free-photo/woman-asian-happy-smiling-while-her-using-laptop-sitting-white-chair-looking-copy-space_74952-2257.jpg?t=st=1731242821~exp=1731246421~hmac=2e97929552831d7287ab4007038db9b3557621691653d57f2592f6346193b69e&w=826'
+];
+
+export const sliderImagesText: ISliderImagesText[] = [
+  { header: 'Leading the Way to Excellence', subHeader: 'Your Journey, Our Expertise' },
+  { header: 'Turning Ideas into Impactful Content', subHeader: 'Innovate. Create. Elevate.' },
+  { header: 'Turning Magic into Results', subHeader: 'Spelling Success, One Task at a Time' },
+  { header: 'Creating Futures, Delivering Now', subHeader: 'Your Vision, Our Innovation' },
+  
+  { header: 'Creating online Market Place', subHeader: 'Convert Traditional Business to Modern' },
+
+];
+
+
+
+
+
+

@@ -33,7 +33,7 @@ export const authApi = apiSlice.injectEndpoints({
       query(token:string){
         return {
           url :AUTH_API_ENDPOINTS('VERIFY_EMAIL'),
-          method:'POST',
+          method:'PUT',
           body:{token}
         }
       },
@@ -80,6 +80,17 @@ export const authApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Auth']
     }),
 
+    resendEmail: build.mutation<IResponse, {email:string}>({
+      query({email}:{email:string}) {
+        return {
+          url: AUTH_API_ENDPOINTS('RESEND_EMAIL'),
+          method: 'PUT',
+          body: {email}
+        };
+      },
+      invalidatesTags: ['Currentuser']
+    }),
+
 
 })
 });
@@ -91,5 +102,6 @@ export const {
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useCheckCurrentUserQuery,
-  useLogoutMutation
+  useLogoutMutation,
+  useResendEmailMutation
 } = authApi;

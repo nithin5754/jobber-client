@@ -10,7 +10,7 @@ import { IHomeHeaderProps } from 'src/shared/header/interface/header.inferface';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const Index: LazyExoticComponent<FC> = lazy(() => import('./index/Index'));
-const Home: LazyExoticComponent<FC> = lazy(() => import('./home/Home'));
+const Home: LazyExoticComponent<FC> = lazy(() => import('./home/components/Home'));
 const HomeHeader: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/HomeHeader'));
 let showCategoryContainer:boolean=true
 const AppPage: FC = (): ReactElement => {
