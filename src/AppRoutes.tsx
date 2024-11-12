@@ -1,24 +1,33 @@
-import { FC, lazy, LazyExoticComponent, Suspense } from 'react';
+import { FC, lazy, LazyExoticComponent, ReactNode, Suspense } from 'react';
 
 import { useRoutes, RouteObject } from 'react-router-dom';
 import ResetPasswordModal from 'src/features/auth/components/ResetPassword';
-import Categories from 'src/features/categories/Categories';
+// import Categories from 'src/features/categories/Categories';
 import ProtectedRoutes from 'src/features/ProtectedRoutes';
-
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
 const Home: LazyExoticComponent<FC> = lazy(() => import('src/features/home/components/Home'));
 const VerifyEmail: LazyExoticComponent<FC> = lazy(() => import('src/features/auth/components/VerifyEmail'));
 
-const ErrorPage404:LazyExoticComponent<FC>=lazy(()=>import('src/shared/error/Error'))
+const ErrorPage404: LazyExoticComponent<FC> = lazy(() => import('src/shared/error/Error'));
+
+const BuyerDashBoard: LazyExoticComponent<FC> = lazy(() => import('./features/buyer/components/Dashboard'));
+
+const Layout = ({ backgroundColor = '#ffffff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => {
+  return (
+    <div style={{ backgroundColor: backgroundColor }} className="flex flex-grow">
+      {children}
+    </div>
+  );
+};
 
 const AppRouter: FC = () => {
   let routes: RouteObject[] = [
     {
       path: '/',
       element: (
-        <Suspense>
+         <Suspense fallback={"loading..."}>
           <AppPage />
         </Suspense>
       )
@@ -27,10 +36,12 @@ const AppRouter: FC = () => {
     {
       path: '/',
       element: (
-        <Suspense>
-         <ProtectedRoutes>
-            <Home/>
-         </ProtectedRoutes>
+        <Suspense fallback={"loading..."}>
+          <ProtectedRoutes>
+            <Layout backgroundColor="#ffffff">
+            <Home />
+            </Layout>
+          </ProtectedRoutes>
         </Suspense>
       )
     },
@@ -38,7 +49,7 @@ const AppRouter: FC = () => {
     {
       path: 'confirm_email',
       element: (
-        <Suspense>
+        <Suspense fallback={"loading..."}>
           <VerifyEmail />
         </Suspense>
       )
@@ -46,36 +57,44 @@ const AppRouter: FC = () => {
     {
       path: 'forgot-password',
       element: (
-        <Suspense>
+         <Suspense fallback={"loading..."}>
           <ResetPasswordModal />
         </Suspense>
       )
     },
 
-    {
-      path: 'categories/:index',
-      element: (
-        <Suspense>
-          <ProtectedRoutes>
-          <Categories />
+    // {
+    //   path: 'categories/:index',
+    //   element: (
+    //      <Suspense fallback={"loading..."}>
+    //       <ProtectedRoutes>
+    //       <Categories />
 
+    //       </ProtectedRoutes>
+    //     </Suspense>
+    //   )
+    // },
+    {
+      path: 'users/:username/:buyerId/orders',
+      element: (
+        <Suspense >
+          <ProtectedRoutes>
+            <Layout backgroundColor={'#e0e0e0f'}>
+              <BuyerDashBoard />
+            </Layout>
           </ProtectedRoutes>
         </Suspense>
       )
     },
 
- 
-
     {
       path: '*',
       element: (
-        <Suspense>
-        
-            <ErrorPage404/>
-   
+         <Suspense fallback={"loading..."}>
+          <ErrorPage404 />
         </Suspense>
       )
-    },
+    }
   ];
 
   return useRoutes(routes);

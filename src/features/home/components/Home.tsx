@@ -31,7 +31,7 @@ const Home:FC = ():ReactElement => {
     
   }
   return (
-<div className="m-auto px-6 w-screen min-h-screen xl:container md:px-12 lg:px-6 ">
+<div className="m-auto px-6 w-screen min-h-screen xl:container md:px-12 lg:px-6  ">
 <Suspense fallback={<SliderShimmer/>}>
 <HomeSlider/>
 

@@ -1,5 +1,5 @@
 import { FC, lazy, LazyExoticComponent, ReactElement, Suspense } from 'react';
-import Alert from 'src/shared/alert/Alert';
+
 import { IHeader } from 'src/shared/header/interface/header.inferface';
 
 

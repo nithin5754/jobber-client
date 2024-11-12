@@ -50,7 +50,7 @@ const showCategoryContainer:boolean=true
          if(tokenIsValid){
            return (
             <>
-            <HomeHeader showCategoryContainer={showCategoryContainer}/>
+            <HomeHeader showCategoryContainer={showCategoryContainer} />
             {children}
             
             </>

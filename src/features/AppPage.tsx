@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { addAuthUser, clearAuthUser, useAuthDetails, useCurrentToken } from './auth/reducers/auth.reducer';
 import { useUserLogout } from './auth/reducers/logout.reducer';
 import { useCheckCurrentUserQuery } from './auth/services/auth.service';
-import { applicationLogout, getDataFromSessionStorage, saveToSessionStorage } from 'src/shared/utils/utils.service';
+import { applicationLogout, saveToSessionStorage } from 'src/shared/utils/utils.service';
 
 import { IHomeHeaderProps } from 'src/shared/header/interface/header.inferface';
 import { NavigateFunction, useNavigate } from 'react-router-dom';

@@ -17,6 +17,7 @@ export interface IHeaderModalProps {
 export interface IHomeHeaderProps {
   authUser?:IAuthUser;
   showCategoryContainer?: boolean;
+  style?:string;
  
   
 }
