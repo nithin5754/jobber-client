@@ -1,7 +1,7 @@
 import { FC, ReactElement, useCallback, useEffect, useState } from "react"
 import { ISliderState } from "../interface/home.interfce"
 import { sliderImages, sliderImagesText } from "src/shared/utils/utils.service"
-import { ISliderImagesText } from "src/shared/shared.inferface"
+import { ISliderImagesText } from "src/shared/shared.interface"
 
 import { v4 as uuidV4 } from "uuid"
 

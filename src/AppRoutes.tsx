@@ -5,6 +5,7 @@ import ResetPasswordModal from 'src/features/auth/components/ResetPassword';
 // import Categories from 'src/features/categories/Categories';
 import ProtectedRoutes from 'src/features/ProtectedRoutes';
 
+
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
 const Home: LazyExoticComponent<FC> = lazy(() => import('src/features/home/components/Home'));
@@ -13,6 +14,8 @@ const VerifyEmail: LazyExoticComponent<FC> = lazy(() => import('src/features/aut
 const ErrorPage404: LazyExoticComponent<FC> = lazy(() => import('src/shared/error/Error'));
 
 const BuyerDashBoard: LazyExoticComponent<FC> = lazy(() => import('./features/buyer/components/Dashboard'));
+
+const AddSeller:LazyExoticComponent<FC> = lazy(() => import('./features/seller/components/add/AddSeller'));
 
 const Layout = ({ backgroundColor = '#ffffff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => {
   return (
@@ -77,7 +80,7 @@ const AppRouter: FC = () => {
     {
       path: 'users/:username/:buyerId/orders',
       element: (
-        <Suspense >
+        <Suspense fallback={"loading..."}>
           <ProtectedRoutes>
             <Layout backgroundColor={'#e0e0e0f'}>
               <BuyerDashBoard />
@@ -86,7 +89,18 @@ const AppRouter: FC = () => {
         </Suspense>
       )
     },
-
+    {
+      path: '/seller_onboarding',
+      element: (
+        <Suspense fallback={"loading..."}>
+          <ProtectedRoutes>
+            <Layout backgroundColor={'#e0e0e0f'}>
+              <AddSeller />
+            </Layout>
+          </ProtectedRoutes>
+        </Suspense>
+      )
+    },
     {
       path: '*',
       element: (

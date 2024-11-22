@@ -7,7 +7,8 @@ import { logout } from 'src/features/auth/reducers/logout.reducer';
 import { authApi } from 'src/features/auth/services/auth.service';
 import { apiSlice } from 'src/store/api';
 import { AppDispatch } from 'src/store/store';
-import { ISliderImagesText } from '../shared.inferface';
+import { ISliderImagesText } from '../shared.interface';
+import { emptyBuyer } from 'src/features/buyer/reducer/buyer.reducer';
 
 
 
@@ -49,7 +50,7 @@ export const countriesList = (): string[] => {
 
 export const saveToSessionStorage = (data: string, username: string): void => {
   window.sessionStorage.setItem('isLoggedIn', data);
-  window.sessionStorage.setItem('loggedInuser', username);
+  window.sessionStorage.setItem('loggedInUserName', username);
 };
 
 export const getDataFromSessionStorage = (key: string) => {
@@ -79,6 +80,7 @@ export const applicationLogout=(dispatch:AppDispatch,navigate:NavigateFunction):
   dispatch(apiSlice.util.resetApiState());
   dispatch(authApi.endpoints.logout.initiate() as never )
   dispatch(clearAuthUser(undefined))
+  dispatch(emptyBuyer(undefined))
   dispatch(apiSlice.util.resetApiState());
 
   saveToSessionStorage(JSON.stringify(false),JSON.stringify(''))
@@ -106,6 +108,37 @@ export const sliderImagesText: ISliderImagesText[] = [
   { header: 'Creating online Market Place', subHeader: 'Convert Traditional Business to Modern' },
 
 ];
+
+
+
+export const degreeList = (): string[] => {
+  return ['Associate', 'B.A.', 'B.Sc.', 'M.A.', 'M.B.A.', 'M.Sc.', 'J.D.', 'M.D.', 'Ph.D.', 'LLB', 'Certificate', 'Other'];
+};
+
+export const languageLevel = (): string[] => {
+  return ['Basic', 'Conversational', 'Fluent', 'Native'];
+};
+
+
+export const  yearList=(maxOffSet:number):string[]=>{
+
+  const years:string[]=[]
+
+  const currentYear:number=new Date().getFullYear()
+
+
+  for (let index = 0; index < maxOffSet; index++) {
+    const year=currentYear-index 
+
+    years.push(`${year}`)
+    
+  }
+
+
+
+  return years
+
+}
 
 
 

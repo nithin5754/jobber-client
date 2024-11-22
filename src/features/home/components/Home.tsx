@@ -1,12 +1,14 @@
 import { FC, lazy, LazyExoticComponent, ReactElement, Suspense } from "react"
-import { applicationLogout } from "src/shared/utils/utils.service"
-import { useAppDispatch } from "src/store/store"
-import {  useNavigate } from "react-router-dom"
+
 import SliderShimmer from "src/shared/shimmer-ui/sliderShimmer"
 
 import { IFeaturedEdExpertsProps, IHomeProps } from "../interface/home.interfce"
 import ShimmerGigsViews from "src/shared/shimmer-ui/ShimmerGigsViews"
 import ShimmerFeaturesEdExperts from "src/shared/shimmer-ui/ShimmerFeaturesEdExperts"
+import { useAppDispatch } from "src/store/store"
+import { useNavigate } from "react-router-dom"
+import { applicationLogout } from "src/shared/utils/utils.service"
+import Button from "src/shared/button/Button"
 
 
 
@@ -38,7 +40,9 @@ const Home:FC = ():ReactElement => {
 </Suspense>
 
 <Suspense fallback={<ShimmerGigsViews/>}>
-
+<div className="my-10">
+   <Button label='Logout' onClick={handleLogout} className="bg-red-800 border-red-100 w-[200px] h-[60px]"/>
+</div>
 <HomeGigsView gigs={[]} title={"Because you viewed a gig on  "} category="JavaScript" subTitle=""/>
 </Suspense>
 

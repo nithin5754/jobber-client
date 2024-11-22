@@ -1,6 +1,6 @@
 import { FC } from "react"
 
-import { IHeaderModalProps } from "../header/interface/header.inferface"
+import { IHeaderModalProps } from "../header/interface/header.interface"
 
 
 

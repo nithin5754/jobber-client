@@ -2,7 +2,7 @@
 import { apiSlice } from 'src/store/api';
 
 import { AUTH_API_ENDPOINTS } from 'src/shared/utils/constant.api';
-import { IResponse } from 'src/shared/shared.inferface';
+import { IResponse } from 'src/shared/shared.interface';
 import { IResetPassword } from '../interfaces/auth.interface';
 
 export const authApi = apiSlice.injectEndpoints({
@@ -90,7 +90,10 @@ export const authApi = apiSlice.injectEndpoints({
       },
       invalidatesTags: ['Currentuser']
     }),
-
+    refresh:build.query<IResponse,void>({
+      query:()=>'auth/refresh',
+      providesTags: ['Auth']
+    })
 
 })
 });

@@ -1,5 +1,6 @@
 import { ChangeEvent, CSSProperties, Dispatch, KeyboardEvent, ReactNode, SetStateAction } from 'react';
 import { IAuthUser, ISignUpPayload } from 'src/features/auth/interfaces/auth.interface';
+import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
 
 
 export type validationErrorsType =
@@ -9,6 +10,7 @@ export interface IResponse {
   message?:string;
   token?:string;
   user?:IAuthUser;
+  buyer?:IBuyer;
   browserName?: string;
   deviceType?: string;
 }
@@ -114,3 +116,10 @@ export interface IStartRatingProps {
    size?:number;
    setReviewRating?:Dispatch<SetStateAction<number>>
 }
+
+
+
+export interface IBreadCrumbProps {
+  breadCrumbItems: string[];
+}
+

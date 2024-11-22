@@ -1,4 +1,5 @@
 import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
+import { IBuyer } from "src/features/buyer/interfaces/buyer.interfaces";
 
 
 
@@ -23,4 +24,17 @@ export const initialAuthUserValues:IAuthUser = {
   username: null
 };
 
+
+
+export const initialBuyerDetailsValue:IBuyer={
+  country:'',
+  email:'',
+  id:'',
+  isSeller:false,
+  profilePicture:'',
+  username:'',
+  purchasedGigs: [],
+  createdAt: "",
+  updatedAt: ""
+}
 

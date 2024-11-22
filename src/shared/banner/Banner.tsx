@@ -1,6 +1,6 @@
 import { FC, ReactElement } from "react"
 import { FaExclamationTriangle } from "react-icons/fa"
-import { IBannerProps } from "../shared.inferface"
+import { IBannerProps } from "../shared.interface"
 
 
 const Banner:FC<IBannerProps> = ({bgColor,linkText,showLink,text,onClick}):ReactElement => {

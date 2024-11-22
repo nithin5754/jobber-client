@@ -21,10 +21,11 @@ const showCategoryContainer:boolean=true
   const [tokenIsValid, setTokenIsValid] = useState<boolean>(false);
   const navigate: NavigateFunction = useNavigate();
   const { data: currentUserDetails, isError } = useCheckCurrentUserQuery();
-  console.log("currentUserDetails",currentUserDetails)
-  console.log("isError",isError)
-  const dispatch = useAppDispatch();
 
+
+
+
+  const dispatch = useAppDispatch();
   const checkUser = useCallback(() => {
   
       if (currentUserDetails && currentUserDetails.user) {
@@ -39,7 +40,7 @@ const showCategoryContainer:boolean=true
         dispatch(clearAuthUser(undefined))
       }
  
-  }, [currentUserDetails, dispatch, authUser?.username,navigate]);
+  }, [currentUserDetails, dispatch, authUser?.username,navigate,isError]);
 
 
   useEffect(()=>{

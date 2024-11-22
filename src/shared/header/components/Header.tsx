@@ -1,7 +1,7 @@
 import { FC, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 'react';
-import { IHeader, IHeaderModalProps } from '../interface/header.inferface';
+import { IHeader, IHeaderModalProps } from '../interface/header.interface';
 import { Link } from 'react-router-dom';
-import { IButtonProps } from 'src/shared/shared.inferface';
+import { IButtonProps } from 'src/shared/shared.interface';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
 import { RxHamburgerMenu } from 'react-icons/rx';
 

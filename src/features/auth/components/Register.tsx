@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, Suspense, useRef, useState } from 'react';
 import { FaCamera, FaChevronLeft, FaSpinner, FaTimes } from 'react-icons/fa';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
-import { IAlertProps, IButtonProps, IDropdownProps, ITextInputProps } from 'src/shared/shared.inferface';
+import { IAlertProps, IButtonProps, IDropdownProps, ITextInputProps } from 'src/shared/shared.interface';
 import { FETCH_STATUS, ISignUpPayload, IStepProps } from '../interfaces/auth.interface';
 import { countriesList, saveToSessionStorage } from 'src/shared/utils/utils.service';
 import { readAsBase64 } from 'src/shared/utils/image-utils.service';

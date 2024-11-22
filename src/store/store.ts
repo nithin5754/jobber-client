@@ -8,8 +8,10 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { apiSlice } from './api';
-import authReducer from '../features/auth/reducers/auth.reducer'
-import logoutReducer from '../features/auth/reducers/logout.reducer'
+import authReducer from 'src/features/auth/reducers/auth.reducer'
+import logoutReducer from 'src/features/auth/reducers/logout.reducer'
+import buyerReducer from 'src/features/buyer/reducer/buyer.reducer'
+
 const persistConfig = {
   key: 'root',
   storage: storage,
@@ -19,7 +21,8 @@ const persistConfig = {
 export const combineReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   auth :authReducer,
-  logout:logoutReducer
+  logout:logoutReducer,
+  buyer:buyerReducer
 });
 
 export const rootReducers: Reducer<RootState> = (state, action) => {

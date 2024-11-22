@@ -1,9 +1,18 @@
-import { AuthEndPointsTypes } from '../shared.inferface';
+import { AuthEndPointsTypes } from '../shared.interface';
 
 export const BASE_ENDPOINT = import.meta.env.VITE_BASE_ENDPOINT;
 
-export const REFRESH_API_ENDPOINTS = (username: string) => {
-  return '/auth/refresh-token' + username;
+const CLOUDINARY_BASE_URL=import.meta.env.VITE_CLOUDINARY_PUBLIC_URL
+
+
+
+export const CLOUDINARY_PICTURE_URL=(publicId:string)=>{
+  return `${CLOUDINARY_BASE_URL}/${publicId}.jpg`
+}
+
+
+export const REFRESH_API_ENDPOINTS = () => {
+  return '/auth/refresh';
 };
 
 export const AUTH_API_ENDPOINTS = (endpoints_name: AuthEndPointsTypes,data?:string): string => {

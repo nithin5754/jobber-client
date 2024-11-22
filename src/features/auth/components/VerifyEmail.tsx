@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { FETCH_STATUS } from '../interfaces/auth.interface';
 import { useAppDispatch } from 'src/store/store';
-import { IResponse } from 'src/shared/shared.inferface';
+import { IResponse } from 'src/shared/shared.interface';
 import { updateAuthUser } from '../reducers/auth.reducer';
 import Button from 'src/shared/button/Button';
 import { FaSpinner } from 'react-icons/fa';

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 import { v4 as uuidV4 } from "uuid"
 
 import {  CiSquareMore } from "react-icons/ci"
-  import { IStartRatingProps } from "src/shared/shared.inferface"
+  import { IStartRatingProps } from "src/shared/shared.interface"
 
 
 const StarRating:LazyExoticComponent<FC<IStartRatingProps>>=lazy(()=>import("src/shared/rating/StarRating"))

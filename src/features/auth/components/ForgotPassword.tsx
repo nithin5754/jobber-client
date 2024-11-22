@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 'react';
 import { FaSpinner, FaTimes } from 'react-icons/fa';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
-import { IAlertProps, IButtonProps, IResponse, ITextInputProps } from 'src/shared/shared.inferface';
+import { IAlertProps, IButtonProps, IResponse, ITextInputProps } from 'src/shared/shared.interface';
 import { FETCH_STATUS } from '../interfaces/auth.interface';
 import { useForgotPasswordMutation } from '../services/auth.service';
 

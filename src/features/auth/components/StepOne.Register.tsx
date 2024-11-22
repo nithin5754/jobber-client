@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, Suspense } from "react"
 import {  IStepProps } from "../interfaces/auth.interface"
-import {  IButtonProps,  ITextInputProps } from "src/shared/shared.inferface";
+import {  IButtonProps,  ITextInputProps } from "src/shared/shared.interface";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 

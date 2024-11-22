@@ -6,8 +6,10 @@ import { useUserLogout } from './auth/reducers/logout.reducer';
 import { useCheckCurrentUserQuery } from './auth/services/auth.service';
 import { applicationLogout, saveToSessionStorage } from 'src/shared/utils/utils.service';
 
-import { IHomeHeaderProps } from 'src/shared/header/interface/header.inferface';
+import { IHomeHeaderProps } from 'src/shared/header/interface/header.interface';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useGetBuyerByEmailQuery } from './buyer/services/buyer.service';
+import { addBuyer } from './buyer/reducer/buyer.reducer';
 
 const Index: LazyExoticComponent<FC> = lazy(() => import('./index/Index'));
 const Home: LazyExoticComponent<FC> = lazy(() => import('./home/components/Home'));
@@ -19,7 +21,10 @@ const AppPage: FC = (): ReactElement => {
   const token = useAppSelector(useCurrentToken);
   const userLogOut = useAppSelector(useUserLogout);
   const navigate: NavigateFunction = useNavigate();
+  const {data:BuyerByEmail}=useGetBuyerByEmailQuery()
+
   const { data: currentUserDetails, isError } = useCheckCurrentUserQuery();
+  console.log(isError,"error-APP PAGE")
   const dispatch = useAppDispatch();
   const [tokenIsValid, setTokenIsValid] = useState<boolean>(false);
   const checkUser = useCallback(() => {
@@ -27,6 +32,7 @@ const AppPage: FC = (): ReactElement => {
       if (currentUserDetails && currentUserDetails.user && !userLogOut) {
         setTokenIsValid(true)
         dispatch(addAuthUser({ authInfo: currentUserDetails.user, token: token }));
+        dispatch(addBuyer(BuyerByEmail?.buyer))
         saveToSessionStorage(JSON.stringify(true), JSON.stringify(authUser.username));
       }
     } catch (error) {

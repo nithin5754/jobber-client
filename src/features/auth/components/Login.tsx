@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 'react';
 import { FaEye, FaEyeSlash, FaSpinner, FaTimes } from 'react-icons/fa';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
-import { IAlertProps, IButtonProps, IResponse, ITextInputProps } from 'src/shared/shared.inferface';
+import { IAlertProps, IButtonProps, IResponse, ITextInputProps } from 'src/shared/shared.interface';
 import { FETCH_STATUS, ISignInPayload } from '../interfaces/auth.interface';
 import { useAppDispatch } from 'src/store/store';
 import { loginUserSchema } from '../schemas/register.step.schemas';

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { validationErrorsType } from "src/shared/shared.inferface";
+import { validationErrorsType } from "src/shared/shared.interface";
 
 import {IUseAuthSchema} from '../interfaces/auth.interface'
 

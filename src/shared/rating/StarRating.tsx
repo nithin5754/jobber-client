@@ -1,5 +1,5 @@
 import { FC, Fragment, ReactElement, useEffect, useState } from "react"
-import { IStartRatingProps } from "../shared.inferface"
+import { IStartRatingProps } from "../shared.interface"
 import { FaRegStar, FaStar } from "react-icons/fa"
 import { v4 as uuidV4 } from "uuid"
 

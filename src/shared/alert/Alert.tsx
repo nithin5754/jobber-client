@@ -1,5 +1,5 @@
 import { FC, ReactElement } from "react"
-import { IAlertProps, IAlertTypes } from "../shared.inferface"
+import { IAlertProps, IAlertTypes } from "../shared.interface"
 
 
 const Alert:FC<IAlertProps> = ({message,type}):ReactElement => {

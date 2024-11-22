@@ -10,7 +10,7 @@ import {
   useRef,
   useState
 } from 'react';
-import { IButtonProps, IDropdownProps, ITextInputProps } from '../shared.inferface';
+import { IButtonProps, IDropdownProps, ITextInputProps } from '../shared.interface';
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
 import { filter } from 'lodash';
 import { v4 as uuidV4 } from 'uuid';
