@@ -30,7 +30,6 @@ const SellerEductionField: FC<IEducationProps> = ({ educationFields, setEducatio
   const addNewEducationField = (): void => {
     if (educationFields && setEducationFields) {
       const newEducation: IEducation = {
-        id: uuidV4(),
         country: 'Country',
         university: '',
         title: 'Title',
@@ -67,7 +66,7 @@ const SellerEductionField: FC<IEducationProps> = ({ educationFields, setEducatio
 
       {educationFields &&
         educationFields.map((fields: IEducation, index: number) => (
-          <div key={fields.id} className="my-4">
+          <div key={index} className="my-4">
             <div className="relative">
               <Suspense fallback={'loading ...'}>
                 <SellerTextInput
@@ -87,6 +86,16 @@ const SellerEductionField: FC<IEducationProps> = ({ educationFields, setEducatio
                   maxHeight="300"
                   showSearchInput={true}
                   mainClassNames="absolute bg-white z-50"
+                  onClick={(item:string)=>{
+
+                    const data:IEducation[]=[...educationFields]
+                    data[index]['country']=item
+
+                    if(setEducationFields){
+                      setEducationFields([...data])
+                    }
+
+                  }}
                   values={countriesList()}
                 />
               </Suspense>
@@ -94,7 +103,19 @@ const SellerEductionField: FC<IEducationProps> = ({ educationFields, setEducatio
             <div className="mt-4 grid h-1/5 grid-cols-4 gap-x-2 gap-y-3">
               <div className="relative">
                 <Suspense fallback={'loading ...'}>
-                  <SellerDropDown text={fields.title} maxHeight="300" mainClassNames="absolute bg-white z-40" values={degreeList()} />
+                  <SellerDropDown text={fields.title} maxHeight="300" mainClassNames="absolute bg-white z-40" values={degreeList()} 
+                  
+                  onClick={(item:string)=>{
+
+                    const data:IEducation[]=[...educationFields]
+                    data[index]['title']=item
+
+                    if(setEducationFields){
+                      setEducationFields([...data])
+                    }
+
+                  }}
+                  />
                 </Suspense>
               </div>
               <div className="col-span-2">

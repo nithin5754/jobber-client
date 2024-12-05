@@ -11,6 +11,8 @@ import { useSignUpMutation } from '../services/auth.service';
 import { useAppDispatch } from 'src/store/store';
 import { addAuthUser } from '../reducers/auth.reducer';
 import { updateLogout } from '../reducers/logout.reducer';
+import { updateCategoryContainer } from 'src/shared/header/reducer/category.reducer';
+import { updateHeader } from 'src/shared/header/reducer/header.reducer';
 
 const RegisterModalBg: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/shared/modal/ModalBg'));
 const RegisterAlert: LazyExoticComponent<FC<IAlertProps>> = lazy(() => import('src/shared/alert/Alert'));
@@ -94,6 +96,8 @@ const Register: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement => {
           setProfileImage('');
           setIsProfilePicture(null);
           setCountry(countriesList()[0]);
+          dispatch(updateCategoryContainer(true))
+          dispatch(updateHeader('home'))
         }
       } else {
         setStatus(FETCH_STATUS.ERROR);

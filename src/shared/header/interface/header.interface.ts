@@ -2,6 +2,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
 import { IBuyer } from "src/features/buyer/interfaces/buyer.interfaces";
+import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 
 export interface IHeader {
   navClass: string;
@@ -22,8 +23,20 @@ export interface IHomeHeaderProps {
   style?:string;
   type?: string;
   buyer?:IBuyer;
+  seller?:ISeller;
   setIsDropdownOpen?: Dispatch<SetStateAction<boolean>>;
   
  
   
+}
+
+
+export interface IReduxHeader {
+  type: string;
+  payload: string;
+}
+
+export interface IReduxShowCategory {
+  type: string;
+  payload: boolean;
 }

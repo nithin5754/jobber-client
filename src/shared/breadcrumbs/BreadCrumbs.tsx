@@ -6,7 +6,7 @@ import { v4 as uuidV4 } from "uuid"
 
 const BreadCrumbs:FC<IBreadCrumbProps> = ({breadCrumbItems}):ReactElement => {
   return (
-    <nav className="flex px-4 py-6 text-white bg-customViolet">
+    <nav className="flex px-4 py-6 text-white bg-customViolet/60">
     <ol className="container mx-auto px-6 md:px-12 lg:px-6 inline-flex items-center space-x-1 md:space-x-3">
         <li className="inline-flex items-center">
             <Link to="/"

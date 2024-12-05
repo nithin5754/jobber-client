@@ -11,7 +11,9 @@ import { apiSlice } from './api';
 import authReducer from 'src/features/auth/reducers/auth.reducer'
 import logoutReducer from 'src/features/auth/reducers/logout.reducer'
 import buyerReducer from 'src/features/buyer/reducer/buyer.reducer'
-
+import sellerReducer from 'src/features/seller/reducers/seller.reducer'
+import headerReducer from 'src/shared/header/reducer/header.reducer'
+import categoryReducer from 'src/shared/header/reducer/category.reducer'
 const persistConfig = {
   key: 'root',
   storage: storage,
@@ -22,7 +24,10 @@ export const combineReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   auth :authReducer,
   logout:logoutReducer,
-  buyer:buyerReducer
+  buyer:buyerReducer,
+  seller:sellerReducer,
+  header: headerReducer,
+  showCategoryContainer: categoryReducer,
 });
 
 export const rootReducers: Reducer<RootState> = (state, action) => {

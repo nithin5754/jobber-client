@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { IButtonProps } from 'src/shared/shared.interface';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { saveToLocalStorage } from 'src/shared/utils/utils.service';
+
 
 
 const HeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
@@ -89,7 +91,13 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
                 <div className="text-gray-600 dark:text-gray-300 lg:pr-4">
                   <ul className="space-y-6 text-base font-medium tracking-wide lg:flex lg:space-y-0 lg:text-sm">
                     <li>
-                      <div className="hover:text-primary dark:hover:text-primaryLight block transition md:px-4">
+                      <div
+                      
+                      onClick={() => {
+                        setShowModal((item: IHeaderModalProps) => ({ ...item, register: true }));
+                        saveToLocalStorage('becomeASeller', JSON.stringify(true));
+                      }}    
+                      className="hover:text-primary dark:hover:text-primaryLight block transition md:px-4">
                         <span>Become a Seller</span>
                       </div>
                     </li>

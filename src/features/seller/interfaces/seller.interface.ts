@@ -1,10 +1,15 @@
 import { SetStateAction, Dispatch } from 'react';
+import { IGigInfo, ISellerGig } from 'src/features/gigs/interface/gigi.interface';
+import { IOrder } from 'src/features/order/interfaces/order.interface';
+
+
+export type SellerContextType = { gigs: ISellerGig[]; pausedGigs: ISellerGig[]; orders: IOrder[]; seller: ISeller | null };
+
 
 export interface IPersonalInfoData {
   [key: string]: string;
   fullName: string;
   description: string;
-  profilePicture: string;
   responseTime: string;
   oneliner: string;
 }
@@ -26,7 +31,7 @@ export interface IAllowedCharacters {
 
 export interface IExperience {
   [key: string]: string | number | boolean | undefined;
-  id?: string;
+   _id?: string;
   company: string;
   title: string;
   startDate: string;
@@ -37,7 +42,7 @@ export interface IExperience {
 
 export interface IEducation {
   [key: string]: string | number | undefined;
-  id?: string;
+   _id?: string;
   country: string;
   university: string;
   title: string;
@@ -49,14 +54,14 @@ export interface IEducation {
 
 export interface ILanguage {
   [key: string]: string | number | undefined;
-  id?: string;
+   _id?: string;
   language: string;
   level: string;
 }
 
 export interface ICertificate {
   [key: string]: string | number | undefined;
-  id?: string;
+   _id?: string;
   name: string;
   from: string;
   year: number | string;
@@ -71,6 +76,21 @@ export interface IExperienceProps {
   setShowExperienceAddForm?: Dispatch<SetStateAction<boolean>>;
   setShowExperienceEditForm?: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface IExperienceEditProps {
+  type: string;
+  selectedExperience?: IExperience;
+  setShowExperienceAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowExperienceEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface IEducationEditProps {
+  type: string;
+  selectedEducation?: IEducation;
+  setShowEducationAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowEducationEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
 
 
 export interface IEducationProps {
@@ -94,6 +114,14 @@ export interface ISkillProps {
 }
 
 
+export interface ISkillEditProps {
+  type: string;
+  selectedSkill?: string;
+  setShowSkillEditForm?: Dispatch<SetStateAction<boolean>>;
+  setShowSkillAddForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+
 export interface ILanguageProps {
   languageEdit?: ILanguage;
   languageFields?: ILanguage[];
@@ -102,6 +130,14 @@ export interface ILanguageProps {
   setShowLanguageEditForm?: Dispatch<SetStateAction<boolean>>;
   setShowLanguageAddForm?: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface ILanguageEditFieldsProps {
+  type: string;
+  selectedLanguage?: ILanguage;
+  setShowLanguageEditForm?: Dispatch<SetStateAction<boolean>>;
+  setShowLanguageAddForm?: Dispatch<SetStateAction<boolean>>;
+}
+
 
 
 export interface ISocialLinksProps {
@@ -113,6 +149,15 @@ export interface ISocialLinksProps {
 }
 
 
+export interface ISocialEditLinksProps {
+  type: string;
+  selectedLink?: string;
+  setShowSocialLinksAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowSocialLinksEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+
+
 
 export interface ICertificateProps {
   selectedField?: ICertificate;
@@ -120,4 +165,104 @@ export interface ICertificateProps {
   setCertificatesFields?: Dispatch<SetStateAction<ICertificate[]>>;
   setShowCertificateAddForm?: Dispatch<SetStateAction<boolean>>;
   setShowCertificateEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ICertificateEditProps {
+  type: string;
+  selectedCertificate?: ICertificate;
+  setShowCertificateAddForm?: Dispatch<SetStateAction<boolean>>;
+  setShowCertificateEditForm?: Dispatch<SetStateAction<boolean>>;
+}
+
+
+export interface IReduxSeller {
+  type?: string;
+  payload: ISeller;
+}
+
+
+export type SellerType =
+| string
+| string[]
+| number
+// | IRatingCategories
+| Date
+| IExperience
+| IExperience[]
+| IEducation
+| IEducation[]
+| ICertificate
+| ICertificate[]
+| ILanguage
+| ILanguage[]
+| unknown
+| undefined;
+
+export interface ISeller extends Record<string, SellerType> {
+  id?: string;
+  userId?:string;
+  profilePublicId?: string;
+  fullName: string;
+  username?: string;
+  email?: string;
+  profilePicture?: string;  
+  description: string;
+  country?: string;
+  oneliner: string;
+  skills: string[];
+  ratingsCount?: number;
+  ratingSum?: number;
+  // ratingCategories?: IRatingCategories;
+  languages: ILanguage[];
+  responseTime: number;
+  recentDelivery?: Date | string;
+  experience: IExperience[];
+  education: IEducation[];
+  socialLinks: string[];
+  certificates: ICertificate[];
+  ongoingJobs?: number;
+  completedJobs?: number;
+  cancelledJobs?: number;
+  totalEarnings?: number;
+  totalGigs?: number;
+  paypal?: string; 
+  createdAt?: Date | string;
+}
+
+
+export interface IProfileHeaderProps {
+  showHeaderInfo?: boolean;
+  showEditIcons: boolean;
+  sellerProfile?: ISeller;
+  setSellerProfile?: Dispatch<SetStateAction<ISeller>>;
+}
+
+export interface IShowEditItem {
+  fullname: boolean;
+  oneliner: boolean;
+}
+
+export interface ISellerProfileItem {
+  fullname: string;
+  oneliner: string;
+}
+
+
+
+export interface IProjectStatusBox {
+  gigInfo: IGigInfo
+}
+
+export interface IProfileTabsProps {
+  type: string;
+  setType?: Dispatch<SetStateAction<string>>;
+}
+
+
+
+
+export interface ISellerContext {
+  showEditIcons: boolean;
+  sellerProfile: ISeller;
+  setSellerProfile?: Dispatch<SetStateAction<ISeller>>;
 }

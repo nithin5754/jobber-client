@@ -10,6 +10,8 @@ import { useSigInMutation } from '../services/auth.service';
 import { addAuthUser } from '../reducers/auth.reducer';
 import { saveToSessionStorage } from 'src/shared/utils/utils.service';
 import { updateLogout } from '../reducers/logout.reducer';
+import { updateCategoryContainer } from 'src/shared/header/reducer/category.reducer';
+import { updateHeader } from 'src/shared/header/reducer/header.reducer';
 
 const LoginModalBg: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/shared/modal/ModalBg'));
 const LoginAlert: LazyExoticComponent<FC<IAlertProps>> = lazy(() => import('src/shared/alert/Alert'));
@@ -60,6 +62,8 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
             deviceType: ''
           });
         }
+        dispatch(updateCategoryContainer(true))
+        dispatch(updateHeader('home'))
       } else {
         setStatus(FETCH_STATUS.ERROR)
         setAlertMessage(validationError[0].password || validationError[0].username);

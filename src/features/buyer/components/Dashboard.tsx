@@ -1,6 +1,6 @@
 import { FC, ReactElement, useState } from "react"
 import Table from "./Table"
-import { lowerCase } from "lodash"
+
 
 
 const  Gig_Status ={

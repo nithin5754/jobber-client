@@ -40,7 +40,7 @@ const SellerExperience: FC<IExperienceProps> = ({ experienceFields, setExperienc
 
   const handleToAddNewExperienceField = () => {
     const newExperienceFields: IExperience = {
-      id: uuidV4(),
+      _id: uuidV4(),
       title: '',
       company: '',
       startDate: 'Start Year',
@@ -97,7 +97,7 @@ const SellerExperience: FC<IExperienceProps> = ({ experienceFields, setExperienc
       </div>
 
       {experienceFields?.map((input: IExperience, index: number) => (
-        <div key={input.id} className="mb-4">
+        <div key={index} className="mb-4">
           <Suspense fallback={'loading...'}>
             <SellerTextInput
               className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 cursor-pointer"

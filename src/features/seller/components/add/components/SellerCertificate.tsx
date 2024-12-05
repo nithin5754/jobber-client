@@ -2,7 +2,7 @@ import { LazyExoticComponent, FC, lazy, ForwardRefExoticComponent, ReactElement,
 import { ICertificate, ICertificateProps } from 'src/features/seller/interfaces/seller.interface';
 import { IButtonProps, IDropdownProps, ITextInputProps } from 'src/shared/shared.interface';
 import { yearList } from 'src/shared/utils/utils.service';
-import { v4 as uuidV4 } from 'uuid';
+
 const SellerButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const SellerDropDown: LazyExoticComponent<FC<IDropdownProps>> = lazy(() => import('src/shared/dropdown/DropDown'));
 
@@ -13,7 +13,6 @@ const SellerTextInput: LazyExoticComponent<
 const SellerCertificate: FC<ICertificateProps> = ({ certificatesFields, setCertificatesFields }): ReactElement => {
   const addCertificateHandler = (): void => {
     const newCertificate: ICertificate = {
-      id: uuidV4(),
       name: '',
       from: '',
       year: 'Year'
@@ -55,7 +54,7 @@ const SellerCertificate: FC<ICertificateProps> = ({ certificatesFields, setCerti
       </div>
 
       {certificatesFields?.map((field: ICertificate, index: number) => (
-        <div>
+        <div key={index}>
           <div className="flex flex-col">
             <SellerTextInput
               className="border-grey mb-4 w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
@@ -75,7 +74,14 @@ const SellerCertificate: FC<ICertificateProps> = ({ certificatesFields, setCerti
             />
           </div>
           <div className="relative flex flex-col">
-            <SellerDropDown text={`${field.year}`} maxHeight="300" mainClassNames="absolute bg-white z-10" values={yearList(50)} />
+            <SellerDropDown text={`${field.year}`} maxHeight="300" mainClassNames="absolute bg-white z-10" values={yearList(50)}        onClick={(item: string) => {
+                      const data: ICertificate[] = [...certificatesFields];
+
+                      data[index]['year'] = item;
+                      if (setCertificatesFields) {
+                        setCertificatesFields([...data]);
+                      }
+                    }}/>
             {certificatesFields && setCertificatesFields && certificatesFields.length > 1 && (
               <div className="mb-4 mt-16">
                 <SellerButton

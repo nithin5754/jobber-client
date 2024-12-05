@@ -13,7 +13,6 @@ const SellerTextInput: LazyExoticComponent<
 const SellerLangFields: FC<ILanguageProps> = ({ languageFields, setLanguageFields }): ReactElement => {
   const handleAddNewLang = (): void => {
     let newLangFields: ILanguage = {
-      id: uuidV4(),
       language: '',
       level: 'Level'
     };
@@ -52,7 +51,7 @@ const SellerLangFields: FC<ILanguageProps> = ({ languageFields, setLanguageField
         />
       </div>
       {languageFields?.map((field: ILanguage, index) => (
-        <div className="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-2">
+        <div key={index} className="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-2">
           <div className="">
             <SellerTextInput
               className="border-grey w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"

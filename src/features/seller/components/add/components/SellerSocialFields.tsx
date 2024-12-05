@@ -45,7 +45,7 @@ const SellerSocialFields: FC<ISocialLinksProps> = ({ socialFields, setSocialFiel
       </div>
 
       {socialFields?.map((field: string, index: number) => (
-        <div>
+        <div key={index}>
           <SellerTextInput
             className="border-grey w-full rounded border p-2.5 text-sm font-normal text-gray-600 focus:outline-none"
             placeholder="Social media link"

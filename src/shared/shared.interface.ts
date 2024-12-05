@@ -1,6 +1,7 @@
 import { ChangeEvent, CSSProperties, Dispatch, KeyboardEvent, ReactNode, SetStateAction } from 'react';
 import { IAuthUser, ISignUpPayload } from 'src/features/auth/interfaces/auth.interface';
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
+import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 
 
 export type validationErrorsType =
@@ -11,6 +12,8 @@ export interface IResponse {
   token?:string;
   user?:IAuthUser;
   buyer?:IBuyer;
+  seller?:ISeller,
+  sellerArray?:ISeller[],
   browserName?: string;
   deviceType?: string;
 }

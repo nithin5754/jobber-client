@@ -1,4 +1,3 @@
-
 import countries, { LocalizedCountryNames } from 'i18n-iso-countries';
 import enLocale from 'i18n-iso-countries/langs/en.json';
 import { NavigateFunction } from 'react-router-dom';
@@ -9,8 +8,11 @@ import { apiSlice } from 'src/store/api';
 import { AppDispatch } from 'src/store/store';
 import { ISliderImagesText } from '../shared.interface';
 import { emptyBuyer } from 'src/features/buyer/reducer/buyer.reducer';
-
-
+import { emptySeller } from 'src/features/seller/reducers/seller.reducer';
+import millify from 'millify';
+import { toast } from 'react-toastify';
+import { IOrder } from 'src/features/order/interfaces/order.interface';
+import { filter } from 'lodash';
 
 countries.registerLocale(enLocale);
 
@@ -18,16 +20,12 @@ export const lowerCase = (str: string): string => {
   return str.toLowerCase();
 };
 
-
-
 export const replaceSpacesWithDash = (title: string): string => {
   const lowercaseTitle: string = lowerCase(`${title}`);
   return lowercaseTitle.replace(/\/| /g, '-'); // replace / and space with -
 };
 
-
-
-export const categories =():string[]=>{
+export const categories = (): string[] => {
   return [
     'Graphics & Design',
     'Digital Marketing',
@@ -37,16 +35,13 @@ export const categories =():string[]=>{
     'PhotoGraphy',
     'Data',
     'Business'
-  ]
-}
-
+  ];
+};
 
 export const countriesList = (): string[] => {
   const countriesObj: LocalizedCountryNames<{ select: 'official' }> = countries.getNames('en', { select: 'official' });
   return Object.values(countriesObj);
 };
-
-
 
 export const saveToSessionStorage = (data: string, username: string): void => {
   window.sessionStorage.setItem('isLoggedIn', data);
@@ -57,6 +52,10 @@ export const getDataFromSessionStorage = (key: string) => {
   const data = window.sessionStorage.getItem(key) as string;
   return JSON.parse(data);
 };
+
+// export const saveToLocalStorage = (key: string, p0: boolean, data: string): void => {
+//   window.localStorage.setItem(key, data);
+// };
 
 export const saveToLocalStorage = (key: string, data: string): void => {
   window.localStorage.setItem(key, data);
@@ -71,25 +70,19 @@ export const deleteFromLocalStorage = (key: string): void => {
   window.localStorage.removeItem(key);
 };
 
-
-
-
-export const applicationLogout=(dispatch:AppDispatch,navigate:NavigateFunction):void=>{
-
+export const applicationLogout = (dispatch: AppDispatch, navigate: NavigateFunction): void => {
   dispatch(logout({}));
   dispatch(apiSlice.util.resetApiState());
-  dispatch(authApi.endpoints.logout.initiate() as never )
-  dispatch(clearAuthUser(undefined))
-  dispatch(emptyBuyer(undefined))
+  dispatch(authApi.endpoints.logout.initiate() as never);
+  dispatch(clearAuthUser(undefined));
+  dispatch(emptyBuyer(undefined));
+  dispatch(emptySeller(undefined));
   dispatch(apiSlice.util.resetApiState());
 
-  saveToSessionStorage(JSON.stringify(false),JSON.stringify(''))
+  saveToSessionStorage(JSON.stringify(false), JSON.stringify(''));
 
-  navigate('/')
-
-}
-
-
+  navigate('/');
+};
 
 export const sliderImages: string[] = [
   'https://fiverr-res.cloudinary.com/q_auto,f_auto,w_1400,dpr_1.0/v1/attachments/generic_asset/asset/50218c41d277f7d85feeaf3efb4549bd-1599072608122/bg-signup-1400-x1.png',
@@ -104,12 +97,9 @@ export const sliderImagesText: ISliderImagesText[] = [
   { header: 'Turning Ideas into Impactful Content', subHeader: 'Innovate. Create. Elevate.' },
   { header: 'Turning Magic into Results', subHeader: 'Spelling Success, One Task at a Time' },
   { header: 'Creating Futures, Delivering Now', subHeader: 'Your Vision, Our Innovation' },
-  
-  { header: 'Creating online Market Place', subHeader: 'Convert Traditional Business to Modern' },
 
+  { header: 'Creating online Market Place', subHeader: 'Convert Traditional Business to Modern' }
 ];
-
-
 
 export const degreeList = (): string[] => {
   return ['Associate', 'B.A.', 'B.Sc.', 'M.A.', 'M.B.A.', 'M.Sc.', 'J.D.', 'M.D.', 'Ph.D.', 'LLB', 'Certificate', 'Other'];
@@ -119,29 +109,68 @@ export const languageLevel = (): string[] => {
   return ['Basic', 'Conversational', 'Fluent', 'Native'];
 };
 
+export const yearList = (maxOffSet: number): string[] => {
+  const years: string[] = [];
 
-export const  yearList=(maxOffSet:number):string[]=>{
-
-  const years:string[]=[]
-
-  const currentYear:number=new Date().getFullYear()
-
+  const currentYear: number = new Date().getFullYear();
 
   for (let index = 0; index < maxOffSet; index++) {
-    const year=currentYear-index 
+    const year = currentYear - index;
 
-    years.push(`${year}`)
-    
+    years.push(`${year}`);
   }
 
+  return years;
+};
 
+export const shortLongNumbers = (data: number | undefined): string => {
+  if (data === undefined) {
+    return '0';
+  } else {
+    return millify(data, { precision: 0 });
+  }
+};
 
-  return years
+export const rating = (num: number): number => {
+  if (num) {
+    return Math.round(num * 10) / 10;
+  } else {
+    return 0.0;
+  }
+};
 
-}
+export const showSuccessToast = (message: string): void => {
+  toast.success(message, {
+    position: 'bottom-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: 'colored'
+  });
+};
 
+export const showErrorToast = (message: string): void => {
+  toast.error(message, {
+    position: 'bottom-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: 'colored'
+  });
+};
 
+export const orderTypes = (status: string, orders: IOrder[]): number => {
+  const orderList: IOrder[] = filter(orders, (order: IOrder) => lowerCase(order.status) === lowerCase(status));
+  return orderList.length;
+};
 
-
-
-
+export const sellerOrderList = (status: string, orders: IOrder[]): IOrder[] => {
+  const orderList: IOrder[] = filter(orders, (order: IOrder) => lowerCase(order.status) === lowerCase(status));
+  return orderList;
+};

@@ -40,9 +40,7 @@ const Home:FC = ():ReactElement => {
 </Suspense>
 
 <Suspense fallback={<ShimmerGigsViews/>}>
-<div className="my-10">
-   <Button label='Logout' onClick={handleLogout} className="bg-red-800 border-red-100 w-[200px] h-[60px]"/>
-</div>
+
 <HomeGigsView gigs={[]} title={"Because you viewed a gig on  "} category="JavaScript" subTitle=""/>
 </Suspense>
 
