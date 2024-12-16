@@ -14,8 +14,8 @@ export const sellerApi = apiSlice.injectEndpoints({
       providesTags: ['Seller']
     }),
 
-    getSellerBySellerId: build.query<IResponse, {sellerId:string}>({
-      query: ({sellerId}) => `seller/sellerId/${sellerId}`,
+    getSellerBySellerId: build.query<IResponse, string>({
+      query: (sellerId:string) => `seller/sellerId/${sellerId}`,
       providesTags: ['Seller']
     }),
 

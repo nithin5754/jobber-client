@@ -4,9 +4,8 @@ import { useRoutes, RouteObject } from 'react-router-dom';
 import ResetPasswordModal from 'src/features/auth/components/ResetPassword';
 // import Categories from 'src/features/categories/Categories';
 import ProtectedRoutes from 'src/features/ProtectedRoutes';
-
-
-
+import GigView from './features/gigs/components/view/GigView';
+import Gigs from './features/gigs/components/gigs/Gigs';
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
@@ -17,16 +16,16 @@ const ErrorPage404: LazyExoticComponent<FC> = lazy(() => import('src/shared/erro
 
 const BuyerDashBoard: LazyExoticComponent<FC> = lazy(() => import('src/features/buyer/components/Dashboard'));
 
-const AddSeller:LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/add/AddSeller'));
+const AddSeller: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/add/AddSeller'));
 
-const CurrentProfile:LazyExoticComponent<FC>=lazy(()=>import('src/features/seller/components/profile/CurrentSellerProfile'))
-const SellerProfile:LazyExoticComponent<FC>=lazy(()=>import('src/features/seller/components/profile/SellerProfile'))
-const Seller:LazyExoticComponent<FC>=lazy(()=>import('src/features/seller/components/dashboard/Seller'))
+const CurrentProfile: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/profile/CurrentSellerProfile'));
+const SellerProfile: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/profile/SellerProfile'));
+const Seller: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/dashboard/Seller'));
 
-
-const SellerDashBoard:LazyExoticComponent<FC>=lazy(()=>import('src/features/seller/components/dashboard/SellerDashBoard'))
-const ManageOrders:LazyExoticComponent<FC>=lazy(()=>import('src/features/seller/components/dashboard/ManageOrders'))
-const ManageEarnings:LazyExoticComponent<FC>=lazy(()=>import('src/features/seller/components/dashboard/ManageEarnings'))
+const SellerDashBoard: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/dashboard/SellerDashBoard'));
+const ManageOrders: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/dashboard/ManageOrders'));
+const ManageEarnings: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/dashboard/ManageEarnings'));
+const AddGig: LazyExoticComponent<FC> = lazy(() => import('src/features/gigs/components/gig/AddGig'));
 
 const Layout = ({ backgroundColor = '#ffffff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => {
   return (
@@ -41,7 +40,7 @@ const AppRouter: FC = () => {
     {
       path: '/',
       element: (
-         <Suspense fallback={"loading..."}>
+        <Suspense fallback={'loading...'}>
           <AppPage />
         </Suspense>
       )
@@ -51,19 +50,19 @@ const AppRouter: FC = () => {
       path: '/',
       element: (
         <ProtectedRoutes>
-            <Layout backgroundColor="#ffffff">
-            <Suspense fallback={"loading..."}>
-            <Home />
-        </Suspense>
-            </Layout>
-          </ProtectedRoutes>
+          <Layout backgroundColor="#ffffff">
+            <Suspense fallback={'loading...'}>
+              <Home />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
       )
     },
 
     {
       path: 'confirm_email',
       element: (
-        <Suspense fallback={"loading..."}>
+        <Suspense fallback={'loading...'}>
           <VerifyEmail />
         </Suspense>
       )
@@ -71,7 +70,7 @@ const AppRouter: FC = () => {
     {
       path: 'forgot-password',
       element: (
-         <Suspense fallback={"loading..."}>
+        <Suspense fallback={'loading...'}>
           <ResetPasswordModal />
         </Suspense>
       )
@@ -92,91 +91,145 @@ const AppRouter: FC = () => {
       path: 'users/:username/:buyerId/orders',
       element: (
         <ProtectedRoutes>
-            <Layout backgroundColor={'#e0e0e0f'}>
-          <Suspense fallback={"loading..."}>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
               <BuyerDashBoard />
-        </Suspense>
-            </Layout>
-          </ProtectedRoutes>
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
       )
     },
     {
       path: '/seller_onboarding',
       element: (
         <ProtectedRoutes>
-            <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={"loading..."}>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
               <AddSeller />
-        </Suspense>
-            </Layout>
-          </ProtectedRoutes>
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
       )
     },
     {
       path: '/seller_profile/:username/:sellerId/edit',
       element: (
         <ProtectedRoutes>
-            <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={"loading..."}>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
               <CurrentProfile />
-        </Suspense>
-            </Layout>
-          </ProtectedRoutes>
-      ),
- 
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
     },
 
     {
       path: '/seller_profile/:username/:sellerId/view',
       element: (
         <ProtectedRoutes>
-            <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={"loading..."}>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
               <SellerProfile />
-        </Suspense>
-            </Layout>
-          </ProtectedRoutes>
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
       )
     },
-
 
     {
       path: '/:username/:sellerId',
       element: (
         <ProtectedRoutes>
-            <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={"loading..."}>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
               <Seller />
-        </Suspense>
-            </Layout>
-          </ProtectedRoutes>
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
       ),
-      children:[
+      children: [
         {
-          path:'seller_dashboard',
-          element:<Suspense fallback={'loading..'}>
-            <SellerDashBoard/>
-          </Suspense>
+          path: 'seller_dashboard',
+          element: (
+            <Suspense fallback={'loading..'}>
+              <SellerDashBoard />
+            </Suspense>
+          )
         },
         {
-          path:'manage_orders',
-          element:<Suspense fallback={'loading..'}>
-                <ManageOrders/>
-               </Suspense>
+          path: 'manage_orders',
+          element: (
+            <Suspense fallback={'loading..'}>
+              <ManageOrders />
+            </Suspense>
+          )
         },
         {
-          path:'manage_earnings',
-          element:<Suspense fallback={'loading..'}>
-                <ManageEarnings/>
-               </Suspense>
+          path: 'manage_earnings',
+          element: (
+            <Suspense fallback={'loading..'}>
+              <ManageEarnings />
+            </Suspense>
+          )
         }
       ]
     },
 
     {
+      path: '/manage_gigs/new/:sellerId',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+              <AddGig />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+
+    {
+      path:'/gig/:username/:title/:sellerId/:gigId/view',
+      element:(
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+              <GigView />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+
+    {
+      path: '/categories/:category',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+              <Gigs type='categories' />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },   {
+      path: '/search/gigs',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+            <Gigs type='search' />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+
+    {
       path: '*',
       element: (
-         <Suspense fallback={"loading..."}>
+        <Suspense fallback={'loading...'}>
           <ErrorPage404 />
         </Suspense>
       )

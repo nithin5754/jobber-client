@@ -1,6 +1,7 @@
 import { ChangeEvent, CSSProperties, Dispatch, KeyboardEvent, ReactNode, SetStateAction } from 'react';
 import { IAuthUser, ISignUpPayload } from 'src/features/auth/interfaces/auth.interface';
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
+import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 
 
@@ -12,12 +13,17 @@ export interface IResponse {
   token?:string;
   user?:IAuthUser;
   buyer?:IBuyer;
+  gig?:ISellerGig;
+  gigArray?:ISellerGig[]
+  totalGigLength?:number
   seller?:ISeller,
   sellerArray?:ISeller[],
   browserName?: string;
   deviceType?: string;
 }
-
+export interface IHtmlParserProps {
+  input: string;
+}
 
 export type AuthEndPointsTypes =
  |'REGISTER'
@@ -64,7 +70,7 @@ export interface ITextInputProps {
   onFocus?: () => void;
   onBlur?: () => void;
   onKeyUp?: () => void;
-  onKeyDown?: (event: KeyboardEvent) => void;
+  onKeyDown?: (event: KeyboardEvent) => void
 }
 
 

@@ -1,5 +1,6 @@
 import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
 import { IBuyer } from "src/features/buyer/interfaces/buyer.interfaces";
+import { ICreateGig } from "src/features/gigs/interface/gigi.interface";
 import { ISeller } from "src/features/seller/interfaces/seller.interface";
 
 
@@ -68,4 +69,19 @@ export const emptySellerData:ISeller={
   paypal: '',
   createdAt: ''
 }
+
+
+export const emptyGigData: ICreateGig = {
+  title: '',
+  categories: '',
+  description: '',
+  subCategories: [],
+  tags: [],
+  price: 0,   
+  coverImage: '',
+  expectedDelivery: 'Expected Delivery',
+  basicTitle: '',
+  basicDescription: '',
+  sellerId: ''
+};
 

@@ -13,6 +13,8 @@ import millify from 'millify';
 import { toast } from 'react-toastify';
 import { IOrder } from 'src/features/order/interfaces/order.interface';
 import { filter } from 'lodash';
+import { updateCategoryContainer } from '../header/reducer/category.reducer';
+import { updateHeader } from '../header/reducer/header.reducer';
 
 countries.registerLocale(enLocale);
 
@@ -23,6 +25,20 @@ export const lowerCase = (str: string): string => {
 export const replaceSpacesWithDash = (title: string): string => {
   const lowercaseTitle: string = lowerCase(`${title}`);
   return lowercaseTitle.replace(/\/| /g, '-'); // replace / and space with -
+};
+
+export const replaceDashWithSpaces = (title: string): string => {
+  const lowercaseTitle: string = lowerCase(`${title}`);
+  return lowercaseTitle.replace(/-|\/| /g, ' '); // replace - / and space with -
+};
+
+export const replaceAmpersandWithSpace = (title: string): string => {
+  return title.replace(/&/g, '');
+};
+
+export const replaceAmpersandAndDashWithSpace = (title: string): string => {
+  const titleWithoutDash = replaceDashWithSpaces(title);
+  return titleWithoutDash.replace(/&| /g, ' ');
 };
 
 export const categories = (): string[] => {
@@ -37,7 +53,25 @@ export const categories = (): string[] => {
     'Business'
   ];
 };
-
+export const expectedGigDelivery = (): string[] => {
+  return [
+    '1 Day Delivery',
+    '2 Days Delivery',
+    '3 Days Delivery',
+    '4 Days Delivery',
+    '5 Days Delivery',
+    '6 Days Delivery',
+    '7 Days Delivery',
+    '10 Days Delivery',
+    '14 Days Delivery',
+    '21 Days Delivery',
+    '30 Days Delivery',
+    '45 Days Delivery',
+    '60 Days Delivery',
+    '75 Days Delivery',
+    '90 Days Delivery'
+  ];
+};
 export const countriesList = (): string[] => {
   const countriesObj: LocalizedCountryNames<{ select: 'official' }> = countries.getNames('en', { select: 'official' });
   return Object.values(countriesObj);
@@ -77,6 +111,8 @@ export const applicationLogout = (dispatch: AppDispatch, navigate: NavigateFunct
   dispatch(clearAuthUser(undefined));
   dispatch(emptyBuyer(undefined));
   dispatch(emptySeller(undefined));
+  dispatch(updateCategoryContainer(false))
+  dispatch(updateHeader('index'))
   dispatch(apiSlice.util.resetApiState());
 
   saveToSessionStorage(JSON.stringify(false), JSON.stringify(''));
@@ -174,3 +210,29 @@ export const sellerOrderList = (status: string, orders: IOrder[]): IOrder[] => {
   const orderList: IOrder[] = filter(orders, (order: IOrder) => lowerCase(order.status) === lowerCase(status));
   return orderList;
 };
+
+
+
+export const reactQuilUtils=()=>{
+  const modules={
+    toolbar:[
+      ['bold','italic'],
+      [{list:'ordered'},{list:'bullet'}]
+    ]
+  };
+  const formats:string[]=['bold','italic','list','bullet'];
+
+  return {
+    modules,
+    formats
+  }
+}
+
+
+
+export const extractTextFromHTML = (htmlString:string):string => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, 'text/html');
+  return doc.body.textContent || '';
+};
+

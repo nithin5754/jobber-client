@@ -20,6 +20,7 @@ import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 import { useGetSellerDetails } from 'src/features/seller/reducers/seller.reducer';
 import { updateCategoryContainer } from '../reducer/category.reducer';
 import { updateHeader } from '../reducer/header.reducer';
+import HeaderSearchInput from './HeaderSearchInput';
 
 const HomeHeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const HomeHeaderSettings: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/SettingsDropDown'));
@@ -71,8 +72,8 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
           </Suspense>
         )}
         <div className="m-auto px-6 xl:container md:px-12 lg:px-6">
-          <div className="flex flex-wrap items-center justify-between gap-6 md:gap-0 md:py-3 lg:py-5">
-            <div className="flex w-full gap-x-4 lg:w-6/12">
+          <div className="flex flex-wrap items-center justify-between  gap-6 md:gap-0 md:py-3 lg:py-5">
+            <div className="flex w-full gap-x-4 lg:w-5/12">
               <div className="hidden w-full md:flex">
                 <label htmlFor="hbr" className="peer-checked:hamburger relative z-20 -ml-4 block cursor-pointer p-6 lg:hidden">
                   <Suspense fallback={'loading...'}>
@@ -93,15 +94,22 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                   >
                     Jobber
                   </Link>
-                  {/* <!-- Add HeaderSearchInput component --> */}
+          
                 </div>
               </div>
               {/* <!-- Add MobileHeaderSearchInput component here --> */}
             </div>
-            <div className="navmenu mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-6/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
-              <div className="text-[#74767e] lg:pr-4">
+            <div className="navmenu  mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-7/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+              <div className="text-[#74767e] lg:pr-4 w-full flex-1">
                 <ul className="flex text-base font-medium">
-                  <li className="relative z-50 flex cursor-pointer items-center">
+               <div className="flex w-7/12 ml-[6px]  ">
+               <li className=" z-50 flex cursor-pointer  w-full  ">
+                <HeaderSearchInput/>
+
+                </li>
+               </div>
+               <div className="flex ">
+               <li className="relative z-50 flex cursor-pointer items-center">
                     <Suspense fallback={'loading..'}>
                       <HomeHeaderButton
                         className="relative px-4"
@@ -223,6 +231,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                       </div>
                     </Transition>
                   </li>
+               </div>
                 </ul>
               </div>
             </div>

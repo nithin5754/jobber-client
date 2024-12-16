@@ -16,6 +16,9 @@ import { useGetSellerBySellerIdQuery } from '../../services/seller.service';
 import { useParams } from 'react-router-dom';
 
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
+import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
+import GigsCardDisplay from 'src/shared/gigs/GigCardDisplay';
+import { useGetGigsBySellerIdQuery } from 'src/features/gigs/service/gig.service';
 
 const ProfileHeader: LazyExoticComponent<FC<IProfileHeaderProps>> = lazy(
   () => import('src/features/seller/components/profile/components/ProfileHeader')
@@ -38,7 +41,8 @@ const SellerProfile: FC = (): ReactElement => {
 
 const {sellerId}=useParams()
 
-const {data:sellerData,isLoading}=useGetSellerBySellerIdQuery({sellerId:sellerId as string})
+const {data:sellerData,isLoading}=useGetSellerBySellerIdQuery(sellerId as string)
+const {data:sellerGigData}=useGetGigsBySellerIdQuery(`${sellerId}`)
 
 
 
@@ -66,7 +70,17 @@ const {data:sellerData,isLoading}=useGetSellerBySellerIdQuery({sellerId:sellerId
 
     <div className="flex flex-wrap bg-white p-5 ">
       {type === 'OverView' && <SellerOverview showEditIcons={false} sellerProfile={sellerProfile} />}
-      {type === 'Active Gigs' && <div className="">Seller Active Gigs</div>}
+      {type === 'Active Gigs' &&   <div className="grid gap-x-6 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+
+{
+  sellerGigData?.gigArray&&sellerGigData.gigArray.map((gig:ISellerGig)=>(
+ 
+    <GigsCardDisplay key={gig.id } gig={gig} linkTarget={false} showEditIcon={false}/>
+    
+  
+  ))
+}
+</div>}
       {type === 'Reviews & Ratings' && <div className="">Seller Reviews And Ratings</div>}
     </div>
   </div>
