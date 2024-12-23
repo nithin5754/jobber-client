@@ -123,6 +123,10 @@ export interface IGigCreateCoverImg {
   isCoverPage: File | null
 }
 
+export interface IReduxSellerGig {
+  type: string;
+  payload: boolean;
+}
 
 
 export interface IGigContext {
@@ -130,4 +134,15 @@ export interface IGigContext {
   seller: ISeller;
   isSuccess?: boolean;
   isLoading?: boolean;
+}
+
+
+
+export interface IGigTopProps {
+  gigs: ISellerGig[];
+  title?: string;
+  subTitle?: string;
+  category?: string;
+  width: string;
+  type: string;
 }

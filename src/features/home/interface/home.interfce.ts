@@ -1,3 +1,5 @@
+import { ISellerGig } from "src/features/gigs/interface/gigi.interface";
+import { ISeller } from "src/features/seller/interfaces/seller.interface";
 
 
 
@@ -9,7 +11,7 @@ export interface ISliderState  {
 
 
 export interface IHomeProps {
-  gigs: [];   //ISellerGig[] replace empty array add this one when do seller
+  gigs:ISellerGig[];  
   title: string;
   subTitle?: string;
   category?: string;
@@ -18,7 +20,7 @@ export interface IHomeProps {
 
 
 export interface IFeaturedEdExpertsProps {
-  sellers:[]
+  sellers:ISeller[]
 }
 
 

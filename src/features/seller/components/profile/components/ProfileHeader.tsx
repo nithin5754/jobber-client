@@ -69,7 +69,7 @@ const ProfileHeader: FC<IProfileHeaderProps> = ({ sellerProfile, setSellerProfil
 
 
 
-  console.log("formattedTime",sellerProfile?.createdAt)
+
 
   return (
     <>

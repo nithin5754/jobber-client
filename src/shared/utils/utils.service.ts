@@ -82,14 +82,22 @@ export const saveToSessionStorage = (data: string, username: string): void => {
   window.sessionStorage.setItem('loggedInUserName', username);
 };
 
+
+export const addNewItemSessionStorage=(key: string, data: string): void => {
+
+  
+    window.sessionStorage.setItem(key,data)
+};
+
 export const getDataFromSessionStorage = (key: string) => {
   const data = window.sessionStorage.getItem(key) as string;
+  if(!data||data===undefined){
+    return ''
+  }
   return JSON.parse(data);
 };
 
-// export const saveToLocalStorage = (key: string, p0: boolean, data: string): void => {
-//   window.localStorage.setItem(key, data);
-// };
+
 
 export const saveToLocalStorage = (key: string, data: string): void => {
   window.localStorage.setItem(key, data);
@@ -102,6 +110,7 @@ export const getDataFromLocalStorage = (key: string) => {
 
 export const deleteFromLocalStorage = (key: string): void => {
   window.localStorage.removeItem(key);
+ 
 };
 
 export const applicationLogout = (dispatch: AppDispatch, navigate: NavigateFunction): void => {

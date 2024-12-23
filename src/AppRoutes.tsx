@@ -2,10 +2,11 @@ import { FC, lazy, LazyExoticComponent, ReactNode, Suspense } from 'react';
 
 import { useRoutes, RouteObject } from 'react-router-dom';
 import ResetPasswordModal from 'src/features/auth/components/ResetPassword';
-// import Categories from 'src/features/categories/Categories';
+
 import ProtectedRoutes from 'src/features/ProtectedRoutes';
 import GigView from './features/gigs/components/view/GigView';
 import Gigs from './features/gigs/components/gigs/Gigs';
+
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
@@ -14,6 +15,7 @@ const VerifyEmail: LazyExoticComponent<FC> = lazy(() => import('src/features/aut
 
 const ErrorPage404: LazyExoticComponent<FC> = lazy(() => import('src/shared/error/Error'));
 
+const Chat: LazyExoticComponent<FC> = lazy(() => import('src/features/chat/components/Chat'));
 const BuyerDashBoard: LazyExoticComponent<FC> = lazy(() => import('src/features/buyer/components/Dashboard'));
 
 const AddSeller: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/add/AddSeller'));
@@ -26,7 +28,7 @@ const SellerDashBoard: LazyExoticComponent<FC> = lazy(() => import('src/features
 const ManageOrders: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/dashboard/ManageOrders'));
 const ManageEarnings: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/dashboard/ManageEarnings'));
 const AddGig: LazyExoticComponent<FC> = lazy(() => import('src/features/gigs/components/gig/AddGig'));
-
+const EditGigs: LazyExoticComponent<FC> = lazy(() => import('src/features/gigs/components/gig/EditGigs'));
 const Layout = ({ backgroundColor = '#ffffff', children }: { backgroundColor: string; children: ReactNode }): JSX.Element => {
   return (
     <div style={{ backgroundColor: backgroundColor }} className="flex flex-grow">
@@ -75,18 +77,6 @@ const AppRouter: FC = () => {
         </Suspense>
       )
     },
-
-    // {
-    //   path: 'categories/:index',
-    //   element: (
-    //      <Suspense fallback={"loading..."}>
-    //       <ProtectedRoutes>
-    //       <Categories />
-
-    //       </ProtectedRoutes>
-    //     </Suspense>
-    //   )
-    // },
     {
       path: 'users/:username/:buyerId/orders',
       element: (
@@ -188,10 +178,22 @@ const AppRouter: FC = () => {
         </ProtectedRoutes>
       )
     },
+    {
+      path: '/manage_gigs/edit/:gigId',
+      element: (
+        <Suspense>
+          <ProtectedRoutes>
+            <Layout backgroundColor={'#e0e0e0f'}>
+              <EditGigs />
+            </Layout>
+          </ProtectedRoutes>
+        </Suspense>
+      )
+    },
 
     {
-      path:'/gig/:username/:title/:sellerId/:gigId/view',
-      element:(
+      path: '/gig/:username/:title/:sellerId/:gigId/view',
+      element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
             <Suspense fallback={'loading...'}>
@@ -208,18 +210,46 @@ const AppRouter: FC = () => {
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
             <Suspense fallback={'loading...'}>
-              <Gigs type='categories' />
+              <Gigs type="categories" />
             </Suspense>
           </Layout>
         </ProtectedRoutes>
       )
-    },   {
+    },
+    {
       path: '/search/gigs',
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
             <Suspense fallback={'loading...'}>
-            <Gigs type='search' />
+              <Gigs type="search" />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+
+    {
+      path: '/inbox',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+              <Chat />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+
+    
+    {
+      path: '/inbox/:username/:conversationId',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+              <Chat />
             </Suspense>
           </Layout>
         </ProtectedRoutes>

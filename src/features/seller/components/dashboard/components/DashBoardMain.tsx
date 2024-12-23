@@ -1,7 +1,7 @@
 import { FaMapMarkerAlt, FaUserAlt, FaRegClock } from 'react-icons/fa';
 import StarRating from 'src/shared/rating/StarRating';
 import StickyBox from 'react-sticky-box';
-import { FC, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 'react';
+import { FC, Fragment, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { SellerContextType } from 'src/features/seller/interfaces/seller.interface';
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
@@ -9,7 +9,8 @@ import { filter } from 'lodash';
 import { CLOUDINARY_PICTURE_URL } from 'src/shared/utils/constant.api';
 import { rating, sellerOrderList } from 'src/shared/utils/utils.service';
 import { TimeAgo } from 'src/shared/utils/date.utils';
-import { IActiveOrderProps, IOrder } from 'src/features/order/interfaces/order.interface';
+import { IActiveOrderProps} from 'src/features/order/interfaces/order.interface';
+import GigCardItem from 'src/shared/gigs/GigCardItem';
 
 const ActiveOrders: LazyExoticComponent<FC<IActiveOrderProps>> = lazy(
   () => import('src/features/seller/components/dashboard/components/ActiveOrders')
@@ -21,7 +22,7 @@ const DashBoardMain: FC = (): ReactElement => {
 
   const activeGigs: ISellerGig[] = filter(gigs, (gig: ISellerGig) => gig.active === true);
 
-  // const activeOrders:IOrder[]=filter(orders,(order:IOrder)=>order.status==='')
+  // const activeOrders:IOrder[]=filter(orders,(order:IOrder)=>order.status===true)
 
   return (
     <div className="flex flex-wrap gap-x-4">
@@ -115,8 +116,24 @@ const DashBoardMain: FC = (): ReactElement => {
           </ul>
         </div>
         <div className="my-3">
-          {type === 'active' && <div className="grid gap-x-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>}
-          {type === 'paused' && <div className="grid gap-x-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>}
+          {type === 'active' && <div className="grid gap-x-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {
+              activeGigs.map((gig:ISellerGig)=>(
+                <Fragment key={gig.id}>
+                  <GigCardItem gig={gig}/>
+                </Fragment>
+              ))
+            }
+            </div>}
+            {type === 'paused' ? <div className="grid gap-x-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {
+              pausedGigs?.map((gig:ISellerGig)=>(
+                <Fragment key={gig.id}>
+                  <GigCardItem gig={gig}/>
+                </Fragment>
+              ))
+            }
+            </div>:<></>}
           {type === 'orders' && (
             <Suspense fallback={'loading ...'}>
               <ActiveOrders activeOrders={sellerOrderList('in progress', orders)} />

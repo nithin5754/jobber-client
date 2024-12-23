@@ -88,7 +88,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                     to="/"
                     onClick={() => {
                       dispatch(updateHeader('home'));
-                      dispatch(updateCategoryContainer(false));
+                      dispatch(updateCategoryContainer(true));
                     }}
                     className="relative z-10 flex cursor-pointer justify-center self-center text-2xl font-semibold text-black lg:text-3xl"
                   >

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 
 import {  CiSquareMore } from "react-icons/ci"
   import { IStartRatingProps } from "src/shared/shared.interface"
-import { useGetRandomSellersQuery } from "src/features/seller/services/seller.service"
+
 import { ISeller } from "src/features/seller/interfaces/seller.interface"
 import { CLOUDINARY_PICTURE_URL } from "src/shared/utils/constant.api"
 import { rating } from "src/shared/utils/utils.service"
@@ -15,8 +15,8 @@ import { rating } from "src/shared/utils/utils.service"
 const StarRating:LazyExoticComponent<FC<IStartRatingProps>>=lazy(()=>import("src/shared/rating/StarRating"))
 
 
-const HomeFeaturedEdExperts:FC<IFeaturedEdExpertsProps> = ():ReactElement => {
-const {data:getRandomSellers}=useGetRandomSellersQuery('10')
+const HomeFeaturedEdExperts:FC<IFeaturedEdExpertsProps> = ({sellers}):ReactElement => {
+
 
 
   return (
@@ -28,7 +28,7 @@ const {data:getRandomSellers}=useGetRandomSellersQuery('10')
     </div>
     <div className="mt-6">
         <div className="grid gap-8 pt-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {getRandomSellers?.sellerArray&&getRandomSellers.sellerArray.map((seller:ISeller) => {
+            {sellers&&sellers.map((seller:ISeller) => {
                 return (
                     <div key={seller.id} className="relative w-full rounded-lg border border-grey bg-white shadow">
                     <div className="absolute top-0 right-5 mt-4 flex space-x-3 md:mt-6">

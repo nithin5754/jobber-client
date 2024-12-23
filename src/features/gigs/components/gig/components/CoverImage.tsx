@@ -10,7 +10,7 @@ const CoverImageInput: LazyExoticComponent<ForwardRefExoticComponent<Omit<ITextI
 
 const CoverImage:FC<IGigCreateCoverImg> = ({setGig,gig,isCoverPage,setIsCoverPage}):ReactElement => {
 
-  const [coverPic,setCoverPic]=useState<string>('')
+  const [coverPic,setCoverPic]=useState<string>(gig.coverImage??'')
 
   const fileRef=useRef<HTMLInputElement|null>(null)
 

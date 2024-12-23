@@ -32,8 +32,13 @@ const SettingsDropDown: FC<IHomeHeaderProps> = ({ seller, buyer, type, authUser,
               if (setIsDropdownOpen) {
                 setIsDropdownOpen(false);
               }
-              dispatch(updateHeader('sellerDashboard'));
-              dispatch(updateCategoryContainer(true));
+           if(type==='buyer'){
+            dispatch(updateHeader('sellerDashboard'));
+            dispatch(updateCategoryContainer(true));
+           }else{
+            dispatch(updateHeader('home'));
+            dispatch(updateCategoryContainer(true));
+           }
             }}
           >
             {type === 'buyer' ? 'Switch to Selling' : 'Switch to Buying'}

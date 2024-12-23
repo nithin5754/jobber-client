@@ -1,6 +1,6 @@
 import { FC, ReactElement } from 'react';
 import { FaPencilAlt, FaRegStar, FaStar } from 'react-icons/fa';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
 import { IGigCardItems } from 'src/features/gigs/interface/gigi.interface';
 import { CLOUDINARY_PICTURE_URL } from '../utils/constant.api';
@@ -22,23 +22,19 @@ const GigsCardDisplay: FC<IGigCardItems> = ({ gig, linkTarget, showEditIcon }): 
     <div className="rounded">
       <div className="mb-8 flex cursor-pointer flex-col gap-2">
         <Link to={`/gig/${lowerCase(`${gig.username}` )}/${title}/${gig.sellerId}/${gig.id}/view`}>
-          <LazyLoadImage
+          <img
             src={gig.coverImage}
             alt="Gig cover image"
             className="w-80 h-60 object-cover rounded-lg"
-            wrapperClassName="bg-center"
-            placeholderSrc="https://placehold.co/330x220?text=Profile+Image"
-            effect="opacity"
+
           />
         </Link>
         <div className="flex items-center gap-2 relative">
-          <LazyLoadImage
+          <img
             src={CLOUDINARY_PICTURE_URL(`${gig.profilePicture}`)}
             alt="Profile image"
             className="h-7 w-8 rounded-full object-cover"
-            wrapperClassName="bg-center"
-            placeholderSrc="https://placehold.co/330x220?text=Profile+Image"
-            effect="opacity"
+        
           />
           <span className="bottom-0 left-5 absolute w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></span>
           <div className="flex w-full justify-between">

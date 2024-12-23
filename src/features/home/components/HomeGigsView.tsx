@@ -28,7 +28,7 @@ const HomeGigsView:FC<IHomeProps> = ({gigs,title,category,subTitle}):ReactElemen
     <div
         className="flex w-full flex-nowrap items-center justify-center overflow-x-hidden px-6 md:overflow-x-auto lg:overflow-x-hidden">
         <div
-            className="grid justify-center gap-x-8 pt-3 sm:h-full sm:w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            className="grid justify-center gap-x-8 pt-3 sm:h-full sm:w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
             {gigs.map((gig:ISellerGig) => (
                 
              <GigsCardDisplay gig={gig} linkTarget={false} showEditIcon={false}/>

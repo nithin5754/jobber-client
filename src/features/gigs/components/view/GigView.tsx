@@ -1,9 +1,9 @@
 import StickyBox from "react-sticky-box"
 import StarRating from "src/shared/rating/StarRating"
-import { useGetGigByIdQuery } from "../../service/gig.service";
+import { useGetGigByIdQuery, useGetMoreGigsLikeThisQuery } from "../../service/gig.service";
 import { useParams } from "react-router-dom";
 import {  useGetSellerBySellerIdQuery } from "src/features/seller/services/seller.service";
-import { FC, ReactElement, useRef } from "react";
+import { FC, ReactElement, useEffect, useRef } from "react";
 import { ISellerGig } from "../../interface/gigi.interface";
 
 import { ISeller } from "src/features/seller/interfaces/seller.interface";
@@ -14,20 +14,31 @@ import CircularPageLoader from "src/shared/page-loader/CircularPageLoader";
 import { GigContext } from "../../context/gig.context";
 import GigVewRight from "./components/GigVewRight";
 import GigViewLeft from "./components/GigViewLeft";
-
+import TopGigViews from "src/shared/gigs/TopGigViews";
+import { useAppDispatch } from "src/store/store";
 
 
 const GigView:FC = ():ReactElement => {
   const {gigId,sellerId}=useParams()
+  const dispatch=useAppDispatch()
   const { data: gigData, isSuccess: isGigDataSuccess, isLoading: isGigLoading } = useGetGigByIdQuery(`${gigId}`);
 
   const { data: sellerData, isSuccess: isSellerDataSuccess, isLoading: isSellerLoading } = useGetSellerBySellerIdQuery(sellerId as string);
 
-  const isLoading=isGigLoading&&isSellerLoading
+  
+  const {data:moreLikeData,isSuccess:isMoreGigsSuccess}=useGetMoreGigsLikeThisQuery(`${gigId}`)  
 
+
+
+  
+  
+  const isLoading=isGigLoading&&isSellerLoading
+  
   const gig=useRef<ISellerGig>(emptyGigData)
   const seller=useRef<ISeller>(emptySellerData)
+  const moreGigs = useRef<ISellerGig[]>([]);
 
+  
   if(isGigDataSuccess){
     gig.current=gigData.gig as ISellerGig
   }
@@ -36,6 +47,9 @@ const GigView:FC = ():ReactElement => {
     seller.current=sellerData?.seller as ISeller
   }
 
+  if (isMoreGigsSuccess) {
+    moreGigs.current = moreLikeData.gigArray as ISellerGig[];
+  }
 
   return (
  <>
@@ -86,7 +100,7 @@ const GigView:FC = ():ReactElement => {
         </div>
      </GigContext.Provider>
         <div className="m-auto px-6 xl:container md:px-12 lg:px-6">
-            {/* <!-- TopGigsView --> */}
+        <TopGigViews gigs={moreGigs.current} title="Recommended for you" subTitle="" width="w-60" type="home"  />
         </div>
     </main>
       )

@@ -132,3 +132,9 @@ export interface IBreadCrumbProps {
   breadCrumbItems: string[];
 }
 
+
+export interface IGigCardItemModal {
+  overlay: boolean;
+  deleteApproval: boolean;
+}
+

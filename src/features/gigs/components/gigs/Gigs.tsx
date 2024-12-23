@@ -1,9 +1,9 @@
-import { FC, Fragment, lazy, LazyExoticComponent, ReactElement, SetStateAction, Suspense, useEffect, useMemo, useState } from 'react';
+import { FC, Fragment, lazy, LazyExoticComponent, ReactElement, Suspense, useEffect,  useState } from 'react';
 import { IGigCardItems, IGigsProps, ISellerGig } from '../../interface/gigi.interface';
 import BudgetDropDown from './components/BudgetDropDown';
 import DeliveryTime from './components/DeviveryTime';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { lowerCase, replaceAmpersandAndDashWithSpace, replaceDashWithSpaces } from 'src/shared/utils/utils.service';
+import { addNewItemSessionStorage,lowerCase, replaceDashWithSpaces } from 'src/shared/utils/utils.service';
 import { useSearchGigsQuery } from '../../service/search.service';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import LottieAnimation from 'src/shared/lottie/components/LootieAnimation';
@@ -21,7 +21,9 @@ const Gigs: FC<IGigsProps> = ({ type }): ReactElement => {
   const [currentPage, setCurrentPage] = useState<string>('1')
 
   
-  
+if(category){
+  addNewItemSessionStorage('category',JSON.stringify(category))
+}
   
   
   const updatedSearchParams: URLSearchParams = new URLSearchParams(searchParams);
@@ -29,15 +31,15 @@ const Gigs: FC<IGigsProps> = ({ type }): ReactElement => {
   const queryType: string =
     type === 'search'
     ? replaceDashWithSpaces(`${updatedSearchParams.toString()}`)
-    : `query=${replaceAmpersandAndDashWithSpace(`${lowerCase(`${category}`)}`)}&${updatedSearchParams.toString()}`;
+    : `query=${replaceDashWithSpaces(`${lowerCase(`${category}`)}`)}`;
     
-    const { data, isSuccess, isLoading, isError } = useSearchGigsQuery({
+    const { data, isSuccess, isLoading, isError ,isFetching:searchFetching} = useSearchGigsQuery({
       query: `${queryType}`,
       
       page: `${currentPage}`
   });
 
-  
+  console.log("queryType",queryType)
   useEffect(()=>{
 
     if(data?.gigArray&&data.gigArray.length<1||isError){
@@ -48,8 +50,7 @@ const Gigs: FC<IGigsProps> = ({ type }): ReactElement => {
 
   },[data?.gigArray])
 
-  const isLoadingGigData:boolean=isLoading&&!isSuccess
-
+  const isLoadingGigData:boolean=isLoading||!isSuccess
 
   return (
     <div className="container mx-auto items-center p-5">
@@ -63,8 +64,11 @@ const Gigs: FC<IGigsProps> = ({ type }): ReactElement => {
         <DeliveryTime />
       </div>
     {
-      isLoadingGigData?(
-        <CircularPageLoader/>
+      isLoadingGigData||searchFetching?(
+        <div className="flex justify-center m-auto h-[80%]">
+          <CircularPageLoader/>
+
+        </div>
       ):(  <div className="my-5">
         {!data?.gigArray || data?.gigArray?.length < 1 ? (
           <div className="flex justify-center m-auto">
@@ -90,22 +94,16 @@ const Gigs: FC<IGigsProps> = ({ type }): ReactElement => {
         )}
       </div>)
     }
-{
-  isLoading?(<>
-  <h1>hello</h1>
-  
-  </>):(
-    
-    <GigPaginate
+
+
+<GigPaginate
     setCurrentPage={setCurrentPage}
     totalSearchGig={data?.totalGigLength ? data.totalGigLength : 0}
     itemPerPage={ITEM_PER_PAGE}
     gigArray={data?.gigArray??[]}
     currentPage={currentPage}
   />
-  )
-}
-      {/* <!-- GigPaginate --> */}
+
     </div>
   );
 };

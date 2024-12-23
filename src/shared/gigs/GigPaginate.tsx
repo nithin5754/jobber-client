@@ -1,6 +1,7 @@
-import { Dispatch, FC, ReactElement, SetStateAction } from 'react';
+import { Dispatch, FC, Fragment, ReactElement, SetStateAction } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
+
 
 const GigPaginate: FC<{
   setCurrentPage: Dispatch<SetStateAction<string>>;
@@ -17,8 +18,10 @@ const GigPaginate: FC<{
     }
   };
 
+  const indexArray: number[] = Array.from({ length: totalPages }, (_, index) => index + 1);
+
   return (
-    <div className="flex w-full justify-center">
+    <div className="flex w-full justify-center ">
       {gigArray.length > 0 && totalPages > 1 && (
         <ul className="flex items-center gap-4">
           <li>
@@ -32,18 +35,54 @@ const GigPaginate: FC<{
             </button>
           </li>
 
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-            <li key={page}>
-              <button
-                className={`px-4 py-2 rounded ${parseInt(currentPage, 10) === page ? 'bg-black text-white' : 'hover:bg-gray-200'}`}
-                onClick={() => handlePageChange(page)}
-              >
-                {page}
-              </button>
-            </li>
+      <>
+      
+      {indexArray.map((page,index) => (
+            <Fragment key={index}>
+              {page < 12 ? (
+                <li >
+                  <button
+                    className={`px-4 py-2 rounded ${parseInt(currentPage, 10) === page ? 'bg-black text-white' : 'hover:bg-gray-200'}`}
+                    onClick={() => handlePageChange(page)}
+                  >
+                    {page}
+                  </button>
+                </li>
+              ) : (
+                <>
+                  {page === parseInt(currentPage, 10) && page !== indexArray.length && page >= 12 && (
+                    <li  >
+                      <button
+                        className={`px-4 py-2 rounded ${parseInt(currentPage, 10) === page ? 'bg-black text-white' : 'hover:bg-gray-200'}`}
+                        onClick={() => handlePageChange(page)}
+                      >
+                        {page}
+                      </button>
+                    </li>
+                  )}
+                </>
+              )}
+            </Fragment>
           ))}
 
-          <li>
+      </>
+     <>
+     
+     {indexArray.length > 15 && (
+            <li >
+              <button
+                className={`px-4 py-2 rounded ${parseInt(currentPage, 10) === indexArray.length ? 'bg-black text-white' : 'hover:bg-gray-200'}`}
+                onClick={() => handlePageChange(indexArray.length)}
+              >
+                {indexArray.length}
+              </button>
+            </li>
+          )}
+     </>
+
+       <>
+       
+       <li>
             <button
               className={`p-2 rounded-full border ${parseInt(currentPage, 10) === totalPages ? 'opacity-50 cursor-not-allowed' : 'hover:border-customPurple'}`}
               onClick={() => handlePageChange(parseInt(currentPage, 10) + 1)}
@@ -53,6 +92,7 @@ const GigPaginate: FC<{
               <FaArrowRight />
             </button>
           </li>
+       </>
         </ul>
       )}
     </div>
