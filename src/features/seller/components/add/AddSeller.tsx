@@ -19,11 +19,11 @@ import {
 } from 'src/features/seller/interfaces/seller.interface';
 
 import { IBreadCrumbProps, IButtonProps, IResponse } from 'src/shared/shared.interface';
-import { v4 as uuidV4 } from 'uuid';
+
 import { useSellerSchema } from '../../hooks/useSellerSchema.Validation';
 import { filter } from 'lodash';
 import { useCreateSellerMutation } from '../../services/seller.service';
-import { NavigateFunction, useNavigate, useNavigation } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
 
 import { addBuyer, useGetBuyerDetails } from 'src/features/buyer/reducer/buyer.reducer';

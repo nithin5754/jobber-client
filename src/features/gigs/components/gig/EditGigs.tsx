@@ -8,7 +8,7 @@ import { IButtonProps, IResponse } from 'src/shared/shared.interface';
 import { useAppSelector } from 'src/store/store';
 import { ICreateGig, ISellerGig, IShowGigModal } from '../../interface/gigi.interface';
 
-import { extractTextFromHTML, lowerCase, replaceSpacesWithDash, showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
+import { lowerCase, replaceSpacesWithDash, showErrorToast, showSuccessToast } from 'src/shared/utils/utils.service';
 import equal from 'react-fast-compare';
 import { useUpdateGigMutation } from '../../service/gig.service';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';

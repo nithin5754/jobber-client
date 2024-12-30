@@ -1,6 +1,6 @@
 import { LazyExoticComponent, FC, lazy, ForwardRefExoticComponent, ReactElement, ChangeEvent } from 'react';
 import { ILanguage, ILanguageProps } from 'src/features/seller/interfaces/seller.interface';
-import { v4 as uuidV4 } from 'uuid';
+
 import { IButtonProps, IDropdownProps, ITextInputProps } from 'src/shared/shared.interface';
 import { languageLevel } from 'src/shared/utils/utils.service';
 

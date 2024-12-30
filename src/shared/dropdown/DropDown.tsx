@@ -1,15 +1,4 @@
-import {
-  ChangeEvent,
-  FC,
-  ForwardRefExoticComponent,
-  lazy,
-  LazyExoticComponent,
-  MouseEvent,
-  ReactElement,
-  Suspense,
-  useRef,
-  useState
-} from 'react';
+import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, MouseEvent, ReactElement, Suspense, useState } from 'react';
 import { IButtonProps, IDropdownProps, ITextInputProps } from '../shared.interface';
 import { FaChevronDown, FaChevronUp, FaTimes } from 'react-icons/fa';
 import { filter } from 'lodash';
@@ -33,7 +22,6 @@ const DropDown: FC<IDropdownProps> = ({
   const [dropdownItem, setDropItems] = useState<string[]>(values);
   const [inputText, setInputText] = useState<string>();
 
-  const dropDownRef = useRef<HTMLDivElement | null>(null);
   const [toggleDropDown, setToggleDropDown] = useState<boolean>(false);
 
   const onHandleSelect = (event: MouseEvent): void => {
@@ -43,7 +31,7 @@ const DropDown: FC<IDropdownProps> = ({
     }
     setInputText(selectedItem);
     setDropItems(values);
-    setToggleDropDown(false)
+    setToggleDropDown(false);
     if (onClick) {
       onClick(selectedItem);
     }
@@ -69,30 +57,29 @@ const DropDown: FC<IDropdownProps> = ({
         </Suspense>
       )}
       <div className="flex  w-full">
-    
-      {showSearchInput && toggleDropDown && (
-        <div className="flex justify-between w-full">
-          <DropDownTextInput
-            type="text"
-            name="search"
-            value={inputText}
-            className="h-10 w-full items-center rounded pl-3 text-sm font-normal text-gray-600 focus:outline-none lg:text-base"
-            placeholder="Search..."
-            onChange={(event: ChangeEvent) => {
-              const inputValue: string = (event.target as HTMLInputElement).value;
-              setInputText(inputValue);
-              const filtered: string[] = filter(dropdownItem, (item: string) => item.toLowerCase().includes(inputValue.toLowerCase()));
-              setDropItems(filtered);
-              if (!inputValue) {
-                setDropItems(values);
-              }
-            }}
-          />
-          <div className="flex self-center " onClick={() => setToggleDropDown(!toggleDropDown)}>
-            <FaTimes className="mx-3 h-4 fill-current text-slate-900" />
+        {showSearchInput && toggleDropDown && (
+          <div className="flex justify-between w-full">
+            <DropDownTextInput
+              type="text"
+              name="search"
+              value={inputText}
+              className="h-10 w-full items-center rounded pl-3 text-sm font-normal text-gray-600 focus:outline-none lg:text-base"
+              placeholder="Search..."
+              onChange={(event: ChangeEvent) => {
+                const inputValue: string = (event.target as HTMLInputElement).value;
+                setInputText(inputValue);
+                const filtered: string[] = filter(dropdownItem, (item: string) => item.toLowerCase().includes(inputValue.toLowerCase()));
+                setDropItems(filtered);
+                if (!inputValue) {
+                  setDropItems(values);
+                }
+              }}
+            />
+            <div className="flex self-center " onClick={() => setToggleDropDown(!toggleDropDown)}>
+              <FaTimes className="mx-3 h-4 fill-current text-slate-900" />
+            </div>
           </div>
-        </div>
-      )}
+        )}
       </div>
 
       {toggleDropDown && (

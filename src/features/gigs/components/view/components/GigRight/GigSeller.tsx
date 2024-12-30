@@ -1,8 +1,12 @@
 import { FC, lazy, LazyExoticComponent, ReactElement, useContext, useState } from "react"
 import { FaArrowRight } from "react-icons/fa";
-import { Link, NavigateFunction, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
 import { useAuthDetails } from "src/features/auth/reducers/auth.reducer";
+import { IBuyer } from "src/features/buyer/interfaces/buyer.interfaces";
+import { useGetBuyerDetails } from "src/features/buyer/reducer/buyer.reducer";
+import ChatBox from "src/features/chat/components/chatBox/ChatBox";
+import { IChatBuyerProps, IChatSellerProps } from "src/features/chat/interface/chat.interface";
 import { GigContext } from "src/features/gigs/context/gig.context";
 import { ILanguage } from "src/features/seller/interfaces/seller.interface";
 import ApprovalModal from "src/shared/modal/ApprovalModal";
@@ -21,10 +25,30 @@ const GigPSellerButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => impor
 const GigSeller:FC = ():ReactElement => {
   const authUser:IAuthUser=useAppSelector(useAuthDetails)
   const {gig,seller}=useContext(GigContext)
+
+  const buyer:IBuyer=useAppSelector(useGetBuyerDetails)
   
   const [approvalModalContent, setApprovalModalContent] = useState<IApprovalModalContent>();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [showChatBox, setShowChatBox] = useState<boolean>(false);
+
+  const chatSeller:IChatSellerProps={
+    id: `${seller.id}`,
+    username: `${seller.username}`,
+    profilePicture:CLOUDINARY_PICTURE_URL(`${seller.profilePicture}`),
+    responseTime: parseInt(`${seller.responseTime}`)
+  }
+
+
+  const chatBuyer:IChatBuyerProps={
+    id: `${buyer.id}`,
+    username:`${buyer.username}`,
+    profilePicture: CLOUDINARY_PICTURE_URL(`${buyer.profilePicture}`)
+  }
+
+  const onclose=()=>{
+    setShowChatBox(false)
+  }
   
   return (
 
@@ -96,7 +120,7 @@ const GigSeller:FC = ():ReactElement => {
         </div>
         <hr className="border-grey my-2" />
         <div className="ml-15 mb-2 flex w-full py-1">
-            <GigPSellerButton          disabled={authUser.username === gig.username}
+            <GigPSellerButton        disabled={authUser.username === gig.username}
                  className={`${authUser.username===gig.username ?'text-md flex w-full  justify-between rounded bg-gray-500/30 px-8 py-2 font-bold cursor-none pointer-events-none text-white focus:outline-none':'text-md flex w-full cursor-pointer justify-between rounded bg-customPurple hover:bg-customViolet px-8 py-2 font-bold text-white focus:outline-none'}`}
                  label={ <>
                  <span className="w-full">Contact</span>
@@ -121,7 +145,9 @@ const GigSeller:FC = ():ReactElement => {
                 />
         </div>
     </div>
-    {/* <!-- ChatBox --> */}
+   {
+    showChatBox? <ChatBox seller={chatSeller} buyer={chatBuyer} gigId={`${gig.id}`} onClose={onclose}/>:<></>
+   }
 </div>
     </>
  

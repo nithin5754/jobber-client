@@ -14,6 +14,7 @@ import { useGetSellerByIdQuery } from './seller/services/seller.service';
 import { addSeller } from './seller/reducers/seller.reducer';
 import { useIsCategoryContainerOpen } from 'src/shared/header/reducer/category.reducer';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
+import { socket } from 'src/sockets/socket.service';
 
 const Index: LazyExoticComponent<FC> = lazy(() => import('./index/Index'));
 const Home: LazyExoticComponent<FC> = lazy(() => import('./home/components/Home'));
@@ -32,7 +33,6 @@ const AppPage: FC = (): ReactElement => {
   const {data:currentSellers,isLoading:isSellerLoading}=useGetSellerByIdQuery(undefined, { skip: authUser.id === null })
 
 
-  console.log(currentSellers,"sellers")
 
 
   const dispatch = useAppDispatch();
@@ -48,6 +48,11 @@ const AppPage: FC = (): ReactElement => {
 
         const becomeASeller:boolean=getDataFromLocalStorage('becomeASeller')
 
+        if(authUser&&authUser.username){
+            socket.emit('loggedInUsers', authUser.id);
+          
+        }
+
         if(becomeASeller){
           navigate('/seller_onboarding')
         }
@@ -55,11 +60,12 @@ const AppPage: FC = (): ReactElement => {
     } catch (error) {
       console.log(error);
     }
-  }, [currentUserDetails,navigate, dispatch, userLogOut, authUser?.username,currentSellers,BuyerData]);
+  }, [socket,currentUserDetails,navigate, dispatch, userLogOut, authUser?.username,currentSellers,BuyerData]);
 
   const logoutUser = useCallback(() => {
     if ((!currentUserDetails && userLogOut) || isError) {
       setTokenIsValid(false);
+      socket.emit('removeLoggedInUser',`${authUser.id}`)
       applicationLogout(dispatch, navigate);
       dispatch(clearAuthUser(undefined));
     }
@@ -70,7 +76,24 @@ const AppPage: FC = (): ReactElement => {
     logoutUser();
   }, [checkUser]);
 
+
+  useEffect(()=>{
+    if(socket){
+      socket.on('online', (user:string[]) => {
+        try {
+         console.log("user online",user)
+         
+        } catch (err) {
+            console.error('Error in :', err)
+        }
+    })
+  }
+  },[socket,authUser.username])
+
   if (authUser) {
+
+    
+  
     return (
       <>
         {!tokenIsValid && !authUser.id ? (

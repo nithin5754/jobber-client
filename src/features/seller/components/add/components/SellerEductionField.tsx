@@ -9,7 +9,7 @@ const SellerTextInput: LazyExoticComponent<
   ForwardRefExoticComponent<Omit<ITextInputProps, 'ref'> & React.RefAttributes<HTMLInputElement>>
 > = lazy(() => import('src/shared/inputs/TextInput'));
 
-import { v4 as uuidV4 } from 'uuid';
+
 
 const SellerEductionField: FC<IEducationProps> = ({ educationFields, setEducationFields }): ReactElement => {
   const handleEducationChange = useCallback(

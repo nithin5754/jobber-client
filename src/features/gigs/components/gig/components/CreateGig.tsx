@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, useRef, useState } from 'react';
+import { ChangeEvent, Dispatch, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, useState } from 'react';
 import { IQuilDescription, GIG_MAX_LENGTH, IAllowedGigItem, ICreateGig } from 'src/features/gigs/interface/gigi.interface';
 import { ITextInputProps, IDropdownProps } from 'src/shared/shared.interface';
 import { categories, expectedGigDelivery } from 'src/shared/utils/utils.service';

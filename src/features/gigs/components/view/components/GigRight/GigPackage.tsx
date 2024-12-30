@@ -15,7 +15,7 @@ const GigPackageButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => impor
 
 const GigPackage = () => {
   const authUser:IAuthUser=useAppSelector(useAuthDetails)
-const {gig,seller}=useContext(GigContext)
+const {gig}=useContext(GigContext)
 
 const [approvalModalContent, setApprovalModalContent] = useState<IApprovalModalContent>();
 const [showModal, setShowModal] = useState<boolean>(false);

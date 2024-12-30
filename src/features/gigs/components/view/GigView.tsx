@@ -3,7 +3,7 @@ import StarRating from "src/shared/rating/StarRating"
 import { useGetGigByIdQuery, useGetMoreGigsLikeThisQuery } from "../../service/gig.service";
 import { useParams } from "react-router-dom";
 import {  useGetSellerBySellerIdQuery } from "src/features/seller/services/seller.service";
-import { FC, ReactElement, useEffect, useRef } from "react";
+import { FC, ReactElement,  useRef } from "react";
 import { ISellerGig } from "../../interface/gigi.interface";
 
 import { ISeller } from "src/features/seller/interfaces/seller.interface";
@@ -15,12 +15,12 @@ import { GigContext } from "../../context/gig.context";
 import GigVewRight from "./components/GigVewRight";
 import GigViewLeft from "./components/GigViewLeft";
 import TopGigViews from "src/shared/gigs/TopGigViews";
-import { useAppDispatch } from "src/store/store";
+
 
 
 const GigView:FC = ():ReactElement => {
   const {gigId,sellerId}=useParams()
-  const dispatch=useAppDispatch()
+
   const { data: gigData, isSuccess: isGigDataSuccess, isLoading: isGigLoading } = useGetGigByIdQuery(`${gigId}`);
 
   const { data: sellerData, isSuccess: isSellerDataSuccess, isLoading: isSellerLoading } = useGetSellerBySellerIdQuery(sellerId as string);

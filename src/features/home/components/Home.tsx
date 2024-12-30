@@ -5,9 +5,7 @@ import SliderShimmer from "src/shared/shimmer-ui/sliderShimmer"
 import { IFeaturedEdExpertsProps, IHomeProps } from "../interface/home.interfce"
 import ShimmerGigsViews from "src/shared/shimmer-ui/ShimmerGigsViews"
 import ShimmerFeaturesEdExperts from "src/shared/shimmer-ui/ShimmerFeaturesEdExperts"
-import {  useAppSelector } from "src/store/store"
 
-import { useAuthDetails } from "src/features/auth/reducers/auth.reducer"
 import { useGetRandomSellersQuery } from "src/features/seller/services/seller.service"
 import { ISeller } from "src/features/seller/interfaces/seller.interface"
 import { useGetGigsByCategoryQuery } from "src/features/gigs/service/gig.service"
@@ -27,7 +25,6 @@ const HomeFeaturedEdExperts:LazyExoticComponent<FC<IFeaturedEdExpertsProps>>=laz
 
 const Home:FC = ():ReactElement => {
 
-   const authUser=useAppSelector(useAuthDetails)
 
    let category=getDataFromSessionStorage('category')
 
@@ -45,7 +42,7 @@ const Home:FC = ():ReactElement => {
    if(randomSellersSuccess&&randomSellerData&&randomSellerData.sellerArray){
     sellers=randomSellerData.sellerArray
    }
-console.log(category==='PhotoGraphy',categoryData)
+
 
    if (isCategorySuccess) {
     categoryGigs = categoryData.gigArray as ISellerGig[];

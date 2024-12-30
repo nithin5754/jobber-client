@@ -39,7 +39,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logout({}));
-
+      
       api.dispatch(clearAuthUser(undefined));
       api.dispatch(emptyBuyer(undefined));
     }

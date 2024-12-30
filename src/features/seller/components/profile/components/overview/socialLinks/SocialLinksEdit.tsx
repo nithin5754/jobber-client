@@ -21,13 +21,13 @@ const SocialLinksEdit: FC<ISocialEditLinksProps> = ({
   const [socialLinks, setSocialLinks] = useState<string>(selectedLink ? `${selectedLink}` : '');
 
   const handleUpdate = () => {
-    console.log('hello', type);
+
     if (type === 'add') {
       const clonedSocialLinks: string[] = cloneDeep(sellerProfile.socialLinks) as string[];
 
       clonedSocialLinks.push(socialLinks);
 
-      console.log(clonedSocialLinks, 'add links');
+
 
       if (sellerProfile && setShowSocialLinksAddForm && setSellerProfile) {
         setSellerProfile({ ...sellerProfile, socialLinks: clonedSocialLinks });

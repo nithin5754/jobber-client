@@ -8,7 +8,7 @@ import { IButtonProps, IResponse } from 'src/shared/shared.interface';
 import { useAppSelector } from 'src/store/store';
 import { ICreateGig, IShowGigModal } from '../../interface/gigi.interface';
 
-import { extractTextFromHTML, lowerCase, replaceSpacesWithDash, showErrorToast } from 'src/shared/utils/utils.service';
+import {  lowerCase, replaceSpacesWithDash, showErrorToast } from 'src/shared/utils/utils.service';
 import equal from 'react-fast-compare';
 import { useCreateGigMutation } from '../../service/gig.service';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -59,8 +59,8 @@ const AddGig: FC = (): ReactElement => {
       const isValid: boolean = await schemaValidation();
       
       if (gig.description && sellerId && isCoverPage) {
-        const desc: string = extractTextFromHTML(gig.description);
-        console.log(desc);
+
+  
         let fetchResult: ICreateGig = {
           ...gig,
           sellerId: sellerId,
@@ -88,7 +88,7 @@ const AddGig: FC = (): ReactElement => {
 
         if (isValid) {
           const response: IResponse = await createGig(formData).unwrap();
-          console.log(response, 'hello my response');
+   
           const title: string = replaceSpacesWithDash(gig.title);
           navigate(`/gig/${lowerCase(`${authUser.username}`)}/${title}/${response?.gig?.sellerId}/${response?.gig?.id}/view`, {
             replace: true
@@ -100,7 +100,7 @@ const AddGig: FC = (): ReactElement => {
         }
       }
     } catch (error) {
-      console.log("add gi error",error)
+
       showErrorToast('Error creating gig');
     }
   };

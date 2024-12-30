@@ -1,4 +1,4 @@
-import { FC, ReactElement, useContext, useState } from "react"
+import { FC, ReactElement, useContext } from "react"
 import { FaMapMarkerAlt, FaUserAlt, FaRegClock } from "react-icons/fa"
 import { SellerContext } from "src/features/seller/context/seller.context"
 import { TimeAgo } from "src/shared/utils/date.utils"

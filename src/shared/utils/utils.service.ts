@@ -16,6 +16,7 @@ import { filter } from 'lodash';
 import { updateCategoryContainer } from '../header/reducer/category.reducer';
 import { updateHeader } from '../header/reducer/header.reducer';
 
+
 countries.registerLocale(enLocale);
 
 export const lowerCase = (str: string): string => {
@@ -123,6 +124,7 @@ export const applicationLogout = (dispatch: AppDispatch, navigate: NavigateFunct
   dispatch(updateCategoryContainer(false))
   dispatch(updateHeader('index'))
   dispatch(apiSlice.util.resetApiState());
+
 
   saveToSessionStorage(JSON.stringify(false), JSON.stringify(''));
 

@@ -6,7 +6,7 @@
 
 
 import { createSlice,  Slice } from "@reduxjs/toolkit";
-import { IReduxLogout } from "src/features/auth/interfaces/auth.interface";
+
 import { RootState } from "src/store/store";
 import { IReduxSellerGig } from "../interface/gigi.interface";
 

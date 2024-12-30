@@ -8,7 +8,7 @@ const CoverImageInput: LazyExoticComponent<ForwardRefExoticComponent<Omit<ITextI
   lazy(() => import('src/shared/inputs/TextInput'));
 
 
-const CoverImage:FC<IGigCreateCoverImg> = ({setGig,gig,isCoverPage,setIsCoverPage}):ReactElement => {
+const CoverImage:FC<IGigCreateCoverImg> = ({gig,setIsCoverPage}):ReactElement => {
 
   const [coverPic,setCoverPic]=useState<string>(gig.coverImage??'')
 

@@ -2,7 +2,7 @@ import { FC, ReactElement, useState, useContext, lazy, LazyExoticComponent } fro
 import { FaPencilAlt } from "react-icons/fa";
 import { SellerContext } from "src/features/seller/context/seller.context";
 import { IEducation, IEducationEditProps } from "src/features/seller/interfaces/seller.interface";
-import { showSuccessToast } from "src/shared/utils/utils.service";
+
 
 
 const EducationFieldsEdit:LazyExoticComponent<FC<IEducationEditProps>>=lazy(()=>import("src/features/seller/components/profile/components/overview/education/EducationFieldEdit"))

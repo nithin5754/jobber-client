@@ -3,7 +3,7 @@ import { FaEye, FaEyeSlash, FaSpinner, FaTimes } from 'react-icons/fa';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
 import { IAlertProps, IButtonProps, IResponse, ITextInputProps } from 'src/shared/shared.interface';
 import { FETCH_STATUS, IResetPassword } from '../interfaces/auth.interface';
-import { useAppDispatch } from 'src/store/store';
+
 import { resetPasswordSchema } from '../schemas/register.step.schemas';
 import useAuthSchema from '../hooks/useAuthSchema';
 import { useResetPasswordMutation } from '../services/auth.service';
@@ -37,7 +37,7 @@ const ResetPasswordModal: FC<IModalBgProps> = ({ onClose }): ReactElement => {
   });
 
   const [schemaValidation, validationError] = useAuthSchema({ schema: resetPasswordSchema, userInfo });
-  const dispatch = useAppDispatch();
+
 
   const handleSubmit = async () => {
     try {

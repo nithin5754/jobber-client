@@ -22,7 +22,7 @@ const TextInput: ForwardRefExoticComponent<Omit<ITextInputProps, 'ref'> & RefAtt
       onFocus={props.onFocus}
       onBlur={props.onBlur}
       onKeyUp={props.onKeyUp}
-      onKeyDown={props.onKeyDown}
+      onKeyDown={props.onKeyDown }
       autoComplete="false"
       accept={props.accept}
 

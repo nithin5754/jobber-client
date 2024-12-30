@@ -1,10 +1,9 @@
 import { cloneDeep, filter, findIndex } from 'lodash';
-import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, FC, ForwardRefExoticComponent, lazy, LazyExoticComponent, ReactElement, useContext, useState } from 'react';
 import { SellerContext } from 'src/features/seller/context/seller.context';
 import { ILanguage, ILanguageEditFieldsProps } from 'src/features/seller/interfaces/seller.interface';
 import { IButtonProps, IDropdownProps, ITextInputProps } from 'src/shared/shared.interface';
-import { languageLevel } from 'src/shared/utils/utils.service';
-import { v4 as uuidV4 } from 'uuid';
+import { languageLevel, showErrorToast } from 'src/shared/utils/utils.service';
 
 const SellerButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const SellerDropDown: LazyExoticComponent<FC<IDropdownProps>> = lazy(() => import('src/shared/dropdown/DropDown'));
@@ -21,10 +20,6 @@ const LanguageField: FC<ILanguageEditFieldsProps> = ({
   const { sellerProfile, setSellerProfile } = useContext(SellerContext);
   const [level, setLevel] = useState<string>(selectedLanguage ? `${selectedLanguage.level}` : '');
   const [language, setLanguage] = useState<string>(selectedLanguage ? `${selectedLanguage.language}` : '');
-
-
-
-
 
   const handleUpdate = (): void => {
     if (type === 'add') {
@@ -51,8 +46,7 @@ const LanguageField: FC<ILanguageEditFieldsProps> = ({
         setSellerProfile({ ...sellerProfile, languages: clonedLanguages });
         setShowLanguageEditForm(false);
       } else {
-        // showErrorToast('You need to have at least one language.');
-        console.log('required');
+        showErrorToast('You need to have at least one language.');
       }
     }
   };

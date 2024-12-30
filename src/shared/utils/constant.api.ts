@@ -26,7 +26,6 @@ export const AUTH_API_ENDPOINTS = (endpoints_name: AuthEndPointsTypes,data?:stri
      case 'FORGOT_PASSWORD':
       return '/auth/forgot-password' 
      case 'RESET_PASSWORD' :
-      console.log("reset token",data)
       return `/auth/reset-password/${data}` 
       case 'CURRENT_USER':
        return '/current/current-user'

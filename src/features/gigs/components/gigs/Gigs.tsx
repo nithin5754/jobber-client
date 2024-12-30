@@ -39,7 +39,7 @@ if(category){
       page: `${currentPage}`
   });
 
-  console.log("queryType",queryType)
+
   useEffect(()=>{
 
     if(data?.gigArray&&data.gigArray.length<1||isError){

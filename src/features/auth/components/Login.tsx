@@ -23,7 +23,7 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
   const [alertMessage, setAlertMessage] = useState<string>('');
 
   const [passwordType, setPasswordType] = useState<'password' | 'text'>('password');
-  const [status,setStatus]=useState<string>(FETCH_STATUS.IDLE)
+  const [_status,setStatus]=useState<string>(FETCH_STATUS.IDLE)
 
   const [signIn, { isLoading }] = useSigInMutation();
 

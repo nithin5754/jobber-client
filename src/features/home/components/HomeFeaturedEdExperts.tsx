@@ -1,4 +1,4 @@
-import { FC, lazy, LazyExoticComponent, ReactElement, Suspense, useMemo } from "react"
+import { FC, lazy, LazyExoticComponent, ReactElement, Suspense} from "react"
 import { IFeaturedEdExpertsProps } from "../interface/home.interfce"
 import { Link } from "react-router-dom"
 

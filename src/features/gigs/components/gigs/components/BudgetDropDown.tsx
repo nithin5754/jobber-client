@@ -53,7 +53,7 @@ const BudgetDropDown: FC = (): ReactElement => {
                       onChange={(event: ChangeEvent) => {
                         setSelectedBudgetPrice({ ...selectedBudgetPrice, minPrice: (event.target as HTMLInputElement).value });
                       }}
-                      onKeyDown={(event: KeyboardEvent) => {
+                      onKeyDown={(event:any):void => {
                         if (event.key !== 'Backspace' && isNaN(parseInt(event.key))) {
                           event.preventDefault();
                         }
@@ -74,7 +74,7 @@ const BudgetDropDown: FC = (): ReactElement => {
                       onChange={(event: ChangeEvent) => {
                    setSelectedBudgetPrice({ ...selectedBudgetPrice, maxPrice: (event.target as HTMLInputElement).value });
                       }}     
-                      onKeyDown={(event: KeyboardEvent):void => {
+                      onKeyDown={(event: any):void => {
                         if (event.key !== 'Backspace' && isNaN(parseInt(event.key))) {
                           event.preventDefault();
                         }

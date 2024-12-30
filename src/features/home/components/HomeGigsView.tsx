@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react"
+import { FC, Fragment, ReactElement } from "react"
 import { Link } from "react-router-dom"
 import { IHomeProps } from "../interface/home.interfce"
 import GigsCardDisplay from "src/shared/gigs/GigCardDisplay"
@@ -31,7 +31,9 @@ const HomeGigsView:FC<IHomeProps> = ({gigs,title,category,subTitle}):ReactElemen
             className="grid justify-center gap-x-8 pt-3 sm:h-full sm:w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
             {gigs.map((gig:ISellerGig) => (
                 
-             <GigsCardDisplay gig={gig} linkTarget={false} showEditIcon={false}/>
+           <Fragment key={gig.id}>
+              <GigsCardDisplay gig={gig} linkTarget={false} showEditIcon={false}/>
+           </Fragment>
             ))}
         </div>
     </div>
