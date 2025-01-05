@@ -25,7 +25,9 @@ export interface IHomeHeaderProps {
   buyer?:IBuyer;
   seller?:ISeller;
   setIsDropdownOpen?: Dispatch<SetStateAction<boolean>>;
-  
+  setIsOrderDropdownOpen?: Dispatch<SetStateAction<boolean>>;
+  setIsMessageDropdownOpen?: Dispatch<SetStateAction<boolean>>;
+  setIsNotificationDropdownOpen?: Dispatch<SetStateAction<boolean>>;
  
   
 }

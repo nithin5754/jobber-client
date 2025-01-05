@@ -247,3 +247,10 @@ export const extractTextFromHTML = (htmlString:string):string => {
   return doc.body.textContent || '';
 };
 
+
+export const generateRandomNumbers=(length:number):number=>{
+
+  return Math.floor(Math.random()*(9*Math.pow(10,length-1)))+Math.pow(10,length-1)
+}
+  
+

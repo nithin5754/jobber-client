@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { LazyExoticComponent, FC, lazy, useState, ReactElement } from 'react';
+import { LazyExoticComponent, FC, lazy, useState, ReactElement, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
 
 import { Link } from 'react-router-dom';
@@ -15,15 +15,40 @@ import { IHomeHeaderProps } from '../interface/header.interface';
 import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
 
+import { find } from 'lodash';
+
+import socketService from 'src/sockets/socket.service';
+
 const DashBoardButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 
 const SettingsDropDown: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/SettingsDropDown'));
 
 const DashBoardHeader: FC = (): ReactElement => {
+  const socket=socketService.getSocket()
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const authUser: IAuthUser | undefined = useAppSelector(useAuthDetails);
   const buyer: IBuyer | undefined = useAppSelector(useGetBuyerDetails);
   const seller: ISeller | undefined = useAppSelector(useGetSellerDetails);
+  const [authUsername, setAuthUsername] = useState<string>('');
+
+  useEffect(() => {
+if(socket){
+  socket.emit('getLoggedInUsers', '');
+  socket.on('online', (data: { socketId: string; username: string; userId: string }[]) => {
+
+    const socketData: { socketId: string; username: string; userId: string } | undefined = find(
+      data,
+      (item: { socketId: string; userId: string; username: string }) => item.username === authUser?.username
+    );
+    if (socketData && socketData.username) {
+      setAuthUsername(`${socketData?.username}`);
+    } else {
+      setAuthUsername('');
+    }
+  });
+}
+  }, [authUser?.username]);
+
   return (
     <header>
       <nav className="navbar peer-checked:navbar-active relative z-20 w-full border-b bg-white shadow-2xl shadow-gray-600/5 backdrop-blur dark:shadow-none">
@@ -63,10 +88,8 @@ const DashBoardHeader: FC = (): ReactElement => {
                   <li className="relative flex cursor-pointer items-center">
                     <DashBoardButton
                       className="px-4 text-base font-medium"
-                      onClick={() =>{ setIsDropdownOpen(!isDropdownOpen)
-
-
-                        
+                      onClick={() => {
+                        setIsDropdownOpen(!isDropdownOpen);
                       }}
                       label={
                         <>
@@ -79,7 +102,9 @@ const DashBoardHeader: FC = (): ReactElement => {
                             alt="profile"
                             className="h-8 w-8 rounded-full object-cover"
                           />
-                           
+                          {authUser?.username === authUsername && (
+                            <span className="absolute top-0  right-3 h-3 w-3 rounded-full border-white bg-green-700 "></span>
+                          )}
                         </>
                       }
                     />
@@ -92,14 +117,13 @@ const DashBoardHeader: FC = (): ReactElement => {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                            <div className=" absolute -right-48 top-[1.9rem] z-50 mt-5 w-96">
+                      <div className=" absolute -right-48 top-[1.9rem] z-50 mt-5 w-96">
                         <SettingsDropDown
                           authUser={authUser}
                           seller={seller}
                           buyer={buyer}
                           setIsDropdownOpen={setIsDropdownOpen}
                           type="seller"
-                          
                         />
                       </div>
                     </Transition>

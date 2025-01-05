@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { FC, lazy, LazyExoticComponent, Suspense, useRef } from 'react';
+import { FC, lazy, LazyExoticComponent, Suspense, useRef, useState } from 'react';
 import { FaAngleLeft, FaAngleRight, FaBars, FaRegBell, FaRegEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
@@ -21,6 +21,7 @@ import { useGetSellerDetails } from 'src/features/seller/reducers/seller.reducer
 import { updateCategoryContainer } from '../reducer/category.reducer';
 import { updateHeader } from '../reducer/header.reducer';
 import HeaderSearchInput from './HeaderSearchInput';
+import MessageDropdown from './MessageDrpdown';
 
 const HomeHeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const HomeHeaderSettings: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/SettingsDropDown'));
@@ -37,10 +38,10 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
   const settingsDropdownRef = useRef<HTMLDivElement | null>(null);
   const navElement = useRef<HTMLDivElement | null>(null);
 
-  const isNotificationDropdownOpen = false;
-  const isMessageDropdownOpen = false;
-  const isOrderDropdownOpen = false;
   const [isSettingsDropdown, setIsSettingsDropdown] = useDetectOutsideClick(settingsDropdownRef, false);
+  const [isMessageDropdownOpen, setIsMessageDropdownOpen] = useDetectOutsideClick(messageDropdownRef, false);
+  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useDetectOutsideClick(notificationDropdownRef, false);
+  const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useDetectOutsideClick(orderDropdownRef, false);
   const dispatch = useAppDispatch();
 
   const handleResendEmail = async () => {
@@ -55,7 +56,13 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
 
   const handleToggle = (): void => {
     setIsSettingsDropdown(!isSettingsDropdown);
+    setIsMessageDropdownOpen(false)
   };
+
+  const toggleMessageDropDown=():void=>{
+    setIsMessageDropdownOpen(!isMessageDropdownOpen)
+   setIsSettingsDropdown(false)
+  }
 
   return (
     <header>
@@ -137,6 +144,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                   <li className="relative z-50 flex cursor-pointer items-center">
                     <Suspense fallback={'loading...'}>
                       <HomeHeaderButton
+                      onClick={toggleMessageDropDown}
                         className="relative px-4"
                         label={
                           <>
@@ -156,7 +164,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                       leaveFrom="opacity-100 translate-y-0"
                       leaveTo="opacity-0 translate-y-1"
                     >
-                      <div className=" absolute right-0 mt-5 w-96">{/* <!-- MessageDropdown --> */}</div>
+                      <div className=" absolute right-0 mt-5 top-[1.9rem] w-96"><MessageDropdown setIsMessageDropdownOpen={setIsMessageDropdownOpen}/></div>
                     </Transition>
                   </li>
                   <li className="relative z-50 flex cursor-pointer items-center">

@@ -5,21 +5,22 @@ import { useAppDispatch } from 'src/store/store';
 import { IHomeHeaderProps } from '../interface/header.interface';
 import { updateCategoryContainer } from '../reducer/category.reducer';
 import { updateHeader } from '../reducer/header.reducer';
-import { socket } from 'src/sockets/socket.service';
+import socketService from 'src/sockets/socket.service';
+
 
 
 const SettingsDropDown: FC<IHomeHeaderProps> = ({ seller, buyer, type, authUser, setIsDropdownOpen }): ReactElement => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-
+  const socket=socketService.getSocket()
 
   const onLogout = (): void => {
     if (setIsDropdownOpen) {
       setIsDropdownOpen(false);
     }
-     if(authUser){
-      socket.emit('removeLoggedInUser',`${authUser.id}`)
+     if(authUser&&socket){
+      socket.emit('removeLoggedInUser',`${authUser.username}`)
      }
     applicationLogout(dispatch, navigate);
   };

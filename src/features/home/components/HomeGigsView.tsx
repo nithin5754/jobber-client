@@ -3,8 +3,11 @@ import { Link } from "react-router-dom"
 import { IHomeProps } from "../interface/home.interfce"
 import GigsCardDisplay from "src/shared/gigs/GigCardDisplay"
 import { ISellerGig } from "src/features/gigs/interface/gigi.interface"
+import socketService from "src/sockets/socket.service"
+
 
 const HomeGigsView:FC<IHomeProps> = ({gigs,title,category,subTitle}):ReactElement => {
+  const socket=socketService.getSocket()
   return (
     <div className="border-grey mx-auto my-8 flex flex-col overflow-hidden rounded-lg border">
     <div className="flex items-center px-6 py-6 sm:items-start">
@@ -15,7 +18,11 @@ const HomeGigsView:FC<IHomeProps> = ({gigs,title,category,subTitle}):ReactElemen
             category&&(
               <span
               className="flex self-center text-base font-bold cursor-pointer text-customViolet md:text-lg lg:text-2xl hover:text-customPurple hover:underline">
-              <Link to={`categories/${category}`}>
+              <Link onClick={()=>{
+                if(socket){
+                  socket.emit('getLoggedInUsers','')
+                }
+              }} to={`categories/${category}`}>
               {category}
               </Link>
           </span>   

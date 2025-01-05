@@ -1,5 +1,7 @@
-import { FC, ReactElement, useState } from "react"
+import { FC, ReactElement, useEffect, useState } from "react"
 import Table from "./Table"
+import socketService from "src/sockets/socket.service"
+
 
 
 
@@ -12,8 +14,15 @@ const  Gig_Status ={
 
 
 const DashBoard:FC = ():ReactElement => {
-
+const socket=socketService.getSocket()
   const [type,setType]=useState<string>(Gig_Status.ACTIVE)
+
+
+  useEffect(()=>{
+if(socket){
+  socket.emit('getLoggedInUsers','')
+}
+  },[])
   return (
     <div className="container mx-auto mt-8 px-6 md:px-12 lg:px-6">
     <div className="flex flex-col flex-wrap">

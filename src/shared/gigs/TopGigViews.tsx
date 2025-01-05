@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { IGigTopProps, ISellerGig } from "src/features/gigs/interface/gigi.interface";
 import GigsCardDisplay from "./GigCardDisplay";
 import { replaceSpacesWithDash } from "../utils/utils.service";
+import socketService from "src/sockets/socket.service";
+
 
 interface IScrollProps {
   start: boolean;
@@ -11,6 +13,7 @@ interface IScrollProps {
 }
 
 const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width, type }): ReactElement => {
+  const socket=socketService.getSocket()
   const navElement = useRef<HTMLDivElement | null>(null);
   const [scroll, setScroll] = useState<IScrollProps>({
     start: false,
@@ -71,7 +74,7 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
   }, []);
 
   return (
-    <div className="mx-auto my-8 flex flex-col overflow-hidden rounded-lg">
+    <div className="relative mx-auto my-8 flex flex-col overflow-hidden rounded-lg">
       {title && (
         <div className="flex items-start py-6">
           <div className="flex w-full flex-col justify-between">
@@ -79,7 +82,11 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
               <h2 className="text-base font-bold md:text-lg lg:text-2xl">{title}</h2>
               {category && (
                 <span className="flex self-center text-base font-bold cursor-pointer text-customPurple md:text-lg lg:text-2xl hover:text-customViolet hover:underline">
-                  <Link to={`/categories/${replaceSpacesWithDash(category)}`}>
+                  <Link onClick={()=>{
+                    if(socket){
+                      socket.emit('getLoggedInUsers','')
+                    }
+                  }} to={`/categories/${replaceSpacesWithDash(category)}`}>
                     {category}
                   </Link>
                 </span>
@@ -90,11 +97,15 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
         </div>
       )}
 
-      <div className="relative">
+      <div className="">
         {!scroll.end && gigs.length > 5 ? (
           <button
             onClick={slideRight}
-            className="absolute right-0 top-[35%] w-[4%] bottom-0 z-10   -translate-y-1/2 transform  bg-customViolet/50  shadow-lg transition-opacity hover:bg-customPurple"
+            className={`absolute right-0 top-1/2 z-10 h-12 w-12 -translate-y-1/2 transform rounded-l-lg 
+              ${!scroll.end 
+                ? 'bg-customViolet/50 hover:bg-customPurple cursor-pointer' 
+                : 'bg-gray-800/50 cursor-not-allowed opacity-50'
+              } transition-all duration-300`}
             aria-label="Scroll right"
           >
             <FaAngleRight size={40} className="text-2xl text-white" />
@@ -105,8 +116,11 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
             scroll.end&&gigs.length > 5&&(
               <button
            disabled={true}
-              className="absolute right-0 top-[35%] opacity-0 hover:opacity-100 w-[4%] bottom-0 z-10  -translate-y-1/2 transform  bg-gray-800/50  shadow-lg transition-opacity "
-              aria-label="Scroll right"
+           className={`absolute right-0 top-1/2 z-10 h-12 w-12 -translate-y-1/2 transform rounded-l-lg 
+            ${!scroll.end 
+              ? 'bg-customViolet/50 hover:bg-customPurple cursor-pointer' 
+              : 'bg-gray-800/50 cursor-not-allowed opacity-50'
+            } transition-all duration-300`}
             >
               <FaAngleRight size={40} className="text-2xl text-white" />
             </button>
@@ -118,7 +132,11 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
         {scroll.start && gigs.length > 5? (
           <button
             onClick={slideLeft}
-         className="absolute left-0  top-[35%] w-[4%] bottom-0 -translate-y-1/2 transform  bg-customViolet/50  p-2 shadow-lg transition-opacity  hover:bg-customPurple"
+            className={`absolute left-0 top-1/2 z-10 h-12 w-12 -translate-y-1/2 transform rounded-l-lg 
+              ${scroll.start 
+                ? 'bg-customViolet/50 hover:bg-customPurple cursor-pointer' 
+                : 'bg-gray-800/50 cursor-not-allowed opacity-50'
+              } transition-all duration-300`}
             aria-label="Scroll left"
           >
             <FaAngleLeft size={40} className="text-2xl text-white" />
@@ -129,7 +147,11 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
             !scroll.start&&gigs.length>5 &&(
               <button
             disabled={true}
-        className="absolute left-0  top-[35%] w-[4%]  opacity-0 hover:opacity-100 bottom-0 -translate-y-1/2 transform  bg-gray-800/50  p-2 shadow-lg transition-opacity  "
+            className={`absolute left-0 top-1/2 z-10 h-12 w-12 -translate-y-1/2 transform rounded-l-lg 
+              ${scroll.start 
+                ? 'bg-customViolet/50 hover:bg-customPurple cursor-pointer' 
+                : 'bg-gray-800/50 cursor-not-allowed opacity-50'
+              } transition-all duration-300`}
             aria-label="Scroll lef"
             >
                   <FaAngleLeft size={40} className="text-2xl text-white" />
@@ -140,7 +162,7 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
         )}
 
         <div 
-          className="hide-scrollbar m-auto flex h-96 w-full overflow-x-auto scroll-smooth " 
+          className=" hide-scrollbar m-auto flex h-96 w-full overflow-x-auto scroll-smooth " 
           ref={navElement}
           onScroll={checkScrollPosition}
         >

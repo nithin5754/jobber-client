@@ -61,7 +61,7 @@ const GigSeller:FC = ():ReactElement => {
         />
 
       )}
-       <div className="border-grey mb-8 border">
+       <div className="border-grey mb-8 border ">
     <div className="flex border-b px-4 py-2">
         <h4 className="font-bold">About The Seller</h4>
     </div>
@@ -146,9 +146,11 @@ const GigSeller:FC = ():ReactElement => {
         </div>
     </div>
    {
-    showChatBox? <ChatBox seller={chatSeller} buyer={chatBuyer} gigId={`${gig.id}`} onClose={onclose}/>:<></>
-   }
-</div>
+
+        showChatBox? <ChatBox seller={chatSeller} buyer={chatBuyer} gigId={`${gig.id}`} onClose={onclose}/>:<></>
+  }
+  </div>
+
     </>
  
   )

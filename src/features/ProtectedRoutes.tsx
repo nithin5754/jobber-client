@@ -11,7 +11,7 @@ import { addBuyer } from "./buyer/reducer/buyer.reducer";
 import { addSeller } from "./seller/reducers/seller.reducer";
 import { useIsCategoryContainerOpen } from "src/shared/header/reducer/category.reducer";
 import { useHeaderType } from "src/shared/header/reducer/header.reducer";
-import { socket } from "src/sockets/socket.service";
+import socketService from "src/sockets/socket.service";
 
 
 
@@ -21,7 +21,7 @@ interface IProtectedRoutesProps {
 
 const ProtectedRoutes:FC<IProtectedRoutesProps> = ({children}) => {
 
-
+const socket=socketService.getSocket()
   const authUser = useAppSelector(useAuthDetails);
 const showCategoryContainer:boolean=useAppSelector(useIsCategoryContainerOpen)
 const headerType:string=useAppSelector(useHeaderType)
@@ -48,7 +48,9 @@ const headerType:string=useAppSelector(useHeaderType)
 
       if(isError){
         setTokenIsValid(false)
-        socket.emit('removeLoggedInUser',`${authUser.id}`)
+      if(socket){
+        socket.emit('removeLoggedInUser',`${authUser.username}`)
+      }
         applicationLogout(dispatch,navigate)
         dispatch(clearAuthUser(undefined))
       }

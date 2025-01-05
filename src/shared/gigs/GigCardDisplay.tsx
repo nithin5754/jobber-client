@@ -1,27 +1,58 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useEffect, useRef } from 'react';
 import { FaPencilAlt, FaRegStar, FaStar } from 'react-icons/fa';
 
 import { Link, NavigateFunction, useNavigate } from 'react-router-dom';
-import { IGigCardItems } from 'src/features/gigs/interface/gigi.interface';
+import { IGigCardItems, ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 import { CLOUDINARY_PICTURE_URL } from '../utils/constant.api';
-import { lowerCase, rating, replaceSpacesWithDash } from '../utils/utils.service';
+import { lowerCase, rating, replaceDashWithSpaces, replaceSpacesWithDash } from '../utils/utils.service';
 import { useAppSelector } from 'src/store/store';
 import { useGetSellerDetails } from 'src/features/seller/reducers/seller.reducer';
 import { ISeller } from 'src/features/seller/interfaces/seller.interface';
+import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
+import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
+import { find } from 'lodash';
+import socketService from 'src/sockets/socket.service';
+
 
 const GigsCardDisplay: FC<IGigCardItems> = ({ gig, linkTarget, showEditIcon }): ReactElement => {
+  const socket=socketService.getSocket()
   const title = replaceSpacesWithDash(gig.title);
   const navigate: NavigateFunction = useNavigate();
-
+const authUser:IAuthUser=useAppSelector(useAuthDetails)
   const seller:ISeller=useAppSelector(useGetSellerDetails)
-
+const sellerUsername=useRef<string>('')
   const navigateToEdit = (gigId: string): void => {
     navigate(`/manage_gigs/edit/${gigId}`, { state: gig });
   };
+
+
+  const saveGigTitle=(gig:ISellerGig):void =>{
+    if(authUser.username){
+      const category:string=replaceDashWithSpaces(gig.categories)
+    if(socket){
+      socket.emit('category',category,authUser.username)
+    }
+    }
+  }
+
+  useEffect(() => {
+if(socket){
+  socket.emit('getLoggedInUsers', '');
+  socket.on('online', (data: { socketId: string; username: string; userId: string }[]) => {
+    const socketData: { socketId: string; username: string; userId: string } | undefined = find(
+      data,
+      (item: { socketId: string; userId: string; username: string }) => item.username === gig?.username
+    );
+sellerUsername.current=socketData?.username as string
+  });
+}
+  }, [authUser?.username,gig.username]);
+
+
   return (
     <div className="rounded">
       <div className="mb-8 flex cursor-pointer flex-col gap-2">
-        <Link to={`/gig/${lowerCase(`${gig.username}` )}/${title}/${gig.sellerId}/${gig.id}/view`}>
+        <Link onClick={()=>saveGigTitle(gig)} to={`/gig/${lowerCase(`${gig.username}` )}/${title}/${gig.sellerId}/${gig.id}/view`}>
           <img
             src={gig.coverImage}
             alt="Gig cover image"
@@ -36,7 +67,12 @@ const GigsCardDisplay: FC<IGigCardItems> = ({ gig, linkTarget, showEditIcon }): 
             className="h-7 w-8 rounded-full object-cover"
         
           />
-          <span className="bottom-0 left-5 absolute w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></span>
+          {
+            sellerUsername.current===gig.username&&(
+              <span className="bottom-0 left-5 absolute w-2.5 h-2.5 bg-green-400 border-2 border-white rounded-full"></span>
+
+            )
+          }
           <div className="flex w-full justify-between">
             <span className="text-md hover:underline">
               {linkTarget ? (
@@ -53,7 +89,7 @@ const GigsCardDisplay: FC<IGigCardItems> = ({ gig, linkTarget, showEditIcon }): 
           </div>
         </div>
         <div>
-          <Link to={`/gig/${lowerCase(`${gig.username}` )}/${title}/${gig.sellerId}/${gig.id}/view`}>
+          <Link onClick={()=>saveGigTitle(gig)} to={`/gig/${lowerCase(`${gig.username}` )}/${title}/${gig.sellerId}/${gig.id}/view`}>
             <p className="line-clamp-2 text-sm text-[#404145] hover:underline md:text-base">{gig.basicDescription}</p>
           </Link>
         </div>

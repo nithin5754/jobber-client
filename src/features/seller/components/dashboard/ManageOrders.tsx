@@ -1,13 +1,15 @@
-import { FC, lazy, LazyExoticComponent, Suspense, useMemo, useState } from 'react';
+import { FC, lazy, LazyExoticComponent, Suspense, useEffect, useMemo, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { SellerContextType } from '../../interfaces/seller.interface';
 import { orderTypes, sellerOrderList, shortLongNumbers } from 'src/shared/utils/utils.service';
 import { IOrder, IOrderTableProps } from 'src/features/order/interfaces/order.interface';
+import { findIndex } from 'lodash';
+import socketService from 'src/sockets/socket.service';
+
 
 const ManageOrderTable: LazyExoticComponent<FC<IOrderTableProps>> = lazy(
   () => import('src/features/seller/components/dashboard/components/ManageOrderTable')
-);
-
+)
 const SELLER_Gig_Status = {
   ACTIVE: 'active',
   CANCELLED: 'cancelled',
@@ -16,9 +18,22 @@ const SELLER_Gig_Status = {
 };
 
 const ManageOrders = () => {
+  const socket=socketService.getSocket()
   const [type, setType] = useState<string>(SELLER_Gig_Status.IN_PROGRESS);
   const { orders } = useOutletContext<SellerContextType>();
   const orderRef: IOrder[] = useMemo(() => [...orders], [orders]);
+
+  useEffect(()=>{
+     if(socket){
+      socket.on('order notification',(order:IOrder)=>{
+        const index =findIndex(orderRef,['orderId',order.orderId])
+        if(index>-1){
+          orderRef.splice(index,1,order)
+        }
+            })
+     }
+  },[orderRef])
+
   return (
     <div className="container mx-auto mt-8 px-6 md:px-12 lg:px-6">
       <div className="flex flex-col flex-wrap">

@@ -99,7 +99,7 @@ const GigView:FC = ():ReactElement => {
            
         </div>
      </GigContext.Provider>
-        <div className="m-auto px-6 xl:container md:px-12 lg:px-6">
+        <div className="m-auto px-6 xl:container md:px-12 lg:px-6 ">
         <TopGigViews gigs={moreGigs.current} title="Recommended for you" subTitle="" width="w-60" type="home"  />
         </div>
     </main>

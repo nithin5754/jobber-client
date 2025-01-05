@@ -13,8 +13,10 @@ const HeaderSearchInput: FC = (): ReactElement => {
   const navigate: NavigateFunction = useNavigate();
 
   const navigateSearchPage = (): void => {
-    const url = `/search/gigs?${createSearchParams({ query: searchItem.trim() })}`;
-    navigate(url);
+     if(searchItem){
+      const url = `/search/gigs?${createSearchParams({ query: searchItem.trim() })}`;
+      navigate(url);
+     }
   };
   return (
     <div className="mb-4 mt-1  flex h-10 rounded-full w-full self-center bg-gray-500/40  opacity-100 md:mb-0 md:mt-0">

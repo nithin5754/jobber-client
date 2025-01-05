@@ -1,6 +1,7 @@
 import { ChangeEvent, CSSProperties, Dispatch, KeyboardEvent, ReactNode, SetStateAction } from 'react';
 import { IAuthUser, ISignUpPayload } from 'src/features/auth/interfaces/auth.interface';
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
+import { IConversation, IMessage } from 'src/features/chat/interface/chat.interface';
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 
@@ -19,6 +20,10 @@ export interface IResponse {
   seller?:ISeller,
   sellerArray?:ISeller[],
   browserName?: string;
+  conversations?: IConversation[] | IMessage[];
+  messages?: IMessage[];
+  messageData?: IMessage;
+  conversationId?: string;
   deviceType?: string;
 }
 export interface IHtmlParserProps {

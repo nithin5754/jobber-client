@@ -68,7 +68,7 @@ export const sellerGigApi = apiSlice.injectEndpoints({
       providesTags: ['Gigs']
     }),
     getGigsByCategory: build.query<IResponse, string>({
-      query: (category: string) => `gig/category/${category}`,
+      query: (username: string) => `gig/category/${username}`,
       providesTags: ['Gigs']
     })
   })
