@@ -49,6 +49,7 @@ export interface IButtonProps {
   className?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: (event?: any) => void;
+  role?:string;
   disabled?: boolean;
   testId?: string;
 }

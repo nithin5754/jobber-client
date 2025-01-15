@@ -1,6 +1,7 @@
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
 import { IBuyer } from "src/features/buyer/interfaces/buyer.interfaces";
+import { IMessage } from "src/features/chat/interface/chat.interface";
 import { IOrder } from "src/features/order/interfaces/order.interface";
 
 export interface IModalBgProps {
@@ -14,7 +15,7 @@ export interface IModalBgProps {
 export interface IModalProps {
   header?: string;
   gigTitle?: string;
-  // singleMessage?: IMessageDocument;
+  singleMessage?: IMessage;
   order?: IOrder;
   receiver?: IBuyer;
   authUser?: IAuthUser;

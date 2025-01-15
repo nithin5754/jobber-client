@@ -167,7 +167,7 @@ const SellerExperience: FC<IExperienceProps> = ({ experienceFields, setExperienc
                 checked={input.currentlyWorkingHere}
                 value={`${input.currentlyWorkingHere}`}
                 onChange={(event: ChangeEvent) => handleExperienceChange(event, index)}
-                className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"
+                className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-customPurple"
               />
             </Suspense>
             <label htmlFor="default-checkbox" className="ml-2 text-sm font-normal">

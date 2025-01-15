@@ -9,10 +9,12 @@ import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
 import { Location, NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import { IMessage } from 'src/features/chat/interface/chat.interface';
 import { useGetConversationListQuery, useMarkMessagesAsReadMutation } from 'src/features/chat/service/chat.service';
-import {  orderBy } from 'lodash';
+import {  filter, orderBy } from 'lodash';
 import { lowerCase, showErrorToast } from 'src/shared/utils/utils.service';
 
 import { TimeAgo } from 'src/shared/utils/date.utils';
+import LottieAnimation from 'src/shared/lottie/components/LootieAnimation';
+import emptyBox from 'src/assets/json/empty-box.json'
 
 const MessageDropdown: FC<IHomeHeaderProps> = ({ setIsMessageDropdownOpen }): ReactElement => {
   const seller: ISeller = useAppSelector(useGetSellerDetails);
@@ -42,7 +44,8 @@ const MessageDropdown: FC<IHomeHeaderProps> = ({ setIsMessageDropdownOpen }): Re
   useEffect(() => {
     if (isSuccess) {
       const sortedConversation: IMessage[] = orderBy(data.conversations, ['createdAt'], ['desc']) as IMessage[]
-      setConversation(sortedConversation);
+      const filterByIsNotReadByReceiver:IMessage[]=filter(sortedConversation,(item:IMessage)=>item.isRead===false)
+      setConversation(filterByIsNotReadByReceiver);
     }
   }, [data && data.conversations, isSuccess])
 
@@ -110,7 +113,9 @@ try {
      }
      </>
           ):(  
-            <div className="flex h-full items-center justify-center">No messages to show</div>)
+            <div className="flex h-full items-center justify-center">
+              <LottieAnimation animationData={emptyBox} height={200} width={100}/>
+            </div>)
         }
         </>
  

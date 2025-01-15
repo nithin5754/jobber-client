@@ -21,7 +21,9 @@ const SettingsDropDown: FC<IHomeHeaderProps> = ({ seller, buyer, type, authUser,
     }
      if(authUser&&socket){
       socket.emit('removeLoggedInUser',`${authUser.username}`)
+      socket.emit('getLoggedInUsers', '');
      }
+
     applicationLogout(dispatch, navigate);
   };
   return (

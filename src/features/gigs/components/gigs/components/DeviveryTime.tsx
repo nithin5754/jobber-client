@@ -56,7 +56,7 @@ const DeliveryTime: FC = (): ReactElement => {
                           name="selectedTime"
                           type="radio"
                           value={item.value}
-                          className="dark:focus:ring-blue-sky-500 h-4 w-4 bg-gray-100 text-blue-600 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700"
+                          className="dark:focus:ring-blue-sky-500 h-4 w-4 bg-gray-100 text-customPurple dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700"
                           onChange={(event: ChangeEvent) => {
                             setSelectedTime((event.target as HTMLInputElement).value);
                           }}

@@ -92,7 +92,7 @@ if(socket){
     return (
       <>
         {!tokenIsValid && !authUser.id ? (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<CircularPageLoader/>}>
             <Index />
           </Suspense>
         ) : (
@@ -102,7 +102,7 @@ if(socket){
               <CircularPageLoader/>
             ):(<>
                   
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<CircularPageLoader/>}>
                   <HomeHeader showCategoryContainer={showCategoryContainer} />
                   <Home />
                 </Suspense>
@@ -115,7 +115,7 @@ if(socket){
   } else {
     return (
       <>
-        <Suspense>
+        <Suspense fallback={<CircularPageLoader/>}>
           <Index />
         </Suspense>
       </>

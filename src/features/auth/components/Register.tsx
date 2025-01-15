@@ -261,7 +261,7 @@ const Register: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement => {
               <div className="flex justify-center">
                 Already a memeber?{' '}
                 <p
-                  className="ml-2 flex cursor-pointer text-blue-600 hover:underline"
+                  className="ml-2 flex cursor-pointer text-customPurple hover:underline"
                   onClick={() => {
                     if (onToggle) {
                       onToggle(true);

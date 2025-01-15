@@ -16,7 +16,7 @@ const Banner:FC<IBannerProps> = ({bgColor,linkText,showLink,text,onClick}):React
             {
               showLink&&(
                 <>
-                        <div onClick={onClick} className="cursor-pointer inline font-medium text-blue-500 no-underline hover:underline">
+                        <div onClick={onClick} className="cursor-pointer inline font-medium text-customPurple-500  no-underline hover:underline">
                     {linkText}
                 </div>
                 </>

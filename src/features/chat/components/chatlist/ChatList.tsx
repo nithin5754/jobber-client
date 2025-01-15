@@ -1,8 +1,8 @@
-import { FC, ReactElement, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect, useRef, useState } from 'react';
 import { FaCircle, FaCheck, FaCheckDouble } from 'react-icons/fa';
 import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
 import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
-import { useAppSelector } from 'src/store/store';
+import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { IMessage } from '../../interface/chat.interface';
 import { Location, NavigateFunction, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useGetConversationListQuery, useMarkMultipleMessagesAsReadMutation } from '../../service/chat.service';
@@ -10,15 +10,17 @@ import { TimeAgo } from 'src/shared/utils/date.utils';
 import { orderBy } from 'lodash';
 import { lowerCase, showErrorToast } from 'src/shared/utils/utils.service';
 import socketService from 'src/sockets/socket.service';
+import { chatListMessageReceived, chatListMessageUpdated } from '../../service/chat.utils';
 const ChatList: FC = (): ReactElement => {
   const { username, conversationId } = useParams<string>();
   const location: Location = useLocation();
   const authUser: IAuthUser = useAppSelector(useAuthDetails);
   const [selectedUser, setSelectedUser] = useState<IMessage>();
   const socket = socketService.getSocket();
-
+  const conversationsListRef = useRef<IMessage[]>([]);
   const [chatList, setChatList] = useState<IMessage[]>([]);
   const navigate: NavigateFunction = useNavigate();
+  const dispatch=useAppDispatch()
 
   const { data, isSuccess } = useGetConversationListQuery(`${authUser.username}`, { refetchOnMountOrArgChange: true });
 
@@ -28,7 +30,7 @@ const ChatList: FC = (): ReactElement => {
     try {
       setSelectedUser(user);
       const pathList: string[] = location.pathname.split('/');
-      console.log(pathList,"path")
+
       pathList.splice(-2, 2);
       const locationPathname: string = !pathList.join('/') ? location.pathname : pathList.join('/');
       const chatUsername: string = (user.receiverUsername !== authUser?.username ? user.receiverUsername : user.senderUsername) as string;
@@ -45,7 +47,10 @@ const ChatList: FC = (): ReactElement => {
     if (isSuccess) {
       const sortedConversation: IMessage[] = orderBy(data.conversations, ['createdAt'], ['desc']) as IMessage[];
       setChatList(sortedConversation);
-    }
+
+
+      // here should add dispatch for notification
+    }   
   }, [isSuccess, data?.conversations]);
 
   useEffect(() => {
@@ -70,6 +75,13 @@ const ChatList: FC = (): ReactElement => {
 
     fetchData();
   }, [username, conversationId, selectedUser, authUser, chatList, markMultipleMessagesAsRead]);
+
+
+
+  useEffect(()=>{
+    chatListMessageReceived(`${authUser.username}`,chatList,conversationsListRef.current,dispatch,setChatList)
+    chatListMessageUpdated(`${authUser.username}`,chatList,conversationsListRef.current,dispatch,setChatList)
+  },[authUser.username,conversationId,chatList,dispatch])
 
   return (
     <>
@@ -105,13 +117,13 @@ const ChatList: FC = (): ReactElement => {
                 {!item.isRead ? (
                   <>
                     {item.receiverUsername === authUser.username ? (
-                      <FaCircle className="mt-2 text-sky-500" size={8} />
+                      <FaCircle className="mt-2 text-customPurple hover:text-customViolet" size={8} />
                     ) : (
                       <FaCheck className="mt-2" size={8} />
                     )}
                   </>
                 ) : (
-                  <FaCheckDouble className="mt-2 text-sky-500" size={8} />
+                  <FaCheckDouble className="mt-2 text-customPurple hover:text-customViolet" size={8} />
                 )}
               </div>
             </div>

@@ -280,7 +280,7 @@ const Register: FC<IModalBgProps> = ({ onClose }): ReactElement => {
           <div className="px-5 py-4">
             <div className="ml-2 flex w-full justify-center text-sm font-medium">
               <div className="flex justify-center">
-                Already a memeber? <p className="ml-2 flex cursor-pointer text-blue-600 hover:underline">Sign In</p>
+                Already a memeber? <p className="ml-2 flex cursor-pointer text-customPurple  hover:underline">Sign In</p>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ import { saveToSessionStorage } from 'src/shared/utils/utils.service';
 import { updateLogout } from '../reducers/logout.reducer';
 import { updateCategoryContainer } from 'src/shared/header/reducer/category.reducer';
 import { updateHeader } from 'src/shared/header/reducer/header.reducer';
+import socketService from 'src/sockets/socket.service';
 
 const LoginModalBg: LazyExoticComponent<FC<IModalBgProps>> = lazy(() => import('src/shared/modal/ModalBg'));
 const LoginAlert: LazyExoticComponent<FC<IAlertProps>> = lazy(() => import('src/shared/alert/Alert'));
@@ -21,7 +22,7 @@ const LoginTextInput: LazyExoticComponent<ForwardRefExoticComponent<Omit<ITextIn
 
 const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }): ReactElement => {
   const [alertMessage, setAlertMessage] = useState<string>('');
-
+const socket=socketService.getSocket()
   const [passwordType, setPasswordType] = useState<'password' | 'text'>('password');
   const [_status,setStatus]=useState<string>(FETCH_STATUS.IDLE)
 
@@ -61,6 +62,7 @@ const LoginModal: FC<IModalBgProps> = ({ onClose, onToggle, onTogglePassword }):
             browserName: '',
             deviceType: ''
           });
+
         }
         dispatch(updateCategoryContainer(true))
         dispatch(updateHeader('home'))

@@ -16,7 +16,7 @@ import { filter } from 'lodash';
 import { updateCategoryContainer } from '../header/reducer/category.reducer';
 import { updateHeader } from '../header/reducer/header.reducer';
 
-
+import axios, {AxiosResponse} from 'axios'
 countries.registerLocale(enLocale);
 
 export const lowerCase = (str: string): string => {
@@ -83,6 +83,10 @@ export const saveToSessionStorage = (data: string, username: string): void => {
   window.sessionStorage.setItem('loggedInUserName', username);
 };
 
+export const firstLetterUppercase = (str: string): string => {
+  const valueString = lowerCase(`${str}`);
+  return `${valueString.charAt(0).toUpperCase()}${valueString.slice(1).toLowerCase()}`;
+};
 
 export const addNewItemSessionStorage=(key: string, data: string): void => {
 
@@ -253,4 +257,45 @@ export const generateRandomNumbers=(length:number):number=>{
   return Math.floor(Math.random()*(9*Math.pow(10,length-1)))+Math.pow(10,length-1)
 }
   
+
+export const bytesToSize = (bytes: number): string => {
+  const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  if (bytes === 0) {
+    return 'n/a';
+  }
+  const i = parseInt(`${Math.floor(Math.log(bytes) / Math.log(1024))}`, 10);
+  if (i === 0) {
+    return `${bytes} ${sizes[i]}`;
+  }
+  return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
+};
+
+
+
+ export const getFileBlob=async(url:string):Promise<AxiosResponse>=> {
+
+const response: AxiosResponse=await axios.get(url,{responseType:'blob'})
+
+return response
+
+  
+}
+
+
+
+export const downloadFile=(blobUrl:string,fileName:string):void=>{
+  const link:HTMLAnchorElement=document.createElement('a')
+  link.href=blobUrl as string;
+  link.setAttribute('download',`${fileName}`);
+  document.body.appendChild(link)
+
+  link.click();
+
+  if(link.parentNode){
+link.parentNode.removeChild(link)
+  }
+
+}  
+
+
 

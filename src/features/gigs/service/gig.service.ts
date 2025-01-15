@@ -5,7 +5,7 @@ import { ISellerGig } from '../interface/gigi.interface';
 export const sellerGigApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     getGigById: build.query<IResponse, string>({
-      query: (gigId: string) => `gig/gigId/${gigId}`,
+      query: (gigId: string) => `gig/gig-gigId/${gigId}`,
       providesTags: ['Gigs']
     }),
     getGigsBySellerId: build.query<IResponse, string>({

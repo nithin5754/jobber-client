@@ -16,7 +16,7 @@ import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
 
 import { find } from 'lodash';
-
+import photo from 'src/assets/jobber-logo-transparent.png'
 import socketService from 'src/sockets/socket.service';
 
 const DashBoardButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
@@ -67,7 +67,7 @@ if(socket){
                     to={`/${lowerCase(`${seller?.username}`)}/${`${seller?.id}`}/seller_dashboard`}
                     className="relative z-10 flex cursor-pointer justify-center self-center text-2xl font-semibold text-black lg:text-3xl"
                   >
-                    Jobber
+                     <img src={`${photo}`} alt="" width={150} />
                   </Link>
                 </div>
               </div>

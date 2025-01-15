@@ -20,7 +20,7 @@ export const chatApi = apiSlice.injectEndpoints({
       providesTags: ['Chat']
     }),
     getUserMessages: build.query<IResponse, string>({
-      query: (conversationId: string) => `chat/${conversationId}`,
+      query: (conversationId: string) => `chat/messages/chat-user-messages/${conversationId}`,
       providesTags: ['Chat']
     }),
     saveChatMessage: build.mutation<IResponse, IMessage>({
@@ -29,6 +29,16 @@ export const chatApi = apiSlice.injectEndpoints({
           url: 'chat',
           method: 'POST',
           body
+        };
+      },
+      invalidatesTags: ['Chat']
+    }),
+    updateOffer: build.mutation<IResponse, { messageId: string; type: string }>({
+      query({ messageId, type }) {
+        return {
+          url: 'chat/offer',
+          method: 'PUT',
+          body: { messageId, type }
         };
       },
       invalidatesTags: ['Chat']
@@ -65,5 +75,6 @@ export const {
   useGetUserMessagesQuery,
   useSaveChatMessageMutation,
 useMarkMessagesAsReadMutation,
-  useMarkMultipleMessagesAsReadMutation
+  useMarkMultipleMessagesAsReadMutation,
+  useUpdateOfferMutation
 } = chatApi;

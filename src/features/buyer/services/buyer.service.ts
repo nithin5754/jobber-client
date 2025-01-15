@@ -10,9 +10,13 @@ export const buyerApi=apiSlice.injectEndpoints({
     getBuyerByEmail:build.query<IResponse,void>({
         query:()=>'buyer/email',
         providesTags: ['Buyer']
-      })
+      }),
+      getBuyerByUsername: build.query<IResponse, string>({
+        query: (username: string) => `buyer/username/${username}`,
+        providesTags: ['Buyer']
+      }),
   })
 })
 
 
-export const {useGetBuyerByEmailQuery}=buyerApi
+export const {useGetBuyerByEmailQuery,useGetBuyerByUsernameQuery}=buyerApi

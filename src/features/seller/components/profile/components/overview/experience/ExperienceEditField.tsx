@@ -92,7 +92,7 @@ const ExperienceEditField:FC<IExperienceEditProps> = ({type,selectedExperience,s
         </div>
         <div className="mb-4 mt-2 flex items-center">
             <EducationTextInput id="default-checkbox" type="checkbox" name="currentlyWorkingHere"
-                className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600"   value={`${experienceItem.currentlyWorkingHere}`}
+                className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-customPurple"   value={`${experienceItem.currentlyWorkingHere}`}
                 checked={experienceItem.currentlyWorkingHere}        onChange={(event: ChangeEvent) => {
                     setEndDate((event.target as HTMLInputElement).checked ? 'Present' : 'End Year');
                     setExperienceItem({ ...experienceItem, currentlyWorkingHere: (event.target as HTMLInputElement).checked });

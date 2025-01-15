@@ -53,7 +53,7 @@ const Hero: FC = (): ReactElement => {
           Specialize in: <span ref={typedElement}></span>
         </h3>
         <h1
-          className="text-center text-4xl font-black text-blue-900 dark:text-white sm:mx-auto sm:w-10/12 
+          className="text-center text-4xl font-black text-customPurple-900 dark:text-white sm:mx-auto sm:w-10/12 
         sm:text-5xl md:w-10/12 md:text-5xl lg:w-auto lg:text-left xl:text-7xl"
         >
           Hire expert freelancers <br className="hidden lg:block" />{' '}

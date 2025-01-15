@@ -25,6 +25,7 @@ saveToSessionStorage(JSON.stringify(false),JSON.stringify(''))
           }
         />
         <IndexHero />
+    
       <IndexGigTabs />
         <IndexHowItWorks />
         <br/>
