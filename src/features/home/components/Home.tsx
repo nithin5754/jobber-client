@@ -9,7 +9,7 @@ import ShimmerFeaturesEdExperts from 'src/shared/shimmer-ui/ShimmerFeaturesEdExp
 import { useGetRandomSellersQuery } from 'src/features/seller/services/seller.service';
 import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 import { useGetGigsByCategoryQuery } from 'src/features/gigs/service/gig.service';
-import { getDataFromSessionStorage, lowerCase } from 'src/shared/utils/utils.service';
+import {  lowerCase } from 'src/shared/utils/utils.service';
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 import TopGigViews from 'src/shared/gigs/TopGigViews';
 import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';

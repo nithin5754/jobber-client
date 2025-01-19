@@ -7,12 +7,12 @@ import {
   LazyExoticComponent,
   ReactElement,
   Suspense,
-  useCallback,
+
   useEffect,
   useRef,
   useState
 } from 'react';
-import { FaLeaf, FaPaperclip, FaPaperPlane } from 'react-icons/fa';
+import {  FaPaperclip, FaPaperPlane } from 'react-icons/fa';
 
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import { IButtonProps, ITextInputProps } from 'src/shared/shared.interface';
@@ -51,7 +51,7 @@ const MESSAGE_STATUS = {
   IS_LOADING: false,
   LOADING: true
 };
-const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isError, isLoading, setSkip }): ReactElement => {
+const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }): ReactElement => {
   const seller: ISeller = useAppSelector(useGetSellerDetails);
   const authUser: IAuthUser = useAppSelector(useAuthDetails);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -59,7 +59,7 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isError, isLoading, se
   const scrollRef = UseChatScrollToBottom(chatMessages);
   const [receiverUsername, setReceiverUsername] = useState<string>('');
   const [showImagePreview, setShowImagePreview] = useState<boolean>(MESSAGE_STATUS.IS_LOADING);
-  const [gigId, setGigId] = useState<string>('');
+  const [gigId, _setGigId] = useState<string>('');
   const [displayCustomOffer, setDisplayCustomOffer] = useState<boolean>(MESSAGE_STATUS.IS_LOADING);
   const [isUploadingFile, setIsUploadingFile] = useState<boolean>(MESSAGE_STATUS.IS_LOADING);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

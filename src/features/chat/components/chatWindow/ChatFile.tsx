@@ -5,7 +5,7 @@ import { checkUrlExtension } from 'src/shared/utils/image-utils.service';
 import { bytesToSize, downloadFile, getFileBlob, showErrorToast } from 'src/shared/utils/utils.service';
 import { AxiosResponse } from 'axios';
 
-const ChatFile: FC<IChatMessageProps> = ({ message, gig, seller }): ReactElement => {
+const ChatFile: FC<IChatMessageProps> = ({ message }): ReactElement => {
 
 
   const downloadChatFile=async(url:string,fileName:string):Promise<void>=>{

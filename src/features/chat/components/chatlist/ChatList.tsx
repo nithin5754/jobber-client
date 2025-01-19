@@ -79,8 +79,10 @@ const ChatList: FC = (): ReactElement => {
 
 
   useEffect(()=>{
-    chatListMessageReceived(`${authUser.username}`,chatList,conversationsListRef.current,dispatch,setChatList)
-    chatListMessageUpdated(`${authUser.username}`,chatList,conversationsListRef.current,dispatch,setChatList)
+if(setChatList){
+  chatListMessageReceived(`${authUser.username}`,chatList,conversationsListRef.current,setChatList)
+  chatListMessageUpdated(`${authUser.username}`,chatList,conversationsListRef.current,setChatList)
+}
   },[authUser.username,conversationId,chatList,dispatch])
 
   return (

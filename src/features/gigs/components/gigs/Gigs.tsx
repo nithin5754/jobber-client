@@ -11,9 +11,7 @@ import LottieAnimation from 'src/shared/lottie/components/LootieAnimation';
 import emptyState from 'src/assets/json/empty.json';
 import GigPaginate from 'src/shared/gigs/GigPaginate';
 
-import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
-import { useAppSelector } from 'src/store/store';
-import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
+
 
 
 const GigCardDisplayItem: LazyExoticComponent<FC<IGigCardItems>> = lazy(() => import('src/shared/gigs/GigCardDisplay'));
@@ -21,14 +19,14 @@ const GigCardDisplayItem: LazyExoticComponent<FC<IGigCardItems>> = lazy(() => im
 const Gigs: FC<IGigsProps> = ({ type }): ReactElement => {
   const [searchParams] = useSearchParams();
   const { category } = useParams<string>();
-  const authUser:IAuthUser=useAppSelector(useAuthDetails)
+
   const ITEM_PER_PAGE = 8;
   const [currentPage, setCurrentPage] = useState<string>('1')
 
   
 if(category){
   addNewItemSessionStorage('category',JSON.stringify(category))
-  // socket.emit('category',category,authUser.username)
+
 }
   
   

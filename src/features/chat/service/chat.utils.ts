@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import { IMessage } from "../interface/chat.interface";
 import socketService from "src/sockets/socket.service";
 import { cloneDeep, filter, findIndex, remove } from "lodash";
-import { UnknownAction } from "@reduxjs/toolkit";
+
 import { lowerCase } from "src/shared/utils/utils.service";
 
 
@@ -41,12 +41,7 @@ chatMessages=cloneDeep(chatMessagesData)
 
 
 export const chatListMessageReceived=(
-  username:string,
-  chatList:IMessage[],
-  conversationListRef:IMessage[],
-  dispatch: Dispatch<UnknownAction>,
-  setChatList:Dispatch<SetStateAction<IMessage[]>>
-):void=>{
+username: string, chatList: IMessage[], conversationListRef: IMessage[], setChatList: Dispatch<SetStateAction<IMessage[]>>):void=>{
 
   const socket=socketService.getSocket()
 
@@ -89,12 +84,7 @@ export const chatListMessageReceived=(
 
 
 export const chatListMessageUpdated=(
-  username:string,
-  chatList:IMessage[],
-  conversationListRef:IMessage[],
-  dispatch: Dispatch<UnknownAction>,
-  setChatList:Dispatch<SetStateAction<IMessage[]>>
-):void=>{
+username: string, chatList: IMessage[], conversationListRef: IMessage[],  setChatList: Dispatch<SetStateAction<IMessage[]>>):void=>{
 
   const socket=socketService.getSocket()
 

@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { FC, lazy, LazyExoticComponent, Suspense, useRef, useState } from 'react';
+import { FC, lazy, LazyExoticComponent, Suspense, useRef } from 'react';
 import { FaAngleLeft, FaAngleRight, FaBars, FaRegBell, FaRegEnvelope } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
@@ -8,7 +8,7 @@ import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
 import { IButtonProps } from 'src/shared/shared.interface';
 import { categories, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';        
 import { IHomeHeaderProps } from '../interface/header.interface';
 import { useResendEmailMutation } from 'src/features/auth/services/auth.service';
 import Banner from 'src/shared/banner/Banner';
@@ -40,8 +40,8 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
 
   const [isSettingsDropdown, setIsSettingsDropdown] = useDetectOutsideClick(settingsDropdownRef, false);
   const [isMessageDropdownOpen, setIsMessageDropdownOpen] = useDetectOutsideClick(messageDropdownRef, false);
-  const [isNotificationDropdownOpen, setIsNotificationDropdownOpen] = useDetectOutsideClick(notificationDropdownRef, false);
-  const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useDetectOutsideClick(orderDropdownRef, false);
+  const [isNotificationDropdownOpen, _setIsNotificationDropdownOpen] = useDetectOutsideClick(notificationDropdownRef, false);
+  const [isOrderDropdownOpen, _setIsOrderDropdownOpen] = useDetectOutsideClick(orderDropdownRef, false);
   const dispatch = useAppDispatch();
 
   const handleResendEmail = async () => {
