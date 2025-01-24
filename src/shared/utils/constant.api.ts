@@ -2,6 +2,9 @@ import { AuthEndPointsTypes } from '../shared.interface';
 
 export const BASE_ENDPOINT = import.meta.env.VITE_BASE_ENDPOINT;
 
+
+console.log(BASE_ENDPOINT,"BASE ENDPOINTS")
+
 const CLOUDINARY_BASE_URL=import.meta.env.VITE_CLOUDINARY_PUBLIC_URL
 
 
@@ -18,21 +21,21 @@ export const REFRESH_API_ENDPOINTS = () => {
 export const AUTH_API_ENDPOINTS = (endpoints_name: AuthEndPointsTypes,data?:string): string => {
   switch (endpoints_name) {
     case 'REGISTER':
-      return '/auth/register';
+      return 'auth/register';
     case 'LOGIN':
-      return '/auth/login';
+      return 'auth/login';
     case 'VERIFY_EMAIL':
-      return '/auth/verify-email'
+      return 'auth/verify-email'
      case 'FORGOT_PASSWORD':
-      return '/auth/forgot-password' 
+      return 'auth/forgot-password' 
      case 'RESET_PASSWORD' :
-      return `/auth/reset-password/${data}` 
+      return `auth/reset-password/${data}` 
       case 'CURRENT_USER':
-       return '/current/current-user'
+       return 'current/current-user'
       case  'SIGN_OUT':
-        return '/auth/sign-out'
+        return 'auth/sign-out'
       case 'RESEND_EMAIL':
-        return '/current/resend-email'
+        return 'current/resend-email'
 
     default:
       return '';
