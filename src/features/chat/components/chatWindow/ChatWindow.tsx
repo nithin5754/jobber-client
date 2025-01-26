@@ -12,7 +12,7 @@ import {
   useRef,
   useState
 } from 'react';
-import {  FaPaperclip, FaPaperPlane } from 'react-icons/fa';
+import {  FaPaperPlane } from 'react-icons/fa';
 
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import { IButtonProps, ITextInputProps } from 'src/shared/shared.interface';
@@ -28,7 +28,7 @@ import socketService from 'src/sockets/socket.service';
 import { TimeAgo } from 'src/shared/utils/date.utils';
 
 import ChatImagePreview from './ChatImagePreview';
-import { checkFile, fileType, readAsBase64 } from 'src/shared/utils/image-utils.service';
+import { fileType, readAsBase64 } from 'src/shared/utils/image-utils.service';
 import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 import { useAppSelector } from 'src/store/store';
 import { useGetSellerDetails } from 'src/features/seller/reducers/seller.reducer';
@@ -54,7 +54,7 @@ const MESSAGE_STATUS = {
 const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }): ReactElement => {
   const seller: ISeller = useAppSelector(useGetSellerDetails);
   const authUser: IAuthUser = useAppSelector(useAuthDetails);
-  const fileRef = useRef<HTMLInputElement>(null);
+
   const socket = socketService.getSocket();
   const scrollRef = UseChatScrollToBottom(chatMessages);
   const [receiverUsername, setReceiverUsername] = useState<string>('');
@@ -101,17 +101,7 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
     }
   }, [socket, handleOnline, username, receiverRef.current?.username]);
 
-  const handleFileChange = (event: ChangeEvent): void => {
-    const target: HTMLInputElement = event.target as HTMLInputElement;
 
-    if (target.files) {
-      const file: File = target.files[0];
-      if (!checkFile(file)) {
-        setSelectedFile(file);
-        setShowImagePreview(MESSAGE_STATUS.LOADING);
-      }
-    }
-  };
 
   const setChatMessage = (event: ChangeEvent) => {
     setMessage((event.target as HTMLInputElement).value);
