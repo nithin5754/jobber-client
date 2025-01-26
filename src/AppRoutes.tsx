@@ -6,7 +6,7 @@ import ResetPasswordModal from 'src/features/auth/components/ResetPassword';
 import ProtectedRoutes from 'src/features/ProtectedRoutes';
 import GigView from './features/gigs/components/view/GigView';
 import Gigs from './features/gigs/components/gigs/Gigs';
-
+import Checkout from './features/order/components/Checkout';
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
@@ -230,6 +230,19 @@ const AppRouter: FC = () => {
     },
 
     {
+      path: '/gig/checkout/:gigId',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor="#ffffff">
+            <Suspense>
+              <Checkout />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+
+    {
       path: '/inbox',
       element: (
         <ProtectedRoutes>
@@ -242,7 +255,6 @@ const AppRouter: FC = () => {
       )
     },
 
-    
     {
       path: '/inbox/:username/:conversationId',
       element: (

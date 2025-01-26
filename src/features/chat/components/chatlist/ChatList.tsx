@@ -85,52 +85,59 @@ if(setChatList){
 }
   },[authUser.username,conversationId,chatList,dispatch])
 
+
+
   return (
     <>
       <div className="border-grey truncate border-b px-5 py-3 text-base font-medium">
         <h2 className="w-6/12 truncate text-sm md:text-base lg:text-lg">All Conversations</h2>
       </div>
       <div className="absolute h-full w-full overflow-scroll pb-14">
-        {chatList.map((item: IMessage, index: number) => (
-          <div
-            key={index}
-            onClick={() => {
-              selectedUserFromList(item);
-            }}
-            className={`flex w-full cursor-pointer items-center space-x-4 px-5 py-4 hover:bg-gray-50 ${index !== chatList.length - 1 ? 'border-grey border-b ' : ''} ${!item.isRead ? 'bg-[#f5fbff]' : ''} ${data?.conversationId === conversationId ? 'bg-[#f5fbff]' : ''}`}
-          >
-            <img
-              src={item.receiverUsername !== authUser.username ? item.receiverPicture : item.senderPicture}
-              alt="profile image"
-              className="h-10 w-10 object-cover rounded-full"
-            />
-            <div className="w-full text-sm dark:text-white">
-              <div className="flex justify-between pb-1 font-bold text-[#777d74]">
-                <span className={`${selectedUser && !item.body ? 'flex items-center' : ''}`}>
-                  {item.receiverUsername !== authUser.username ? item.receiverUsername : item.senderUsername}
-                </span>
-                {item.createdAt ? <span className="font-normal">{TimeAgo.transform(`${item.createdAt}`)}</span> : <></>}
-              </div>
-              <div className="flex justify-between text-[#777d74]">
-                <span>
-                  {item.receiverUsername !== authUser.username ? '' : 'Me: '}
-                  {item.body}
-                </span>
-                {!item.isRead ? (
-                  <>
-                    {item.receiverUsername === authUser.username ? (
-                      <FaCircle className="mt-2 text-customPurple hover:text-customViolet" size={8} />
-                    ) : (
-                      <FaCheck className="mt-2" size={8} />
-                    )}
-                  </>
-                ) : (
-                  <FaCheckDouble className="mt-2 text-customPurple hover:text-customViolet" size={8} />
-                )}
+        {chatList.map((item: IMessage, index: number) => {
+          
+  console.log(`item.receiverPicture :${`https://res.cloudinary.com/doddu4xce/image/upload/v1731946551/${item.receiverPicture}` } `, `item.senderPicture: ${item.senderPicture}`);
+
+          return(
+            <div
+              key={index}
+              onClick={() => {
+                selectedUserFromList(item);
+              }}
+              className={`flex w-full cursor-pointer items-center space-x-4 px-5 py-4 hover:bg-gray-50 ${index !== chatList.length - 1 ? 'border-grey border-b ' : ''} ${!item.isRead ? 'bg-[#f5fbff]' : ''} ${data?.conversationId === conversationId ? 'bg-[#f5fbff]' : ''}`}
+            >
+              <img
+                src={item.receiverUsername !== authUser.username ? `https://res.cloudinary.com/doddu4xce/image/upload/v1731946551/${item.receiverPicture}` : item.senderPicture}
+                alt="profile image"
+                className="h-10 w-10 object-cover rounded-full"
+              />
+              <div className="w-full text-sm dark:text-white">
+                <div className="flex justify-between pb-1 font-bold text-[#777d74]">
+                  <span className={`${selectedUser && !item.body ? 'flex items-center' : ''}`}>
+                    {item.receiverUsername !== authUser.username ? item.receiverUsername : item.senderUsername}
+                  </span>
+                  {item.createdAt ? <span className="font-normal">{TimeAgo.transform(`${item.createdAt}`)}</span> : <></>}
+                </div>
+                <div className="flex justify-between text-[#777d74]">
+                  <span>
+                    {item.receiverUsername !== authUser.username ? '' : 'Me: '}
+                    {item.body}
+                  </span>
+                  {!item.isRead ? (
+                    <>
+                      {item.receiverUsername === authUser.username ? (
+                        <FaCircle className="mt-2 text-customPurple hover:text-customViolet" size={8} />
+                      ) : (
+                        <FaCheck className="mt-2" size={8} />
+                      )}
+                    </>
+                  ) : (
+                    <FaCheckDouble className="mt-2 text-customPurple hover:text-customViolet" size={8} />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </>
   );

@@ -244,47 +244,40 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
             {!showImagePreview && (
               <div className="bottom-0 left-0 right-0 z-0 h-28 px-4 ">
                 <Suspense fallback={<CircularPageLoader />}>
-                  <form className="mb-1 w-full" onSubmit={sendChat}>
-                    <ChatWindowInput
-                      type="text"
-                      name="message"
-                      value={message}
-                      onChange={(event: ChangeEvent) => setMessage((event.target as HTMLInputElement).value)}
-                      className="border-grey mb-1 w-full rounded border p-3.5 text-sm font-normal text-gray-600 focus:outline-none"
-                      placeholder="Enter your message..."
-                    />
-                  </form>
-                  <div className="flex cursor-pointer flex-row justify-between">
-                    <div className="flex gap-4">
-                      {!showImagePreview && <FaPaperclip className="mt-1 self-center" onClick={() => fileRef.current?.click()} />}
+          
+                  <div className="flex cursor-pointer flex-row justify-between gap-4 ">
+        
+                  <div className="flex items-center gap-4">
+                      {/* {!showImagePreview && <FaPaperclip className="mt-1 self-center" onClick={() => fileRef.current?.click()} />} */}
                       {!showImagePreview && singleMessageRef.current && singleMessageRef.current.sellerId === seller.id && (
                         <ChatWindowButton
-                          className="rounded bg-customPurple px-6 py-3 text-center text-sm font-bold text-white hover:bg-customViolet focus:outline-none md:px-4 md:py-2 md:text-base"
-                          disabled={false}
+                        className="rounded bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:outline-none"                          disabled={false}
                           label="Add Offer"
                           onClick={() => setDisplayCustomOffer(MESSAGE_STATUS.LOADING)}
                         />
                       )}
 
-                      <ChatWindowInput
-                        name="chatFile"
-                        ref={fileRef}
-                        type="file"
-                        style={{ display: 'none' }}
-                        onClick={() => {
-                          if (fileRef.current) {
-                            fileRef.current.value = '';
-                          }
-                        }}
-                        onChange={handleFileChange}
-                      />
+
+
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex flex-1">
+                    <form className="mb-1 w-full" onSubmit={sendChat}>
+                    <ChatWindowInput
+                      type="text"
+                      name="message"
+                      value={message}
+                      onChange={(event: ChangeEvent) => setMessage((event.target as HTMLInputElement).value)}
+                             className="w-full rounded border border-gray-300 px-3 py-6 text-sm text-gray-700 placeholder-gray-400 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                      placeholder="Enter your message..."
+                    />
+                  </form>
+                    </div>
+                    <div className="flex w-[50px]">
                       <ChatWindowButton
                         onClick={sendChat}
-                        className="rounded bg-customPurple px-6 py-3 text-center text-sm font-bold text-white hover:bg-customViolet focus:outline-none md:px-4 md:py-2 md:text-base"
+                              className="flex w-full justify-center rounded   bg-purple-600  text-white hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:outline-none"
                         disabled={false}
-                        label={<FaPaperPlane className="self-center" />}
+                        label={<FaPaperPlane className="self-center" size={18}/>}
                       />
                     </div>
                   </div>

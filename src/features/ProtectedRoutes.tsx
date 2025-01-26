@@ -62,9 +62,9 @@ const headerType:string=useAppSelector(useHeaderType)
     checkUser()
   },[checkUser])
 
+console.log("authuser",authUser)
 
-
-    if((currentUserDetails&&currentUserDetails.user)||authUser){
+    if((currentUserDetails&&currentUserDetails.user)||authUser&&authUser.email){
          if(tokenIsValid){
            return (
             <>
@@ -78,6 +78,7 @@ const headerType:string=useAppSelector(useHeaderType)
          }
        
     }else{
+    
       return <> <Navigate to={'/'} replace/></>
     }
 }

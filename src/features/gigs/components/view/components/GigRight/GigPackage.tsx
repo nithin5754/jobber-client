@@ -39,7 +39,7 @@ const continueToCheck=()=>{
     cancelled: false
   }
 
-  navigate(`/gig/checkout/${gig.id}?${createSearchParams({offer:JSON.stringify(offerParams)})}`)
+  navigate(`/gig/checkout/${gig.id}?${createSearchParams({offer:JSON.stringify(offerParams)})}`,{state:gig})
 }
 
 

@@ -32,12 +32,14 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
   ) {
     const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
     if (refreshResult.data) {
+    
       const fetchData: IResponse = refreshResult.data;
 
       api.dispatch(addAuthUser({ authInfo: fetchData.user, token: fetchData.token }));
 
       result = await baseQuery(args, api, extraOptions);
     } else {
+      console.log("refresh",refreshResult)
       api.dispatch(logout({}));
       
       api.dispatch(clearAuthUser(undefined));
