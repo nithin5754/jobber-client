@@ -89,7 +89,7 @@ const Register: FC<IModalBgProps> = ({ onClose }): ReactElement => {
                   />
                 </Suspense>
               )}
-              <h1 className="flex w-full justify-center">Join Jobber</h1>
+              <h1 className="flex w-full justify-center">Join codeHirePro</h1>
               <Suspense>
                 <RegisterButton
                   className="cursor-pointer rounded text-gray-400 hover:text-gray-600"
