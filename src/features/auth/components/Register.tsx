@@ -125,7 +125,7 @@ const Register: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement => {
                   />
                 </Suspense>
               )}
-              <h1 className="flex w-full justify-center">Join codeHirePro</h1>
+              <h1 className="flex w-full justify-center">Join codehirepro</h1>
               <Suspense>
                 <RegisterButton
                   className="cursor-pointer rounded text-gray-400 hover:text-gray-600"
