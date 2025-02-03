@@ -24,7 +24,7 @@ const placeholder = 'https://placehold.co/330x220?text=Placeholder';
   const [requirement, setRequirement] = useState<string>('');
   const offer:IOffer=JSON.parse(`${searchParams.get('offer')}`);
   const order_date=`${searchParams.get('order_date')}`;
-  const serviceFee: number = offer.price < 50 ? (5.5 / 100) * offer.price + 2 : (5.5 / 100) * offer.price;
+  // const serviceFee: number = offer.price < 50 ? (5.5 / 100) * offer.price + 2 : (5.5 / 100) * offer.price;
   const navigate: NavigateFunction = useNavigate();
   const orderId = `JO${generateRandomNumbers(11)}`;
   const invoiceId=`JI${generateRandomNumbers(11)}`;

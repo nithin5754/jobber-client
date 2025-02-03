@@ -15,7 +15,7 @@ import TopGigViews from 'src/shared/gigs/TopGigViews';
 import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
 import { useAppSelector } from 'src/store/store';
 import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
-import Footer from 'src/shared/footer/Footer';
+
 
 const HomeSlider: LazyExoticComponent<FC> = lazy(() => import('./HomeSlider'));
 const HomeGigsView: LazyExoticComponent<FC<IHomeProps>> = lazy(() => import('./HomeGigsView'));
