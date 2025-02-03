@@ -7,6 +7,13 @@ import ProtectedRoutes from 'src/features/ProtectedRoutes';
 import GigView from './features/gigs/components/view/GigView';
 import Gigs from './features/gigs/components/gigs/Gigs';
 import Checkout from './features/order/components/Checkout';
+import Requirements from './features/order/components/Requirements';
+import Order from './features/order/components/Order';
+import PrivacyPolicy from './shared/footer/PrivacyPolicy';
+import FooterLayout from './shared/footer/FooterLayout';
+import TermOfService from './shared/footer/TermOfService';
+import RefundPolicy from './shared/footer/RefundPolicy';
+import Contact from './shared/footer/Contact';
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
@@ -48,6 +55,56 @@ const AppRouter: FC = () => {
       )
     },
 
+    {
+      path: '/privacy',
+      element: (
+        <Suspense fallback={'loading...'}>
+          <Layout backgroundColor="#ffffff ">
+            <FooterLayout>
+              <PrivacyPolicy />
+            </FooterLayout>
+          </Layout>
+        </Suspense>
+      )
+    },
+
+    {
+      path: '/terms-of-service',
+      element: (
+        <Suspense fallback={'loading...'}>
+          <Layout backgroundColor="#ffffff ">
+            <FooterLayout>
+              <TermOfService />
+            </FooterLayout>
+          </Layout>
+        </Suspense>
+      )
+    },
+    {
+      path: '/refund_policy',
+      element: (
+        <Suspense fallback={'loading...'}>
+          <Layout backgroundColor="#ffffff ">
+            <FooterLayout>
+              <RefundPolicy />
+            </FooterLayout>
+          </Layout>
+        </Suspense>
+      )
+    },
+
+    {
+      path: '/contact',
+      element: (
+        <Suspense fallback={'loading...'}>
+          <Layout backgroundColor="#ffffff ">
+            <FooterLayout>
+              <Contact />
+            </FooterLayout>
+          </Layout>
+        </Suspense>
+      )
+    },
     {
       path: '/',
       element: (
@@ -236,6 +293,30 @@ const AppRouter: FC = () => {
           <Layout backgroundColor="#ffffff">
             <Suspense>
               <Checkout />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+    {
+      path: '/gig/order/requirement/:gigId',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+              <Requirements />
+            </Suspense>
+          </Layout>
+        </ProtectedRoutes>
+      )
+    },
+    {
+      path: '/orders/:orderId/activities',
+      element: (
+        <ProtectedRoutes>
+          <Layout backgroundColor={'#e0e0e0f'}>
+            <Suspense fallback={'loading...'}>
+              <Order />
             </Suspense>
           </Layout>
         </ProtectedRoutes>

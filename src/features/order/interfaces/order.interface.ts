@@ -95,3 +95,10 @@ export interface IOrderTableProps {
 export interface IActiveOrderProps {
   activeOrders: IOrder[];
 }
+
+
+
+export interface ICheckoutProps {
+  gigId: string;
+  offer: IOffer;
+}

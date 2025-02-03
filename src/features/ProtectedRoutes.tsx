@@ -12,6 +12,7 @@ import { addSeller } from "./seller/reducers/seller.reducer";
 import { useIsCategoryContainerOpen } from "src/shared/header/reducer/category.reducer";
 import { useHeaderType } from "src/shared/header/reducer/header.reducer";
 import socketService from "src/sockets/socket.service";
+import Footer from "src/shared/footer/Footer";
 
 
 
@@ -70,7 +71,7 @@ console.log("authuser",authUser)
             <>
         { headerType&&headerType==='home'&& <HomeHeader showCategoryContainer={showCategoryContainer} />}
             {children}
-            
+            <Footer/>
             </>
            )
          }else{

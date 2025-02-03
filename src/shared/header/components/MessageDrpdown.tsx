@@ -15,6 +15,7 @@ import { lowerCase, showErrorToast } from 'src/shared/utils/utils.service';
 import { TimeAgo } from 'src/shared/utils/date.utils';
 import LottieAnimation from 'src/shared/lottie/components/LootieAnimation';
 import emptyBox from 'src/assets/json/empty-box.json'
+import { CLOUDINARY_PICTURE_URL } from 'src/shared/utils/constant.api';
 
 const MessageDropdown: FC<IHomeHeaderProps> = ({ setIsMessageDropdownOpen }): ReactElement => {
   const seller: ISeller = useAppSelector(useGetSellerDetails);
@@ -77,39 +78,43 @@ try {
           conversation.length>0?(
      <>
      {
-      conversation.map((data:IMessage)=>(
-        <div onClick={()=>{
-          selectInboxMsg(data)
-          if(setIsMessageDropdownOpen){
-            setIsMessageDropdownOpen(false)
-          }
-        }}  key={data.id} className="border-grey max-h-[90px] border-b pt-2 text-left hover:bg-gray-50 ">
-          <div className="flex px-4">
-                  <div className="mt-1 flex-shrink-0">
-                    <img
-                      className="h-11 w-11 rounded-full object-cover"
-                      src={data.receiverUsername !== authUser.username ? data.receiverPicture : data.senderPicture}
-                      alt={data.receiverUsername !== authUser.username ? data.receiverUsername : data.senderUsername}
-                    />
-                  </div>
-                  <div className="w-full pl-3 pt-1">
-                    <div className="flex flex-col text-sm font-normal ">
-                      <div className="font-bold leading-none flex justify-between">
-                        {data.receiverUsername !== authUser.username ? data.receiverUsername : data.senderUsername}
-                        {!data.isRead ? <FaRegEnvelope className="text-sky-400" /> : <FaRegEnvelopeOpen className="text-gray-200" />}
+      conversation.map((data:IMessage)=>{
+
+        console.log("data ,chat",data)
+        return (
+          <div onClick={()=>{
+            selectInboxMsg(data)
+            if(setIsMessageDropdownOpen){
+              setIsMessageDropdownOpen(false)
+            }
+          }}  key={data.id} className="border-grey max-h-[90px] border-b pt-2 text-left hover:bg-gray-50 ">
+            <div className="flex px-4">
+                    <div className="mt-1 flex-shrink-0">
+                      <img
+                        className="h-11 w-11 rounded-full object-cover"
+                        src={data.receiverUsername !== authUser.username ? CLOUDINARY_PICTURE_URL(`${data.receiverPicture}`) : data.senderPicture}
+                        alt={data.receiverUsername !== authUser.username ? data.receiverUsername : data.senderUsername}
+                      />
+                    </div>
+                    <div className="w-full pl-3 pt-1">
+                      <div className="flex flex-col text-sm font-normal ">
+                        <div className="font-bold leading-none flex justify-between">
+                          {data.receiverUsername !== authUser.username ? data.receiverUsername : data.senderUsername}
+                          {!data.isRead ? <FaRegEnvelope className="text-sky-400" /> : <FaRegEnvelopeOpen className="text-gray-200" />}
+                        </div>
+                        <span className="line-clamp-1 pt-1 font-normal leading-4">
+                          {data.receiverUsername === authUser?.username ? '' : 'Me: '}
+                          {data.body}
+                        </span>
                       </div>
-                      <span className="line-clamp-1 pt-1 font-normal leading-4">
-                        {data.receiverUsername === authUser?.username ? '' : 'Me: '}
-                        {data.body}
-                      </span>
-                    </div>
-                    <div className="mt-1 flex text-[11px]">
-                      {data.createdAt && <span className="font-normal text-[#b5b6ba]">{TimeAgo.transform(data.createdAt)}</span>}
+                      <div className="mt-1 flex text-[11px]">
+                        {data.createdAt && <span className="font-normal text-[#b5b6ba]">{TimeAgo.transform(data.createdAt)}</span>}
+                      </div>
                     </div>
                   </div>
-                </div>
-      </div>
-      ))
+        </div>
+        )
+      })
      }
      </>
           ):(  

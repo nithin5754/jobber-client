@@ -10,6 +10,8 @@ import LottieAnimation from 'src/shared/lottie/components/LootieAnimation';
 
 import emptyState from 'src/assets/json/empty.json';
 import GigPaginate from 'src/shared/gigs/GigPaginate';
+import { useAppDispatch } from 'src/store/store';
+import { updateHeader } from 'src/shared/header/reducer/header.reducer';
 
 
 
@@ -19,7 +21,8 @@ const GigCardDisplayItem: LazyExoticComponent<FC<IGigCardItems>> = lazy(() => im
 const Gigs: FC<IGigsProps> = ({ type }): ReactElement => {
   const [searchParams] = useSearchParams();
   const { category } = useParams<string>();
-
+  const dispatch=useAppDispatch()
+  
   const ITEM_PER_PAGE = 8;
   const [currentPage, setCurrentPage] = useState<string>('1')
 
@@ -28,6 +31,10 @@ if(category){
   addNewItemSessionStorage('category',JSON.stringify(category))
 
 }
+
+useEffect(()=>{
+  dispatch(updateHeader('home'));
+},[])
   
   
   const updatedSearchParams: URLSearchParams = new URLSearchParams(searchParams);

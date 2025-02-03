@@ -15,6 +15,8 @@ import { addSeller } from './seller/reducers/seller.reducer';
 import { useIsCategoryContainerOpen } from 'src/shared/header/reducer/category.reducer';
 import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import socketService from 'src/sockets/socket.service';
+import Footer from 'src/shared/footer/Footer';
+
 
 
 
@@ -94,6 +96,7 @@ if(socket){
         {!tokenIsValid && !authUser.id ? (
           <Suspense fallback={<CircularPageLoader/>}>
             <Index />
+            <Footer/>
           </Suspense>
         ) : (
           <>
@@ -105,6 +108,7 @@ if(socket){
                   <Suspense fallback={<CircularPageLoader/>}>
                   <HomeHeader showCategoryContainer={showCategoryContainer} />
                   <Home />
+                  <Footer/>
                 </Suspense>
             </>)}
     
