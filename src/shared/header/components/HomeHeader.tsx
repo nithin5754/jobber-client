@@ -22,7 +22,7 @@ import { updateCategoryContainer } from '../reducer/category.reducer';
 import { updateHeader } from '../reducer/header.reducer';
 import HeaderSearchInput from './HeaderSearchInput';
 import MessageDropdown from './MessageDrpdown';
-import photo from 'src/assets/jobber-logo-transparent.png'
+// import photo from 'src/assets/jobber-logo-transparent.png'
 const HomeHeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const HomeHeaderSettings: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/SettingsDropDown'));
 
@@ -86,7 +86,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                   <Suspense fallback={'loading...'}>
                     <HomeHeaderButton
                       className="m-auto flex h-0.5 w-5 items-center rounded transition duration-300"
-                      label={<FaBars className="h-6 w-6 text-sky-500" />}
+                      label={<FaBars className="h-6 w-6 text-customPurple" />}
                     />
                   </Suspense>
                 </label>
@@ -99,7 +99,9 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                     }}
                     className="relative z-10 flex cursor-pointer justify-center self-center text-2xl font-semibold text-black lg:text-3xl"
                   >
-                 <img src={`${photo}`} alt="" width={150} />
+                 {/* <img src={`${photo}`} alt="" width={150} />
+                  */}
+                        <h2>codehirePro</h2>
                   </Link>
           
                 </div>

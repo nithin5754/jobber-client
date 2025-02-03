@@ -5,7 +5,7 @@ import { IButtonProps } from 'src/shared/shared.interface';
 import { IModalBgProps } from 'src/shared/modal/interfaces/modal.interface';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { saveToLocalStorage } from 'src/shared/utils/utils.service';
-import photo from 'src/assets/jobber-logo-transparent.png'
+// import photo from 'src/assets/jobber-logo-transparent.png'
 
 
 const HeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
@@ -70,7 +70,8 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
             <div className="flex flex-wrap items-center justify-between gap-6 md:gap-0 md:py-3 lg:py-5">
               <div className="flex w-full items-center justify-between lg:w-auto">
                 <Link to="/" className="relative z-10 cursor-pointer text-3xl font-semibold text-white">
-                <img src={`${photo}`} alt="" width={150} />
+                {/* <img src={`${photo}`} alt="" width={150} /> */}
+                <h2>codehirePro</h2>
                 </Link>
                 <div className="relative z-20 -mr-6 block cursor-pointer p-6 lg:hidden">
                   <Suspense fallback={<h1>button loading.....</h1>}>
