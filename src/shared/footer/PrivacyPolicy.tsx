@@ -96,7 +96,7 @@ const PrivacyPolicy:FC = ():ReactElement => {
     If you have any questions about this Privacy Policy, the practices of this site, or your dealings with us, please contact us at:
 </p>
 
-<p className="font-semibold">NamasteDev</p>
+<p className="font-semibold">CodeHirePro</p>
 <p>Email: <a href="mailto:support@namastedev.com" className="text-blue-600">support@www.jobber.phaseex.live</a></p>
 <p>Website: <a href="https://www.jobber.phaseex.live" className="text-blue-600">www.jobber.phaseex.live</a></p>
 
