@@ -71,7 +71,7 @@ const Header: FC<IHeader> = ({ navClass }): ReactElement => {
               <div className="flex w-full items-center justify-between lg:w-auto">
                 <Link to="/" className="relative z-10 cursor-pointer text-3xl font-semibold text-white">
                 {/* <img src={`${photo}`} alt="" width={150} /> */}
-                <h2>codehirePro</h2>
+                <h2 className='hover:text-customPurple text-customViolet'>codehirePro</h2>
                 </Link>
                 <div className="relative z-20 -mr-6 block cursor-pointer p-6 lg:hidden">
                   <Suspense fallback={<h1>button loading.....</h1>}>

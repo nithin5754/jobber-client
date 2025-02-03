@@ -101,7 +101,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                   >
                  {/* <img src={`${photo}`} alt="" width={150} />
                   */}
-                        <h2>codehirePro</h2>
+                           <h2 className='hover:text-customPurple text-customViolet'>codehirePro</h2>
                   </Link>
           
                 </div>
