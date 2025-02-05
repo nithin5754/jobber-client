@@ -108,7 +108,7 @@ const AppRouter: FC = () => {
     },
 
     {
-      path: '/delivery-policy',
+      path: '/shipping-policy',
       element: (
         <Suspense fallback={'loading...'}>
           <Layout backgroundColor="#ffffff ">

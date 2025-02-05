@@ -23,7 +23,7 @@ const Footer = () => {
                     <a href="/terms-of-service" className="hover:underline me-4 md:me-6">Terms of Service</a>
                 </li>
                 <li>
-                    <a href='/delivery-policy' className="hover:underline md:me-6">Delivery Policy</a>
+                    <a href='/shipping-policy' className="hover:underline md:me-6">Shipping Policy</a>
                 </li>
                 <li>
                     <a href="/contact" className="hover:underline">Contact</a>
