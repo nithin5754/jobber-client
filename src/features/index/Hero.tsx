@@ -63,7 +63,6 @@ const Hero: FC = (): ReactElement => {
           >
             for your Website
           </span>
-          
         </h1>
         <div className="lg:flex">
           <div
@@ -122,7 +121,7 @@ const Hero: FC = (): ReactElement => {
           <div className="-right-10 hidden lg:col-span-2 lg:mt-0 lg:flex">
             <div className="relative w-full">
               <Suspense>
-                <HeroLottieAnimation animationData={animationMobile} height={400} width={500}  />
+                <HeroLottieAnimation animationData={animationMobile} height={400} width={500} />
               </Suspense>
             </div>
           </div>

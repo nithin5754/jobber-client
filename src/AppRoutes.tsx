@@ -14,6 +14,7 @@ import FooterLayout from './shared/footer/FooterLayout';
 import TermOfService from './shared/footer/TermOfService';
 import RefundPolicy from './shared/footer/RefundPolicy';
 import Contact from './shared/footer/Contact';
+import DeliveryPolicy from './shared/footer/DeliveryPolicy';
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
@@ -100,6 +101,19 @@ const AppRouter: FC = () => {
           <Layout backgroundColor="#ffffff ">
             <FooterLayout>
               <Contact />
+            </FooterLayout>
+          </Layout>
+        </Suspense>
+      )
+    },
+
+    {
+      path: '/delivery-policy',
+      element: (
+        <Suspense fallback={'loading...'}>
+          <Layout backgroundColor="#ffffff ">
+            <FooterLayout>
+              <DeliveryPolicy />
             </FooterLayout>
           </Layout>
         </Suspense>
