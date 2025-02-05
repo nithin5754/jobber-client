@@ -1,9 +1,10 @@
+import { FC, ReactElement } from "react"
 
 
 
 
 
-const DeliveryPolicy = () => {
+const DeliveryPolicy:FC = ():ReactElement => {
   return (
     <body className="bg-gray-100 text-gray-800">
     <div className="container mx-auto px-4 py-8">
