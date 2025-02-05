@@ -1,7 +1,8 @@
+import { FC, ReactElement } from "react"
 
 
 
-const Contact = () => {
+const Contact:FC = ():ReactElement => {
   return (
 <body className=" ">
     <div className="container w-full  p-6 ">

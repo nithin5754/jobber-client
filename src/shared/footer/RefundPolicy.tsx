@@ -1,7 +1,8 @@
+import { FC, ReactElement } from "react"
 
 
 
-const RefundPolicy = () => {
+const RefundPolicy:FC = ():ReactElement => {
   return (
     <body className=" text-gray-900">
     <div className="container mx-auto p-6  mt-10">

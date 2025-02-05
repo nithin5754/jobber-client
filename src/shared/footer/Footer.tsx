@@ -5,7 +5,7 @@ const Footer = () => {
   return (
    
 
-<footer className="opacity-100 ">
+<footer className="bg-white shadow-sm dark:bg-gray-800 opacity-100 ">
     <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
             <a href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
@@ -23,7 +23,7 @@ const Footer = () => {
                     <a href="/terms-of-service" className="hover:underline me-4 md:me-6">Terms of Service</a>
                 </li>
                 <li>
-                    <a href='/shipping-policy' className="hover:underline md:me-6">Shipping Policy</a>
+                    <a href="/shipping-policy" className="hover:underline me-4 md:me-6">Shipping Policy</a>
                 </li>
                 <li>
                     <a href="/contact" className="hover:underline">Contact</a>
