@@ -61,7 +61,7 @@ const Hero: FC = (): ReactElement => {
             className="relative bg-gradient-to-r from-customPurple to-fuchsia-500 bg-clip-text text-transparent
           dark:from-customViolet dark:to-customPurple"
           >
-            for your project
+            for your Website
           </span>
           .
         </h1>
@@ -71,7 +71,7 @@ const Hero: FC = (): ReactElement => {
           lg:mr-auto lg:w-7/12 lg:text-left"
           >
             <p className="text-gray-700 dark:text-gray-300 sm:text-lg lg:w-11/12">
-              Find the right freelance service for your next project.
+              Find the right freelance service for your next Website.
             </p>
             <div className="flex w-full justify-between gap-6 lg:gap-12">
               <form
