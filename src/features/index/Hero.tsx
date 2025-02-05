@@ -63,7 +63,7 @@ const Hero: FC = (): ReactElement => {
           >
             for your Website
           </span>
-          .
+          
         </h1>
         <div className="lg:flex">
           <div
