@@ -20,7 +20,7 @@ import axios, {AxiosResponse} from 'axios'
 countries.registerLocale(enLocale);
 
 export const lowerCase = (str: string): string => {
-  return str.toLowerCase();
+  return  str? str.toLowerCase():''
 };
 
 export const replaceSpacesWithDash = (title: string): string => {

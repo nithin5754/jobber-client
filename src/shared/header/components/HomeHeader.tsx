@@ -6,7 +6,7 @@ import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
 import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
 
 import { IButtonProps } from 'src/shared/shared.interface';
-import { categories, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
+import { categories, firstLetterUppercase, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
 import { v4 as uuidv4 } from 'uuid';        
 import { IHomeHeaderProps } from '../interface/header.interface';
@@ -80,7 +80,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
         )}
         <div className="m-auto px-6 xl:container md:px-12 lg:px-6">
           <div className="flex flex-wrap items-center justify-between  gap-6 md:gap-0 md:py-3 lg:py-5">
-            <div className="flex w-full gap-x-4 lg:w-5/12">
+            <div className="flex w-full gap-x-4 lg:w-3/12">
               <div className="hidden w-full md:flex">
                 <label htmlFor="hbr" className="peer-checked:hamburger relative z-20 -ml-4 block cursor-pointer p-6 lg:hidden">
                   <Suspense fallback={'loading...'}>
@@ -108,7 +108,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
               </div>
               {/* <!-- Add MobileHeaderSearchInput component here --> */}
             </div>
-            <div className="navmenu  mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-7/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+            <div className="navmenu  mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-9/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
               <div className="text-[#74767e] lg:pr-4 w-full flex-1">
                 <ul className="flex text-base font-medium">
                <div className="flex w-7/12 ml-[6px]  ">
@@ -194,12 +194,12 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                     </Transition>
                   </li>
                   {buyerDetails && !buyerDetails?.isSeller && (
-                    <li className="relative flex items-center py-[5px] ">
+                    <li className="relative flex w-full items-center py-[5px] ">
                       <Link
                         to="/seller_onboarding"
-                        className="relative ml-auto flex  h-9 items-center justify-center rounded-full bg-customViolet hover:bg-customPurple text-white font-bold sm:px-6 "
+                        className="relative m-auto flex   h-9 items-center justify-center rounded-full bg-customViolet hover:bg-customPurple text-white font-bold sm:px-6 "
                       >
-                        <span>Become a Seller</span>
+                        <span className='w-full text-[14px] font-medium'>Become a Seller</span>
                       </Link>
                     </li>
                   )}
@@ -219,7 +219,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                               alt="profile"
                               className="h-8 w-8 rounded-full object-cover"
                             />
-                            <span className={`flex self-center `}>{authUser?.username}</span>
+                            <span className={`flex self-center font-bold `}>{firstLetterUppercase(`${authUser?.username}`as string)||authUser?.username}</span>
                           </>
                         }
                       />

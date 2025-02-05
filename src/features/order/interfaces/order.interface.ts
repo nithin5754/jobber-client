@@ -2,7 +2,7 @@
 
 
 export interface IOrder {
-  id:string;
+  id?:string;
   offer: IOffer;
   gigId: string;
   sellerId: string;

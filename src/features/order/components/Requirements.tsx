@@ -37,7 +37,6 @@ const placeholder = 'https://placehold.co/330x220?text=Placeholder';
   const startOrder=async ():Promise<void>=>{
 const paymentIntentId=`RA${generateRandomNumbers(11)}`
 const order:IOrder={
-  id: '',
   offer: {
     gigTitle: offer.gigTitle,
     price: offer.price,

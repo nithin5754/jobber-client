@@ -26,7 +26,7 @@ export const chatApi = apiSlice.injectEndpoints({
     saveChatMessage: build.mutation<IResponse, IMessage>({
       query(body: IMessage) {
         return {
-          url: 'chat',
+          url: 'chat/create-chat',
           method: 'POST',
           body
         };

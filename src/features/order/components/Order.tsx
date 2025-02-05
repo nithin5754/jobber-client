@@ -36,7 +36,9 @@ const Order:FC = ():ReactElement => {
         </div>
 
         <div className="w-full p-4 lg:w-1/3 ">
-            {/* <!-- DeliveryTimer --> */}
+        
+       
+        
 
             <div className="bg-white">
                 <div className="mb-2 flex flex-col border-b px-4 pb-4 pt-3 md:flex-row">
@@ -69,6 +71,7 @@ const Order:FC = ():ReactElement => {
                     </li>
                 </ul>
             </div>
+     
         </div>
     </div>
 </div>
