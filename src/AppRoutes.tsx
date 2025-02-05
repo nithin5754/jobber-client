@@ -119,7 +119,7 @@ const AppRouter: FC = () => {
     },
 
     {
-      path: 'confirm_email',
+      path: '/confirm_email',
       element: (
         <Suspense fallback={'loading...'}>
           <VerifyEmail />
