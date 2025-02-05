@@ -4,7 +4,7 @@ import { FC, ReactElement } from "react"
 
 
 
-const DeliveryPolicy:FC = ():ReactElement => {
+const ShippingPolicy:FC = ():ReactElement => {
   return (
 <body className=" text-gray-800 font-medium ">
 <div className="container mx-auto p-6">
@@ -59,4 +59,4 @@ const DeliveryPolicy:FC = ():ReactElement => {
 </body>
   )
 }
-export default DeliveryPolicy
+export default ShippingPolicy
