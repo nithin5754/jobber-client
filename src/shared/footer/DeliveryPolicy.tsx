@@ -6,9 +6,9 @@ import { FC, ReactElement } from "react"
 
 const DeliveryPolicy:FC = ():ReactElement => {
   return (
-<body className="bg-gray-100 text-gray-800 font-medium ">
+<body className=" text-gray-800 font-medium ">
 <div className="container mx-auto p-6">
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="p-6">
             <h1 className="text-3xl font-bold text-center mb-6 text-black">Shipping Policy</h1>
             
             <section className="mb-6">
