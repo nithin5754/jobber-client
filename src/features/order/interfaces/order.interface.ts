@@ -1,3 +1,4 @@
+import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
 
 
 
@@ -101,4 +102,27 @@ export interface IActiveOrderProps {
 export interface ICheckoutProps {
   gigId: string;
   offer: IOffer;
+}
+
+
+
+export interface IOrderInvoice {
+  invoiceId: string;
+  orderId: string;
+  date: string;
+  buyerUsername: string;
+  orderService: IOrderInvoiceService[];
+}
+
+export interface IOrderInvoiceService {
+  service: string;
+  quantity: number;
+  price: number;
+}
+
+export interface IOrderContext {
+  order?: IOrder;
+  authUser?: IAuthUser;
+  orderInvoice?: IOrderInvoice;
+  viewDeliveryBtnClicked?: boolean;
 }

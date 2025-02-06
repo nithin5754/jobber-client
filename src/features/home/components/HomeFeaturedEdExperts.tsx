@@ -17,7 +17,7 @@ const StarRating:LazyExoticComponent<FC<IStartRatingProps>>=lazy(()=>import("src
 
 const HomeFeaturedEdExperts:FC<IFeaturedEdExpertsProps> = ({sellers}):ReactElement => {
 
-
+console.log("sellers",sellers)
 
   return (
     <div className="mx-auto my-8 flex flex-col w-full">
