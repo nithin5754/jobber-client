@@ -108,10 +108,10 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
               </div>
               {/* <!-- Add MobileHeaderSearchInput component here --> */}
             </div>
-            <div className="mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-7/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
-              <div className="text-[#74767e] lg:pr-4 w-full flex-1">
-                <ul className="flex py-1 flex-1  text-base font-medium">
-               <div className="flex w-[50%]   ml-[6px]  ">
+            <div className="mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-full border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700/80 dark:bg-gray-800/80 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-7/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+              <div className="text-[#c3bdbd] lg:pr-4 w-full flex-1">
+                <ul className="flex  flex-1  text-base font-medium">
+               <div className="flex w-[50%]   ml-[3px]  ">
                <li className=" z-50 flex w-full  cursor-pointer   ">
                 <HeaderSearchInput/>
 

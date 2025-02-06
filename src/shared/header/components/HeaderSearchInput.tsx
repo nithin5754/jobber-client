@@ -19,7 +19,7 @@ const HeaderSearchInput: FC = (): ReactElement => {
      }
   };
   return (
-    <div className="mb-4 mt-1  flex h-10 rounded-full w-full self-center bg-gray-500/40  opacity-100 md:mb-0 md:mt-0">
+    <div className="mb-4 mt-1  flex h-10 rounded-full w-full self-center bg-gray-500/40 border-none  opacity-100 md:mb-0 md:mt-0">
       <form
         onSubmit={(event: FormEvent) => {
           event.preventDefault();
@@ -32,7 +32,7 @@ const HeaderSearchInput: FC = (): ReactElement => {
           name="search"
           value={searchItem}
           onChange={(event: ChangeEvent) => setSearchItem((event.target as HTMLInputElement).value)}
-          placeholder="What service are you looking for today?"
+          placeholder="What type of website are you looking ?"
           className="w-full truncate px-4 text-white/50    py-[7.5px] bg-transparent rounded-full rounded-r-none "
         />
       </form>
