@@ -69,7 +69,7 @@ const {data:sellerGigData}=useGetGigsBySellerIdQuery(`${sellerId}`)
     </div>
 
     <div className="flex flex-wrap bg-white p-5 ">
-      {type === 'OverView' && <SellerOverview showEditIcons={false} sellerProfile={sellerProfile} />}
+      {type === 'OverView' && <SellerOverview showEditIcons={false} sellerProfile={sellerData?.seller} />}
       {type === 'Active Gigs' &&   <div className="grid gap-x-6 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 
 {
