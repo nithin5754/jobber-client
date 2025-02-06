@@ -108,17 +108,17 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
               </div>
               {/* <!-- Add MobileHeaderSearchInput component here --> */}
             </div>
-            <div className="navmenu  mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-9/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+            <div className="mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-7/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
               <div className="text-[#74767e] lg:pr-4 w-full flex-1">
-                <ul className="flex text-base font-medium">
-               <div className="flex w-7/12 ml-[6px]  ">
-               <li className=" z-50 flex cursor-pointer  w-full  ">
+                <ul className="flex py-1 flex-1  text-base font-medium">
+               <div className="flex w-[50%]   ml-[6px]  ">
+               <li className=" z-50 flex w-full  cursor-pointer   ">
                 <HeaderSearchInput/>
 
                 </li>
                </div>
-               <div className="flex ">
-               <li className="relative z-50 flex cursor-pointer items-center">
+               <div className="flex w-[50%]    justify-center gap-2 ">
+               <li className="relative   z-50 flex cursor-pointer items-center">
                     <Suspense fallback={'loading..'}>
                       <HomeHeaderButton
                         className="relative px-4"
