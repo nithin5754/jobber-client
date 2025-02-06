@@ -6,8 +6,6 @@ import { FC, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 
 
 import BreadCrumbs from 'src/shared/breadcrumbs/BreadCrumbs';
 import { IProfileHeaderProps, IProfileTabsProps, ISeller } from '../../interfaces/seller.interface';
-import {  useAppSelector } from 'src/store/store';
-import {  useGetSellerDetails } from '../../reducers/seller.reducer';
 
 
 
@@ -29,19 +27,17 @@ const SellerProfileTabs: LazyExoticComponent<FC<IProfileTabsProps>> = lazy(
 );
 
 const SellerProfile: FC = (): ReactElement => {
-  const seller = useAppSelector(useGetSellerDetails);
-
-
-
-  const [sellerProfile] = useState<ISeller>(seller);
-
-
+  
   const [type, setType] = useState<string>('OverView');
 
+  const {sellerId}=useParams()
 
-const {sellerId}=useParams()
 
-const {data:sellerData,isLoading}=useGetSellerBySellerIdQuery(sellerId as string)
+console.log("seller-id",sellerId)
+
+const {data:sellerData,isLoading}=useGetSellerBySellerIdQuery(`${sellerId}`)
+
+console.log("sellerData",sellerData?.seller)
 const {data:sellerGigData}=useGetGigsBySellerIdQuery(`${sellerId}`)
 
 
