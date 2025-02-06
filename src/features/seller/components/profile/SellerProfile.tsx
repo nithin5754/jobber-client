@@ -5,7 +5,7 @@ import { FC, lazy, LazyExoticComponent, ReactElement, Suspense, useState } from 
 
 
 import BreadCrumbs from 'src/shared/breadcrumbs/BreadCrumbs';
-import { IProfileHeaderProps, IProfileTabsProps, ISeller } from '../../interfaces/seller.interface';
+import { IProfileHeaderProps, IProfileTabsProps } from '../../interfaces/seller.interface';
 
 
 
