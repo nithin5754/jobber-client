@@ -1,6 +1,6 @@
 import { IResponse } from 'src/shared/shared.interface';
 import { apiSlice } from 'src/store/api';
-import { IDeliveredWork, IOrder } from '../interfaces/order.interface';
+import { IOrder } from '../interfaces/order.interface';
 
 export const orderSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
