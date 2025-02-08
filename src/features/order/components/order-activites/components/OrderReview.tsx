@@ -5,7 +5,7 @@ import { FC, ReactElement } from "react"
 
 const OrderReview:FC = ():ReactElement => {
   return (
- <div >dsjfjkgds</div>
+ <div >Order Review</div>
   )
 }
 export default OrderReview

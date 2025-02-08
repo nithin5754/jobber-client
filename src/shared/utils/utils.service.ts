@@ -226,6 +226,13 @@ export const sellerOrderList = (status: string, orders: IOrder[]): IOrder[] => {
   return orderList;
 };
 
+export const shortenLargeNumbers = (data: number | undefined): string => {
+  if (data === undefined) {
+    return '0';
+  }
+  return millify(data, { precision: 0 });
+};
+
 
 
 export const reactQuilUtils=()=>{

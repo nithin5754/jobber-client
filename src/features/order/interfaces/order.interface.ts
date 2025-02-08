@@ -1,7 +1,7 @@
 import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
 
 
-
+export type DivElementRefType = HTMLDivElement;
 export interface IOrder {
   id?:string;
   offer: IOffer;
@@ -38,7 +38,9 @@ export interface IOrder {
   paymentIntent?: string;
 }
 
-
+export interface IOrderDeliveredProps {
+  ref?: HTMLDivElement;
+}
 export interface IOffer {
   [key: string]: string | number | boolean | undefined;
   gigTitle: string;
@@ -125,4 +127,58 @@ export interface IOrderContext {
   authUser?: IAuthUser;
   orderInvoice?: IOrderInvoice;
   viewDeliveryBtnClicked?: boolean;
+}
+
+export interface IOrderActivitiesProps {
+  order: IOrder;
+  authUser: IAuthUser;
+  viewDeliveryBtnClicked?: boolean;
+  showDeliveryPanel?: boolean;
+  showReviewPanel?: boolean;
+}
+
+
+export interface IOrderDeliveredModal {
+  delivery: boolean;
+  deliveryApproval: boolean;
+}
+
+export interface IOrderDisplayModal {
+  deliverWork: boolean,
+  extendDelivery: boolean
+}
+
+export interface IOrderMessage {
+  sellerId?: string;
+  buyerId?: string;
+  ongoingJobs?: number;
+  completedJobs?: number;
+  totalEarnings?: number;
+  purchasedGigs?: string;
+  recentDelivery?: string;
+  type?: string;
+  receiverEmail?: string;
+  username?: string;
+  template?: string;
+  sender?: string;
+  offerLink?: string;
+  amount?: string;
+  buyerUsername?: string;
+  sellerUsername?: string;
+  title?: string;
+  description?: string;
+  deliveryDays?: string;
+  orderId?: string;
+  invoiceId?: string;
+  orderDue?: string;
+  requirements?: string;
+  orderUrl?: string;
+  originalDate?: string;
+  newDate?: string;
+  reason?: string;
+  subject?: string;
+  header?: string;
+  total?: string;
+  message?: string;
+  serviceFee?: string;
 }

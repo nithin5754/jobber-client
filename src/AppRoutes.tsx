@@ -24,7 +24,7 @@ const VerifyEmail: LazyExoticComponent<FC> = lazy(() => import('src/features/aut
 const ErrorPage404: LazyExoticComponent<FC> = lazy(() => import('src/shared/error/Error'));
 
 const Chat: LazyExoticComponent<FC> = lazy(() => import('src/features/chat/components/Chat'));
-const BuyerDashBoard: LazyExoticComponent<FC> = lazy(() => import('src/features/buyer/components/Dashboard'));
+const BuyerDashBoard: LazyExoticComponent<FC> = lazy(() => import('src/features/buyer/components/BuyerDashboard'));
 
 const AddSeller: LazyExoticComponent<FC> = lazy(() => import('src/features/seller/components/add/AddSeller'));
 

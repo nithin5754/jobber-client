@@ -9,13 +9,14 @@ import { useGetGigsBySellerIdQuery, useGetSellerPausedGigsQuery } from 'src/feat
 
 import { useAppDispatch } from 'src/store/store';
 import { updateHeader } from 'src/shared/header/reducer/header.reducer';
+import { useGetOrdersBySellerIdQuery } from 'src/features/order/services/order.service';
 const DashBoardHeader: LazyExoticComponent<FC> = lazy(() => import('src/shared/header/components/DashBoardHeader'));
 
 const Seller: FC = (): ReactElement => {
   const { sellerId } = useParams<string>();
   let gigs: ISellerGig[] = [];
   let pausedGigs: ISellerGig[] = [];
-  const orders: IOrder[] = [];
+  let orders: IOrder[] = [];
   let seller: ISeller | undefined = undefined;
   const dispatch=useAppDispatch()
 
@@ -30,7 +31,7 @@ const Seller: FC = (): ReactElement => {
   const {data:pausedGigData,isSuccess:pausedSuccess}=useGetSellerPausedGigsQuery(`${sellerId}`, { skip: !sellerId });
 
 
-
+  const {data:sellerOrders,isSuccess:orderSuccess}=useGetOrdersBySellerIdQuery(`${sellerId}`)
 
 
   if (isSellerSuccess) {
@@ -45,6 +46,10 @@ const Seller: FC = (): ReactElement => {
   if(pausedSuccess){
  
     pausedGigs=pausedGigData.gigArray as ISellerGig[]
+  }
+
+  if(orderSuccess){
+    orders=sellerOrders.orders as IOrder[]
   }
 
 
