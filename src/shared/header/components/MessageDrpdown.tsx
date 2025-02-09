@@ -80,7 +80,6 @@ try {
      {
       conversation.map((data:IMessage)=>{
 
-        console.log("data ,chat",data)
         return (
           <div onClick={()=>{
             selectInboxMsg(data)

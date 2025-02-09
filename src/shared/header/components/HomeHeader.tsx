@@ -8,7 +8,7 @@ import { useAuthDetails } from 'src/features/auth/reducers/auth.reducer';
 import { IButtonProps } from 'src/shared/shared.interface';
 import { categories, firstLetterUppercase, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
 import { useAppDispatch, useAppSelector } from 'src/store/store';
-import { v4 as uuidv4 } from 'uuid';        
+import { v4 as uuidv4 } from 'uuid';
 import { IHomeHeaderProps } from '../interface/header.interface';
 import { useResendEmailMutation } from 'src/features/auth/services/auth.service';
 import Banner from 'src/shared/banner/Banner';
@@ -22,10 +22,11 @@ import { updateCategoryContainer } from '../reducer/category.reducer';
 import { updateHeader } from '../reducer/header.reducer';
 import HeaderSearchInput from './HeaderSearchInput';
 import MessageDropdown from './MessageDrpdown';
+
 // import photo from 'src/assets/jobber-logo-transparent.png'
 const HomeHeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const HomeHeaderSettings: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/SettingsDropDown'));
-
+const OrderDropDown: LazyExoticComponent<FC<IHomeHeaderProps>>=lazy(()=>import('src/shared/header/components/OrderDropDown'))
 const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
   const authUser: IAuthUser | undefined = useAppSelector(useAuthDetails);
   const buyerDetails: IBuyer | undefined = useAppSelector(useGetBuyerDetails);
@@ -41,7 +42,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
   const [isSettingsDropdown, setIsSettingsDropdown] = useDetectOutsideClick(settingsDropdownRef, false);
   const [isMessageDropdownOpen, setIsMessageDropdownOpen] = useDetectOutsideClick(messageDropdownRef, false);
   const [isNotificationDropdownOpen, _setIsNotificationDropdownOpen] = useDetectOutsideClick(notificationDropdownRef, false);
-  const [isOrderDropdownOpen, _setIsOrderDropdownOpen] = useDetectOutsideClick(orderDropdownRef, false);
+  const [isOrderDropdownOpen, setIsOrderDropdownOpen] = useDetectOutsideClick(orderDropdownRef, false);
   const dispatch = useAppDispatch();
 
   const handleResendEmail = async () => {
@@ -56,14 +57,24 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
 
   const handleToggle = (): void => {
     setIsSettingsDropdown(!isSettingsDropdown);
-    setIsMessageDropdownOpen(false)
+    setIsMessageDropdownOpen(false);
+    setIsOrderDropdownOpen(false)
   };
 
-  const toggleMessageDropDown=():void=>{
-    setIsMessageDropdownOpen(!isMessageDropdownOpen)
-   setIsSettingsDropdown(false)
-  }
+  const toggleMessageDropDown = (): void => {
+    setIsMessageDropdownOpen(!isMessageDropdownOpen);
+    setIsSettingsDropdown(false);
+    dispatch(updateHeader('home'));
+    dispatch(updateCategoryContainer(true));
+  };
 
+  const toggleOrdersDropdown = (): void => {
+    setIsOrderDropdownOpen(!isOrderDropdownOpen)
+    setIsMessageDropdownOpen(false);
+    setIsSettingsDropdown(false);
+    dispatch(updateHeader('home'));
+    dispatch(updateCategoryContainer(true));
+  };
   return (
     <header>
       <nav className="navbar peer-checked:navbar-active relative z-[120] w-full border-b bg-white shadow-2xl shadow-gray-600/5 backdrop-blur dark:shadow-none">
@@ -99,11 +110,10 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                     }}
                     className="relative z-10 flex cursor-pointer justify-center self-center text-2xl font-semibold text-black lg:text-3xl"
                   >
-                 {/* <img src={`${photo}`} alt="" width={150} />
-                  */}
-                           <h2 className='hover:text-customPurple text-customViolet'>codehirePro</h2>
+                    {/* <img src={`${photo}`} alt="" width={150} />
+                     */}
+                    <h2 className="hover:text-customPurple text-customViolet">codehirePro</h2>
                   </Link>
-          
                 </div>
               </div>
               {/* <!-- Add MobileHeaderSearchInput component here --> */}
@@ -111,137 +121,144 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
             <div className="mb-16 hidden w-full cursor-pointer flex-wrap items-center justify-end space-y-8 rounded-full border border-gray-100 bg-white p-6 shadow-2xl shadow-gray-300/20 dark:border-gray-700/80 dark:bg-gray-800/80 dark:shadow-none md:flex-nowrap lg:m-0 lg:flex lg:w-7/12 lg:space-y-0 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
               <div className="text-[#c3bdbd] lg:pr-4 w-full flex-1">
                 <ul className="flex  flex-1  text-base font-medium">
-               <div className="flex w-[50%]   ml-[3px]  ">
-               <li className=" z-50 flex w-full  cursor-pointer   ">
-                <HeaderSearchInput/>
-
-                </li>
-               </div>
-               <div className="flex w-[50%]    justify-center gap-2 ">
-               <li className="relative   z-50 flex cursor-pointer items-center">
-                    <Suspense fallback={'loading..'}>
-                      <HomeHeaderButton
-                        className="relative px-4"
-                        label={
-                          <>
-                            <FaRegBell />
-                            <span className="absolute -top-1 right-0 mr-3 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
-                          </>
-                        }
-                      />
-                    </Suspense>
-                    <Transition
-                      ref={notificationDropdownRef}
-                      show={isNotificationDropdownOpen}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <div className="absolute right-0 mt-5 w-96">{/* <!-- NotificationDropdown --> */}</div>
-                    </Transition>
-                  </li>
-                  <li className="relative z-50 flex cursor-pointer items-center">
-                    <Suspense fallback={'loading...'}>
-                      <HomeHeaderButton
-                      onClick={toggleMessageDropDown}
-                        className="relative px-4"
-                        label={
-                          <>
-                            <FaRegEnvelope />
-                            <span className="absolute -top-1 right-0 mr-2 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
-                          </>
-                        }
-                      />
-                    </Suspense>
-                    <Transition
-                      ref={messageDropdownRef}
-                      show={isMessageDropdownOpen}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <div className=" absolute right-0 mt-5 top-[1.9rem] w-96"><MessageDropdown setIsMessageDropdownOpen={setIsMessageDropdownOpen}/></div>
-                    </Transition>
-                  </li>
-                  <li className="relative z-50 flex cursor-pointer items-center">
-                    <Suspense fallback={'loading'}>
-                      <HomeHeaderButton
-                        className="px-3"
-                        label={
-                          <>
-                            <span>Orders</span>
-                          </>
-                        }
-                      />
-                    </Suspense>
-                    <Transition
-                      ref={orderDropdownRef}
-                      show={isOrderDropdownOpen}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
-                      <div className="absolute right-0 mt-5 w-96">{/* <!-- OrderDropdown --> */}</div>
-                    </Transition>
-                  </li>
-                  {buyerDetails && !buyerDetails?.isSeller && (
-                    <li className="relative flex w-full items-center py-[5px] ">
-                      <Link
-                        to="/seller_onboarding"
-                        className="relative m-auto flex   h-9 items-center justify-center rounded-full bg-customViolet hover:bg-customPurple text-white font-bold sm:px-6 "
-                      >
-                        <span className='w-full text-[14px] font-medium'>Become a Seller</span>
-                      </Link>
+                  <div className="flex w-[50%]   ml-[3px]  ">
+                    <li className=" z-50 flex w-full  cursor-pointer   ">
+                      <HeaderSearchInput />
                     </li>
-                  )}
-                  <li className="relative z-50 flex cursor-pointer items-center">
-                    <Suspense fallback={'loading..'}>
-                      <HomeHeaderButton
-                        onClick={handleToggle}
-                        className={`relative flex gap-2 px-3 text-base font-medium py-2 `}
-                        label={
-                          <>
-                            <img
-                              src={
-                                authUser?.profilePicture
-                                  ? CLOUDINARY_PICTURE_URL(authUser?.profilePublicId as string)
-                                  : 'src/assets/profile-1.png'
-                              }
-                              alt="profile"
-                              className="h-8 w-8 rounded-full object-cover"
-                            />
-                            <span className={`flex self-center font-bold `}>{firstLetterUppercase(`${authUser?.username}`as string)||authUser?.username}</span>
-                          </>
-                        }
-                      />
-                    </Suspense>
-                    <Transition
-                      ref={settingsDropdownRef}
-                      show={isSettingsDropdown}
-                      enter="transition ease-out duration-200"
-                      enterFrom="opacity-0 translate-y-1"
-                      enterTo="opacity-100 translate-y-0"
-                      leave="transition ease-in duration-150"
-                      leaveFrom="opacity-100 translate-y-0"
-                      leaveTo="opacity-0 translate-y-1"
-                    >
+                  </div>
+                  <div className="flex w-[50%]    justify-center gap-2 ">
+                    <li className="relative   z-50 flex cursor-pointer items-center">
+                      <Suspense fallback={'loading..'}>
+                        <HomeHeaderButton
+                          className="relative px-4"
+                          label={
+                            <>
+                              <FaRegBell />
+                              <span className="absolute -top-1 right-0 mr-3 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
+                            </>
+                          }
+                        />
+                      </Suspense>
+                      <Transition
+                        ref={notificationDropdownRef}
+                        show={isNotificationDropdownOpen}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <div className="absolute right-0 mt-5 w-96">{/* <!-- NotificationDropdown --> */}</div>
+                      </Transition>
+                    </li>
+                    <li className="relative z-50 flex cursor-pointer items-center">
+                      <Suspense fallback={'loading...'}>
+                        <HomeHeaderButton
+                          onClick={toggleMessageDropDown}
+                          className="relative px-4"
+                          label={
+                            <>
+                              <FaRegEnvelope />
+                              <span className="absolute -top-1 right-0 mr-2 inline-flex h-[6px] w-[6px] items-center justify-center rounded-full bg-[#ff62ab]"></span>
+                            </>
+                          }
+                        />
+                      </Suspense>
+                      <Transition
+                        ref={messageDropdownRef}
+                        show={isMessageDropdownOpen}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <div className=" absolute right-0 mt-5 top-[1.9rem] w-96">
+                          <MessageDropdown setIsMessageDropdownOpen={setIsMessageDropdownOpen} />
+                        </div>
+                      </Transition>
+                    </li>
+                    <li className="relative z-50 flex cursor-pointer items-center" onClick={toggleOrdersDropdown}>
+                      <Suspense fallback={'loading'}>
+                        <HomeHeaderButton
+                          className="px-3"
+                          label={
+                            <>
+                              <span>Orders</span>
+                            </>
+                          }
+                        />
+                      </Suspense>
+                      <Transition
+                        ref={orderDropdownRef}
+                        show={isOrderDropdownOpen}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
                       <div className=" absolute -right-48 top-[1.9rem] z-50 mt-5 w-96">
-                        <Suspense fallback={'loading...'}>
-                          <HomeHeaderSettings authUser={authUser} type="buyer" buyer={buyerDetails} seller={sellerDetails} />
-                        </Suspense>
-                      </div>
-                    </Transition>
-                  </li>
-               </div>
+                          <Suspense fallback={'loading...'}>
+                            <OrderDropDown  buyer={buyerDetails} setIsDropdownOpen={setIsOrderDropdownOpen} />
+                          </Suspense>
+                        </div>
+                      </Transition>
+                    </li>
+                    {buyerDetails && !buyerDetails?.isSeller && (
+                      <li className="relative flex w-full items-center py-[5px] ">
+                        <Link
+                          to="/seller_onboarding"
+                          className="relative m-auto flex   h-9 items-center justify-center rounded-full bg-customViolet hover:bg-customPurple text-white font-bold sm:px-6 "
+                        >
+                          <span className="w-full text-[14px] font-medium">Become a Seller</span>
+                        </Link>
+                      </li>
+                    )}
+                    <li className="relative z-50 flex cursor-pointer items-center">
+                      <Suspense fallback={'loading..'}>
+                        <HomeHeaderButton
+                          onClick={handleToggle}
+                          className={`relative flex gap-2 px-3 text-base font-medium py-2 `}
+                          label={
+                            <>
+                              <img
+                                src={
+                                  authUser?.profilePicture
+                                    ? CLOUDINARY_PICTURE_URL(authUser?.profilePublicId as string)
+                                    : 'src/assets/profile-1.png'
+                                }
+                                alt="profile"
+                                className="h-8 w-8 rounded-full object-cover"
+                              />
+                              <span className={`flex self-center font-bold `}>
+                                {firstLetterUppercase(`${authUser?.username}` as string) || authUser?.username}
+                              </span>
+                            </>
+                          }
+                        />
+                      </Suspense>
+                      <Transition
+                        ref={settingsDropdownRef}
+                        show={isSettingsDropdown}
+                        enter="transition ease-out duration-200"
+                        enterFrom="opacity-0 translate-y-1"
+                        enterTo="opacity-100 translate-y-0"
+                        leave="transition ease-in duration-150"
+                        leaveFrom="opacity-100 translate-y-0"
+                        leaveTo="opacity-0 translate-y-1"
+                      >
+                        <div className=" absolute -right-48 top-[1.9rem] z-50 mt-5 w-96">
+                          <Suspense fallback={'loading...'}>
+                            <HomeHeaderSettings authUser={authUser} type="buyer" buyer={buyerDetails} seller={sellerDetails} />
+                          </Suspense>
+                        </div>
+                      </Transition>
+                    </li>
+                  </div>
                 </ul>
               </div>
             </div>
