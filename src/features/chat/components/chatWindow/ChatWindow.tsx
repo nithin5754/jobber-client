@@ -136,7 +136,7 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
 
       if (selectedFile) {
         const dataImage: string | ArrayBuffer | null = await readAsBase64(selectedFile);
-        console.log(dataImage, 'selected file');
+  
         messageBody.file = dataImage as string;
         messageBody.body = messageBody.body ? messageBody.body : '1 file sent';
         messageBody.fileType = fileType(selectedFile);
@@ -144,7 +144,7 @@ const ChatWindow: FC<IChatWindowProps> = ({ chatMessages, isLoading, setSkip }):
         messageBody.fileSize = `${selectedFile.size}`;
       }
 
-      console.log("message,body",messageBody)
+ 
 
       await saveChatMessage(messageBody).unwrap();
       setSelectedFile(null);

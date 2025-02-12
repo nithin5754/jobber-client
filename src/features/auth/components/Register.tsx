@@ -76,7 +76,7 @@ const Register: FC<IModalBgProps> = ({ onClose, onToggle }): ReactElement => {
         formData.append('country', userInfo.country);
         formData.append('profilePicture', isProfilePicture);
         let result = await signUp(formData).unwrap();
-        console.log(result);
+
         if (result && result.user && result.message) {
           setStatus(FETCH_STATUS.SUCCESS);
           setAlertMessage(result.message as string);

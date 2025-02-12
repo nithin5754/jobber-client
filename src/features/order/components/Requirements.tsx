@@ -107,7 +107,7 @@ const Requirements: FC = (): ReactElement => {
       showErrorToast('Error starting your order.');
     }
   };
-  console.log("Invoice",orderInvoice)
+
   return (
     <div className="container mx-auto lg:h-screen">
       <div className="flex flex-wrap">

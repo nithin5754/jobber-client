@@ -2,7 +2,7 @@ import { FC, ReactElement } from "react"
 "src/features/gigs/context/gig.context"
 import GigOverview from "./GigLeft/GigOverview"
 import GigAboutLeft from "./GigLeft/GigAboutLeft"
-import GigReviewOverview from "./GigLeft/GigReviewOverview"
+import GigReviewOverview from "./GigLeft/GigReview"
 
 
 const GigViewLeft:FC = ():ReactElement => {
@@ -12,7 +12,7 @@ const GigViewLeft:FC = ():ReactElement => {
 
 <GigOverview/>
 <GigAboutLeft/>
-<GigReviewOverview/>
+<GigReviewOverview showRatings={true} hasFetchedReviews={false}/>
 </>
   )
 }

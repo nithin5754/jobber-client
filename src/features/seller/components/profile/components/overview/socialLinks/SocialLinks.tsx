@@ -11,7 +11,7 @@ const SocialLinks: FC = (): ReactElement => {
 
   const { sellerProfile,showEditIcons } = useContext(SellerContext);
 
-  console.log('social', sellerProfile.socialLinks[0]);
+
 
   return (
     <div className="border-grey border bg-white mt-6">

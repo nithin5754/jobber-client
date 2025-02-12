@@ -95,8 +95,6 @@ if(setChatList){
       <div className="absolute h-full w-full overflow-scroll pb-14">
         {chatList.map((item: IMessage, index: number) => {
           
-  console.log(`item.receiverPicture :${`https://res.cloudinary.com/doddu4xce/image/upload/v1731946551/${item.receiverPicture}` } `, `item.senderPicture: ${item.senderPicture}`);
-
           return(
             <div
               key={index}

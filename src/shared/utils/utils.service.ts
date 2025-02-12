@@ -135,6 +135,8 @@ export const applicationLogout = (dispatch: AppDispatch, navigate: NavigateFunct
   navigate('/');
 };
 
+
+
 export const sliderImages: string[] = [
   'https://fiverr-res.cloudinary.com/q_auto,f_auto,w_1400,dpr_1.0/v1/attachments/generic_asset/asset/50218c41d277f7d85feeaf3efb4549bd-1599072608122/bg-signup-1400-x1.png',
   'https://fiverr-res.cloudinary.com/q_auto,f_auto,w_1160,dpr_1.0/v1/attachments/generic_asset/asset/b49b1963f5f9008f5ff88bd449ec18f7-1608035772453/logo-maker-banner-wide-desktop-1352-2x.png',
@@ -217,8 +219,18 @@ export const showErrorToast = (message: string): void => {
 };
 
 export const orderTypes = (status: string, orders: IOrder[]): number => {
+
   const orderList: IOrder[] = filter(orders, (order: IOrder) => lowerCase(order.status) === lowerCase(status));
+
   return orderList.length;
+};
+
+
+export const BuyerOrderTypeList = (status: string, orders: IOrder[]):IOrder[]|[] => {
+
+  const orderList: IOrder[] = filter(orders, (order: IOrder) => lowerCase(order.status) === lowerCase(status));
+
+  return orderList
 };
 
 export const sellerOrderList = (status: string, orders: IOrder[]): IOrder[] => {

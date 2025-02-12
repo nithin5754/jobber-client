@@ -1,6 +1,7 @@
 import { IAuthUser } from "src/features/auth/interfaces/auth.interface";
 import { IBuyer } from "src/features/buyer/interfaces/buyer.interfaces";
 import { ICreateGig } from "src/features/gigs/interface/gigi.interface";
+import { IRatingTypes } from "src/features/order/interfaces/review.interface";
 import { ISeller } from "src/features/seller/interfaces/seller.interface";
 
 
@@ -85,3 +86,10 @@ export const emptyGigData: ICreateGig = {
   sellerId: ''
 };
 
+export const ratingTypes: IRatingTypes = {
+  one: '1',
+  two: '2',
+  three: '3',
+  four: '4',
+  five: '5'
+};

@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
+import { IRatingCategories, IReview } from 'src/features/order/interfaces/review.interface';
 import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 
 export interface IGigInfo {
@@ -18,7 +19,11 @@ export interface IGigCardItems {
   showEditIcon: boolean;
 }
 
-
+export interface IGigViewReviewsProps {
+  showRatings: boolean;
+  reviews?: IReview[];
+  hasFetchedReviews?: boolean;
+}
 
 export interface IGigsProps {
   type?: string;
@@ -44,7 +49,7 @@ export interface ISellerGig {
   tags: string[];
   ratingsCount?: number;
   ratingSum?: number;
-  // ratingCategories?: IRatingCategories;
+  ratingCategories?: IRatingCategories;
   expectedDelivery: string;
   basicTitle: string;
   basicDescription: string;

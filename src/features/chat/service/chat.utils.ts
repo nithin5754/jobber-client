@@ -67,8 +67,7 @@ username: string, chatList: IMessage[], conversationListRef: IMessage[], setChat
             conversationListRef,
             (item:IMessage)=>!item.isRead&&(item.receiverUsername===username)
           )
-
-          console.log("list",list);
+console.log("chatListMessageReceived",list)
           
 
       }

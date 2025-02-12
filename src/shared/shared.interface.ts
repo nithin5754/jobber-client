@@ -4,6 +4,7 @@ import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
 import { IConversation, IMessage } from 'src/features/chat/interface/chat.interface';
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 import { IOrder } from 'src/features/order/interfaces/order.interface';
+import { IReview } from 'src/features/order/interfaces/review.interface';
 import { ISeller } from 'src/features/seller/interfaces/seller.interface';
 
 
@@ -28,6 +29,8 @@ export interface IResponse {
   deviceType?: string;
   order?:IOrder;
   orders?:IOrder[];
+  review?:IReview;
+  reviews?:IReview[];
 }
 export interface IHtmlParserProps {
   input: string;

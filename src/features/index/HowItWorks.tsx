@@ -15,7 +15,7 @@ const HowItWorks: FC = (): ReactElement => {
             How <strong className="font-extrabold">codehirepro</strong> works?
           </h2>
           <p className="text-gray-500 text-center sm:text-xl dark:text-gray-400">
-            Find quality scholars, experts and freelancers for your next academic or business website.
+            Find quality scholars, experts and freelancers for your next academic or business Projects.
           </p>
         </div>
         <div className="space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-4">
@@ -45,7 +45,7 @@ const HowItWorks: FC = (): ReactElement => {
               <img src={collaborate} className="text-primary-600 dark:text-primary-300 h-15 w-15" alt="" />
             </div>
             <h3 className="mb-2 text-base lg:text-xl font-bold dark:text-customPurple hover:text-customViolet">Collaborate</h3>
-            <p className="text-gray-500 dark:text-gray-400">Collaborate with suitable expert for your websites.</p>
+            <p className="text-gray-500 dark:text-gray-400">Collaborate with suitable expert for your Projects.</p>
           </div>
         </div>
       </div>

@@ -38,6 +38,10 @@ export interface IOrder {
   paymentIntent?: string;
 }
 
+export interface IOrderProps {
+  order: IOrder;
+  authUser: IAuthUser;
+}
 export interface IOrderDeliveredProps {
   ref?: HTMLDivElement;
 }
@@ -51,7 +55,7 @@ export interface IOffer {
   newDeliveryDate: string;
   accepted: boolean;
   cancelled: boolean;
-  reason?: string; // this is the reason for extending the delivery date
+  reason?: string; 
 }
 
 
@@ -63,6 +67,10 @@ export interface IExtendedDelivery {
   deliveryDateUpdate?: string;
 }
 
+export interface IExtendedDateModalProps {
+  order: IOrder;
+  onClose: () => void;
+}
 
 export interface IDeliveredWork {
   message: string;

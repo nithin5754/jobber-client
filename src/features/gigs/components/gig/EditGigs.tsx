@@ -64,7 +64,7 @@ const EditGigs: FC = (): ReactElement => {
       });
       setShowGigModal({ ...showGigModal, image: false });
     } catch (error) {
-      console.log('add gi error', error);
+  
       showErrorToast('Error creating gig');
     }
   };

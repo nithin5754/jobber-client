@@ -14,6 +14,7 @@ import { find } from 'lodash';
 import socketService from 'src/sockets/socket.service';
 
 
+
 const GigsCardDisplay: FC<IGigCardItems> = ({ gig, linkTarget, showEditIcon }): ReactElement => {
   const socket=socketService.getSocket()
   const title = replaceSpacesWithDash(gig.title);
@@ -64,6 +65,7 @@ sellerUsername.current=socketData?.username as string
           <img
             src={CLOUDINARY_PICTURE_URL(`${gig.profilePicture}`)}
             alt="Profile image"
+            loading='lazy'
             className="h-7 w-8 rounded-full object-cover"
         
           />

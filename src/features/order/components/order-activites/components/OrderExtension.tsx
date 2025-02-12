@@ -1,41 +1,37 @@
-import { FC, lazy, ReactElement, useContext, useState } from "react"
-import { FaCheck } from "react-icons/fa"
-import { OrderContext } from "src/features/order/context/OrderContext"
-import { IExtendedDelivery } from "src/features/order/interfaces/order.interface"
-import ApprovalModal from "src/shared/modal/ApprovalModal"
-import { IApprovalModalContent } from "src/shared/modal/interfaces/modal.interface"
-import { IButtonProps } from "src/shared/shared.interface"
-import { TimeAgo } from "src/shared/utils/date.utils"
-import { showErrorToast } from "src/shared/utils/utils.service"
+import { FC, lazy, ReactElement, useContext, useState } from 'react';
+import { FaCheck } from 'react-icons/fa';
+import { OrderContext } from 'src/features/order/context/OrderContext';
+import { IExtendedDelivery } from 'src/features/order/interfaces/order.interface';
+import { useUpdateDeliveryDateMutation } from 'src/features/order/services/order.service';
+import ApprovalModal from 'src/shared/modal/ApprovalModal';
+import { IApprovalModalContent } from 'src/shared/modal/interfaces/modal.interface';
+import { IButtonProps } from 'src/shared/shared.interface';
+import { TimeAgo } from 'src/shared/utils/date.utils';
+import { lowerCase, showErrorToast } from 'src/shared/utils/utils.service';
 
+const Button: FC<IButtonProps> = lazy(() => import('src/shared/button/Button'));
 
-
-const Button: FC<IButtonProps>=lazy(()=>import('src/shared/button/Button'))
-
-const OrderExtension :FC = ():ReactElement => {
+const OrderExtension: FC = (): ReactElement => {
   const { order, authUser } = useContext(OrderContext);
   const [approvalModalContent, setApprovalModalContent] = useState<IApprovalModalContent>();
-  // const [updateDeliveryDate] = useUpdateDeliveryDateMutation();
+  const [updateDeliveryDate] = useUpdateDeliveryDateMutation();
   const [showExtensionApprovalModal, setShowExtensionApprovalModal] = useState<boolean>(false);
 
   const onApproveHandler = async (): Promise<void> => {
     try {
-      const extended:IExtendedDelivery={
+      const extended: IExtendedDelivery = {
         originalDate: `${order?.offer.oldDeliveryDate}`,
         newDate: `${order?.requestExtension?.newDate}`,
         days: parseInt(`${order?.requestExtension?.days}`),
         reason: `${order?.requestExtension?.reason}`,
         deliveryDateUpdate: `${new Date()}`
-      }
+      };
+      await updateDeliveryDate({ orderId: `${order?.orderId}`, type: lowerCase(`${approvalModalContent?.btnText}`), body: extended });
       setShowExtensionApprovalModal(false);
-
-      console.log("updateDeliveryDate",extended)
-      
     } catch (error) {
       showErrorToast(`${approvalModalContent?.header} error.`);
     }
-  }
-
+  };
 
   return (
     <>
@@ -110,7 +106,7 @@ const OrderExtension :FC = ():ReactElement => {
                             onClick={() => {
                               setApprovalModalContent({
                                 header: 'Reject Extension',
-                                body: 'Are you sure you don\'t want to reconsider this extension request?',
+                                body: "Are you sure you don't want to reconsider this extension request?",
                                 btnText: 'Reject',
                                 btnColor: 'bg-red-500 hover:bg-red-400'
                               });
@@ -172,6 +168,6 @@ const OrderExtension :FC = ():ReactElement => {
         </div>
       )}
     </>
-  )
-}
-export default OrderExtension
+  );
+};
+export default OrderExtension;

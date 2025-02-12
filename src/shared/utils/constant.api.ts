@@ -3,7 +3,7 @@ import { AuthEndPointsTypes } from '../shared.interface';
 export const BASE_ENDPOINT = import.meta.env.VITE_BASE_ENDPOINT;
 
 
-console.log(BASE_ENDPOINT,"BASE ENDPOINTS")
+
 
 const CLOUDINARY_BASE_URL=import.meta.env.VITE_CLOUDINARY_PUBLIC_URL
 

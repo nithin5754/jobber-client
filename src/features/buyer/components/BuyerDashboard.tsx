@@ -4,18 +4,17 @@ import socketService from 'src/sockets/socket.service';
 import { useParams } from 'react-router-dom';
 import { useGetOrdersByBuyerIdQuery } from 'src/features/order/services/order.service';
 import { IOrder } from 'src/features/order/interfaces/order.interface';
-import { orderTypes, shortenLargeNumbers } from 'src/shared/utils/utils.service';
+import { BuyerOrderTypeList, orderTypes, shortenLargeNumbers } from 'src/shared/utils/utils.service';
 
 const BUYER_GIG_STATUS = {
   ACTIVE: 'active',
   CANCELLED: 'cancelled',
   IN_PROGRESS: 'in progress',
   COMPLETED: 'completed',
-   DELIVERED: 'delivered'
+  DELIVERED: 'delivered'
 };
 
 const DashBoard: FC = (): ReactElement => {
-
   const [type, setType] = useState<string>(BUYER_GIG_STATUS.ACTIVE);
   let orders: IOrder[] = [];
   const { buyerId } = useParams<string>();
@@ -43,18 +42,14 @@ const DashBoard: FC = (): ReactElement => {
                 className={`px-4 py-3 text-xs text-[#555555] no-underline sm:text-sm md:text-base ${type === BUYER_GIG_STATUS.ACTIVE ? 'pb-[15px] outline outline-1 outline-[#e8e8e8] sm:rounded-t-lg' : ''}`}
               >
                 Active{' '}
-                {
-                  orderTypes(BUYER_GIG_STATUS.IN_PROGRESS,orders)>0 &&(
-                    <span
+                {orderTypes(BUYER_GIG_STATUS.IN_PROGRESS, orders) > 0 && (
+                  <span
                     className="ml-1 rounded-[5px] bg-customViolet hover:bg-customPurple px-[5px] py-[1px] text-xs font-medium
                                text-white"
                   >
-                 {shortenLargeNumbers(orderTypes(BUYER_GIG_STATUS.IN_PROGRESS, orders))}
+                    {shortenLargeNumbers(orderTypes(BUYER_GIG_STATUS.IN_PROGRESS, orders))}
                   </span>
-
-                  )
-                }
-          
+                )}
               </a>
             </li>
             <li className="inline-block py-3 uppercase" onClick={() => setType(BUYER_GIG_STATUS.COMPLETED)}>
@@ -96,22 +91,37 @@ const DashBoard: FC = (): ReactElement => {
                 )}
               </a>
             </li>
-
           </ul>
         </div>
 
         {type === BUYER_GIG_STATUS.ACTIVE && (
-          <Table type="active" orders={orders} orderTypes={orderTypes(BUYER_GIG_STATUS.IN_PROGRESS, orders)} />
+          <Table
+            type="active"
+            orders={BuyerOrderTypeList(BUYER_GIG_STATUS.IN_PROGRESS, orders)}
+            orderTypes={orderTypes(BUYER_GIG_STATUS.IN_PROGRESS, orders)}
+          />
         )}
         {type === BUYER_GIG_STATUS.COMPLETED && (
-          <Table type="completed" orders={orders} orderTypes={orderTypes(BUYER_GIG_STATUS.COMPLETED, orders)} />
+          <Table
+            type="completed"
+            orders={BuyerOrderTypeList(BUYER_GIG_STATUS.COMPLETED, orders)}
+            orderTypes={orderTypes(BUYER_GIG_STATUS.COMPLETED, orders)}
+          />
         )}
         {type === BUYER_GIG_STATUS.CANCELLED && (
-          <Table type="cancelled" orders={orders} orderTypes={orderTypes(BUYER_GIG_STATUS.CANCELLED, orders)} />
+          <Table
+            type="cancelled"
+            orders={BuyerOrderTypeList(BUYER_GIG_STATUS.CANCELLED, orders)}
+            orderTypes={orderTypes(BUYER_GIG_STATUS.CANCELLED, orders)}
+          />
         )}
 
-{type === BUYER_GIG_STATUS.DELIVERED && (
-          <Table type="delivered" orders={orders} orderTypes={orderTypes(BUYER_GIG_STATUS.DELIVERED, orders)} />
+        {type === BUYER_GIG_STATUS.DELIVERED && (
+          <Table
+            type="delivered"
+            orders={BuyerOrderTypeList(BUYER_GIG_STATUS.DELIVERED, orders)}
+            orderTypes={orderTypes(BUYER_GIG_STATUS.DELIVERED, orders)}
+          />
         )}
       </div>
     </div>

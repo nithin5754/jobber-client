@@ -20,6 +20,7 @@ import Typed from 'typed.js';
 import { v4 as uuidv4 } from 'uuid';
 import animationMobile from 'src/assets/json/mobile.json';
 import { LootieProps } from 'src/shared/lottie/interfaces/lottie.interface';
+import { ICONIC_PROJECT_BORDER_AREA } from 'src/shared/utils/custom.color';
 
 const HeroLottieAnimation: LazyExoticComponent<FC<LootieProps>> = lazy(() => import('src/shared/lottie/components/LootieAnimation'));
 
@@ -29,7 +30,7 @@ const Hero: FC = (): ReactElement => {
   const navigate: NavigateFunction = useNavigate();
   const [searchItem, setSearchItem] = useState<string>('');
   const navigateToSearchPage = (): void => {
-    const url: string = `/gigs/search?${createSearchParams({ query: searchItem.trim() })}`;
+    const url: string = `/index-search/gigs?${createSearchParams({ query: searchItem.trim() })}`;
     navigate(url);
   };
   useEffect(() => {
@@ -59,9 +60,9 @@ const Hero: FC = (): ReactElement => {
           Hire expert freelancers <br className="hidden lg:block" />{' '}
           <span
             className="relative bg-gradient-to-r from-customPurple to-fuchsia-500 bg-clip-text text-transparent
-          dark:from-customViolet dark:to-customPurple"
+          dark:from-customViolet dark:to-customPurple hover:dark:from-customPurple hover:dark:to-customViolet "
           >
-            for your Website
+            for your Project
           </span>
         </h1>
         <div className="lg:flex">
@@ -70,7 +71,7 @@ const Hero: FC = (): ReactElement => {
           lg:mr-auto lg:w-7/12 lg:text-left"
           >
             <p className="text-gray-700 dark:text-gray-300 sm:text-lg lg:w-11/12">
-              Find the right freelance service for your next Website.
+              Find the right freelance service for your next Projects.
             </p>
             <div className="flex w-full justify-between gap-6 lg:gap-12">
               <form
@@ -101,19 +102,21 @@ const Hero: FC = (): ReactElement => {
             </div>
             <div className="grid grid-cols-3 gap-x-2 gap-y-4 sm:flex sm:justify-center lg:justify-start ">
               {categories
-                .filter((_, index) => index < 4)
+               .slice(0, 4)
                 .map((category: string) => (
                   <div
                     key={uuidv4()}
-                    className="w-full min-w-0 cursor-pointer rounded-full border border-gray-200 p-4 duration-300
-                  hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-600/20 dark:border-gray-700
-                    dark:bg-gray-800 dark:hover:border-cyan-300/30"
+                    className={`w-full min-w-0 cursor-pointer rounded-full py-4
+                  hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-600/20 
+                    dark:bg-gray-800 ${ICONIC_PROJECT_BORDER_AREA}`}
                   >
                     <div className="flex justify-center">
                       <span className="block truncate font-medium dark:text-white">
-                        <a href={`/search/categories/${replaceSpacesWithDash(category)}`}>{category}</a>
+                        <a href={`/index-search/categories/${replaceSpacesWithDash(category)}`}>{category}</a>
                       </span>
                     </div>
+
+
                   </div>
                 ))}
             </div>

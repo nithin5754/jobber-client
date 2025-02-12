@@ -15,6 +15,9 @@ import TermOfService from './shared/footer/TermOfService';
 import RefundPolicy from './shared/footer/RefundPolicy';
 import Contact from './shared/footer/Contact';
 import ShippingPolicy from './shared/footer/ShippingPolicy';
+import CircularPageLoader from './shared/page-loader/CircularPageLoader';
+import IndexGigs from './features/gigs/components/gigs/IndexGigs';
+import IndexGigRoute from './features/gigs/components/gigs/IndexGigRoute';
 
 const AppPage: LazyExoticComponent<FC> = lazy(() => import('src/features/AppPage'));
 
@@ -50,16 +53,42 @@ const AppRouter: FC = () => {
     {
       path: '/',
       element: (
-        <Suspense fallback={'loading...'}>
+        <Suspense fallback={<CircularPageLoader/>}>
           <AppPage />
         </Suspense>
+      )
+    },
+    {
+      path: '/index-search/gigs',
+      element: (
+          <Suspense fallback={<CircularPageLoader/>}>
+   <IndexGigRoute>
+
+              <IndexGigs type="search" />
+   </IndexGigRoute>
+
+            </Suspense>
+     
+      )
+    },
+    {
+      path: '/index-search/categories/:category',
+      element: (
+          <Suspense fallback={<CircularPageLoader/>}>
+   <IndexGigRoute>
+
+              <IndexGigs type="categories" />
+   </IndexGigRoute>
+
+            </Suspense>
+     
       )
     },
 
     {
       path: '/privacy',
       element: (
-        <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
           <Layout backgroundColor="#ffffff ">
             <FooterLayout>
               <PrivacyPolicy />
@@ -69,10 +98,11 @@ const AppRouter: FC = () => {
       )
     },
 
+
     {
       path: '/terms-of-service',
       element: (
-        <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
           <Layout backgroundColor="#ffffff ">
             <FooterLayout>
               <TermOfService />
@@ -84,7 +114,7 @@ const AppRouter: FC = () => {
     {
       path: '/refund_policy',
       element: (
-        <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
           <Layout backgroundColor="#ffffff ">
             <FooterLayout>
               <RefundPolicy />
@@ -97,7 +127,7 @@ const AppRouter: FC = () => {
     {
       path: '/contact',
       element: (
-        <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
           <Layout backgroundColor="#ffffff ">
             <FooterLayout>
               <Contact />
@@ -110,7 +140,7 @@ const AppRouter: FC = () => {
     {
       path: '/shipping-policy',
       element: (
-        <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
           <Layout backgroundColor="#ffffff ">
             <FooterLayout>
               <ShippingPolicy />
@@ -124,7 +154,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor="#ffffff">
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <Home />
             </Suspense>
           </Layout>
@@ -135,7 +165,7 @@ const AppRouter: FC = () => {
     {
       path: '/confirm_email',
       element: (
-        <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
           <VerifyEmail />
         </Suspense>
       )
@@ -143,7 +173,7 @@ const AppRouter: FC = () => {
     {
       path: 'forgot-password',
       element: (
-        <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
           <ResetPasswordModal />
         </Suspense>
       )
@@ -153,7 +183,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <BuyerDashBoard />
             </Suspense>
           </Layout>
@@ -165,7 +195,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <AddSeller />
             </Suspense>
           </Layout>
@@ -177,7 +207,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <CurrentProfile />
             </Suspense>
           </Layout>
@@ -190,7 +220,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <SellerProfile />
             </Suspense>
           </Layout>
@@ -203,7 +233,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <Seller />
             </Suspense>
           </Layout>
@@ -242,7 +272,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <AddGig />
             </Suspense>
           </Layout>
@@ -267,7 +297,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <GigView />
             </Suspense>
           </Layout>
@@ -280,7 +310,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+      <Suspense fallback={<CircularPageLoader/>}>
               <Gigs type="categories" />
             </Suspense>
           </Layout>
@@ -292,7 +322,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+          <Suspense fallback={<CircularPageLoader/>}>
               <Gigs type="search" />
             </Suspense>
           </Layout>
@@ -305,7 +335,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor="#ffffff">
-            <Suspense>
+            <Suspense >
               <Checkout />
             </Suspense>
           </Layout>
@@ -317,7 +347,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+            <Suspense fallback={<CircularPageLoader/>}>
               <Requirements />
             </Suspense>
           </Layout>
@@ -329,7 +359,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+            <Suspense fallback={<CircularPageLoader/>}>
               <Order />
             </Suspense>
           </Layout>
@@ -342,7 +372,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+            <Suspense fallback={<CircularPageLoader/>}>
               <Chat />
             </Suspense>
           </Layout>
@@ -355,7 +385,7 @@ const AppRouter: FC = () => {
       element: (
         <ProtectedRoutes>
           <Layout backgroundColor={'#e0e0e0f'}>
-            <Suspense fallback={'loading...'}>
+            <Suspense fallback={<CircularPageLoader/>}>
               <Chat />
             </Suspense>
           </Layout>
@@ -366,7 +396,7 @@ const AppRouter: FC = () => {
     {
       path: '*',
       element: (
-        <Suspense fallback={'loading...'}>
+        <Suspense fallback={<CircularPageLoader/>}>
           <ErrorPage404 />
         </Suspense>
       )

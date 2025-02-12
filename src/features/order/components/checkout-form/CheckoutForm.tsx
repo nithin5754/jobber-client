@@ -8,7 +8,7 @@ import { createSearchParams, NavigateFunction, useNavigate } from 'react-router-
 const Button: FC<IButtonProps>=lazy(()=>import('src/shared/button/Button'))
 const CheckoutForm:FC<ICheckoutProps> = ({gigId,offer}) => {
 
-  console.log(gigId,offer)
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
   const navigate:NavigateFunction=useNavigate()

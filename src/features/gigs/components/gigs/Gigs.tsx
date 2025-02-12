@@ -5,13 +5,14 @@ import DeliveryTime from './components/DeviveryTime';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { addNewItemSessionStorage,lowerCase, replaceDashWithSpaces } from 'src/shared/utils/utils.service';
 import { useSearchGigsQuery } from '../../service/search.service';
-import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import LottieAnimation from 'src/shared/lottie/components/LootieAnimation';
 
 import emptyState from 'src/assets/json/empty.json';
 import GigPaginate from 'src/shared/gigs/GigPaginate';
 import { useAppDispatch } from 'src/store/store';
 import { updateHeader } from 'src/shared/header/reducer/header.reducer';
+import CardListPageLoader from 'src/shared/page-loader/CardListPageLoader';
+import CardLoader from 'src/shared/page-loader/CardLoader';
 
 
 
@@ -77,7 +78,7 @@ useEffect(()=>{
     {
       isLoadingGigData||searchFetching?(
         <div className="flex justify-center m-auto h-[80%]">
-          <CircularPageLoader/>
+          <CardListPageLoader/>
 
         </div>
       ):(  <div className="my-5">
@@ -94,7 +95,7 @@ useEffect(()=>{
               <>
                 {data.gigArray.map((gig: ISellerGig) => (
                   <Fragment key={gig.id}>
-                    <Suspense fallback={<CircularPageLoader />}>
+                    <Suspense fallback={<CardLoader />}>
                       <GigCardDisplayItem gig={gig} linkTarget={false} showEditIcon={false} />
                     </Suspense>
                   </Fragment>

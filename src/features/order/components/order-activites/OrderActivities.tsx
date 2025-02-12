@@ -23,7 +23,6 @@ const OrderActivities: ForwardRefExoticComponent<Omit<IOrderActivitiesProps, 're
     responseTime: 1
   };
 
-  console.log("order",order)
   const chatBuyer: IChatBuyerProps = {
     username: `${order.buyerUsername}`,
     id: `${order.buyerId}`,

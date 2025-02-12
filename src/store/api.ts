@@ -26,22 +26,17 @@ const baseQuery = fetchBaseQuery({
 export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (
-    (result.error && result.error.status === 403) ||
-    (result.error && result.error.status === 401)
-  ) {
+  if ((result.error && result.error.status === 403) || (result.error && result.error.status === 401)) {
     const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
     if (refreshResult.data) {
-    
       const fetchData: IResponse = refreshResult.data;
 
       api.dispatch(addAuthUser({ authInfo: fetchData.user, token: fetchData.token }));
 
       result = await baseQuery(args, api, extraOptions);
     } else {
-      console.log("refresh",refreshResult)
       api.dispatch(logout({}));
-      
+
       api.dispatch(clearAuthUser(undefined));
       api.dispatch(emptyBuyer(undefined));
     }
@@ -63,6 +58,6 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
 export const apiSlice = createApi({
   reducerPath: 'clientApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Auth','Chat', 'Currentuser', 'Buyer','Seller','Gigs','Order','Search'],
+  tagTypes: ['Auth', 'Chat', 'Review', 'Currentuser', 'Buyer', 'Seller', 'Gigs', 'Order', 'Search','Public'],
   endpoints: () => ({})
 });

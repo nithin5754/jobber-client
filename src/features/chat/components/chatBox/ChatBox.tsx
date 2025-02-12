@@ -82,7 +82,6 @@ const ChatBox: FC<IChatBoxProps> = ({ buyer, onClose, seller, gigId }): ReactEle
         conversationIdRef.current = `${response.conversationId}`;
       }
     } catch (error) {
-      console.log('msg error', error);
       showErrorToast('Error sending message ');
     }
   };

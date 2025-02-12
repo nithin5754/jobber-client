@@ -72,6 +72,22 @@ const ManageOrders: FC = (): ReactElement => {
                 )}
               </a>
             </li>
+            <li className="inline-block py-3 uppercase" onClick={() => setType(SELLER_Gig_Status.DELIVERED)}>
+              <a
+                href="#activeorders"
+                className={`px-4 py-3 text-xs text-[#555555] no-underline sm:text-sm md:text-base ${type === SELLER_Gig_Status.DELIVERED ? 'pb-[15px] outline outline-1 outline-[#e8e8e8] sm:rounded-t-lg' : ''}`}
+              >
+                Delivered{' '}
+                {orderTypes(SELLER_Gig_Status.DELIVERED, orderRef) > 0 && (
+                  <span
+                    className="ml-1 rounded-[5px] bg-customViolet hover:bg-customPurple px-[5px] py-[1px] text-xs font-medium
+                             text-white"
+                  >
+                    {shortLongNumbers(orderTypes(SELLER_Gig_Status.DELIVERED, orderRef))}
+                  </span>
+                )}
+              </a>
+            </li>
             <li className="inline-block py-3 uppercase" onClick={() => setType(SELLER_Gig_Status.CANCELLED)}>
               <a
                 href="#activeorders"
@@ -105,6 +121,15 @@ const ManageOrders: FC = (): ReactElement => {
               type={'completed'}
               orders={sellerOrderList(SELLER_Gig_Status.COMPLETED, orderRef)}
               orderTypes={orderTypes(SELLER_Gig_Status.COMPLETED, orderRef)}
+            />
+          </Suspense>
+        )}
+              {type === SELLER_Gig_Status.DELIVERED && (
+          <Suspense fallback={'loading'}>
+            <ManageOrderTable
+              type={'deDELIVERED'}
+              orders={sellerOrderList(SELLER_Gig_Status.DELIVERED, orderRef)}
+              orderTypes={orderTypes(SELLER_Gig_Status.DELIVERED, orderRef)}
             />
           </Suspense>
         )}

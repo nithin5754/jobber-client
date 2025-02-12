@@ -1,6 +1,6 @@
 import { IResponse } from 'src/shared/shared.interface';
 import { apiSlice } from 'src/store/api';
-import { IOrder } from '../interfaces/order.interface';
+import { IExtendedDelivery, IOrder } from '../interfaces/order.interface';
 
 export const orderSlice = apiSlice.injectEndpoints({
   endpoints: (build) => ({
@@ -36,26 +36,56 @@ export const orderSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Order']
     }),
 
-
-    deliverOrder: build.mutation<IResponse,  { orderId: string,formData:FormData}>({
-          query({orderId,formData}) {
-            return {
-              url: `order/order/deliver-order/${orderId}`,
-              method: 'POST',
-              body:formData
-            };
-          },
-          invalidatesTags: ['Order']
-        }),
-
+    deliverOrder: build.mutation<IResponse, { orderId: string; formData: FormData }>({
+      query({ orderId, formData }) {
+        return {
+          url: `order/order/deliver-order/${orderId}`,
+          method: 'POST',
+          body: formData
+        };
+      },
+      invalidatesTags: ['Order']
+    }),
+    updateDeliveryDate: build.mutation<IResponse, { orderId: string; type: string; body: IExtendedDelivery }>({
+      query({ orderId, type, body }) {
+        return {
+          url: `order/order/order-delivery-extension/${type}/${orderId}`,
+          method: 'PUT',
+          body
+        };
+      },
+      invalidatesTags: ['Order']
+    }),
+    cancelOrder: build.mutation<IResponse, { orderId: string}>({
+      query({ orderId }) {
+        return {
+          url: `order/order/order-delivery-cancel/${orderId}`,
+          method: 'PUT',
+        
+        };
+      },
+      invalidatesTags: ['Order']
+    }),
+    requestDeliveryDateExtension: build.mutation<IResponse, { orderId: string; body: IExtendedDelivery }>({
+      query({ body, orderId }) {
+        return {
+          url: `order/order/order-update-extension/${orderId}`,
+          method: 'PUT',
+          body
+        };
+      }
+    })
   })
 });
 
-export const { 
+export const {
   useGetOrderByOrderIdQuery,
-   useGetOrdersBySellerIdQuery, 
-   useCreateOrderMutation, 
-   useGetOrdersByBuyerIdQuery ,
-   useApproveOrderMutation,
-   useDeliverOrderMutation
-  } = orderSlice;
+  useGetOrdersBySellerIdQuery,
+  useCreateOrderMutation,
+  useGetOrdersByBuyerIdQuery,
+  useApproveOrderMutation,
+  useDeliverOrderMutation,
+  useRequestDeliveryDateExtensionMutation,
+  useUpdateDeliveryDateMutation,
+  useCancelOrderMutation
+} = orderSlice;

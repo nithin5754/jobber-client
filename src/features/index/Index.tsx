@@ -9,7 +9,7 @@ const IndexHeader: LazyExoticComponent<FC<IHeader>> = lazy(() => import('src/sha
 const IndexHero: LazyExoticComponent<FC> = lazy(() => import('./Hero'));
 const IndexGigTabs: LazyExoticComponent<FC> = lazy(() => import('./gig-tabs/GigTabs'));
 const IndexHowItWorks: LazyExoticComponent<FC> = lazy(() => import('./HowItWorks'));
-const IndexCategories :LazyExoticComponent<FC>=lazy(()=>import( './Categories'))
+
 const Index: FC = (): ReactElement => {
 
 
@@ -29,7 +29,6 @@ saveToSessionStorage(JSON.stringify(false),JSON.stringify(''))
       <IndexGigTabs />
         <IndexHowItWorks />
         <br/>
-        <IndexCategories/>
       </Suspense>
       {/* <div className="fixed z-50 bottom-0 right-10 lg:w-[250px] ">
             <Alert type={'success'} message={'created the message'}/>

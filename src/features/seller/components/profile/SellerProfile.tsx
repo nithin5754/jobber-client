@@ -17,6 +17,9 @@ import CircularPageLoader from 'src/shared/page-loader/CircularPageLoader';
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 import GigsCardDisplay from 'src/shared/gigs/GigCardDisplay';
 import { useGetGigsBySellerIdQuery } from 'src/features/gigs/service/gig.service';
+import { useGetReviewsBySellerIdQuery } from 'src/features/order/services/review.service';
+import { IReview } from 'src/features/order/interfaces/review.interface';
+import GigReviewOverview from 'src/features/gigs/components/view/components/GigLeft/GigReview';
 
 const ProfileHeader: LazyExoticComponent<FC<IProfileHeaderProps>> = lazy(
   () => import('src/features/seller/components/profile/components/ProfileHeader')
@@ -33,17 +36,22 @@ const SellerProfile: FC = (): ReactElement => {
   const {sellerId}=useParams()
 
 
-console.log("seller-id",sellerId)
 
 const {data:sellerData,isLoading}=useGetSellerBySellerIdQuery(`${sellerId}`)
 
-console.log("sellerData",sellerData?.seller)
+
 const {data:sellerGigData}=useGetGigsBySellerIdQuery(`${sellerId}`)
 
+const {
+  data: sellerReviewsData,
+  isSuccess: isGigReviewSuccess
+} = useGetReviewsBySellerIdQuery(`${sellerId}`);
 
 
-
-
+let reviews: IReview[] = [];
+if (isGigReviewSuccess) {
+  reviews = sellerReviewsData.reviews as IReview[];
+}
 
   return (
     <div className="relative w-full pb-6">
@@ -77,7 +85,7 @@ const {data:sellerGigData}=useGetGigsBySellerIdQuery(`${sellerId}`)
   ))
 }
 </div>}
-      {type === 'Reviews & Ratings' && <div className="">Seller Reviews And Ratings</div>}
+{type === 'Ratings & Reviews' && <GigReviewOverview showRatings={false} reviews={reviews} hasFetchedReviews={true} />}
     </div>
   </div>
   )

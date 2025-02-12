@@ -72,7 +72,6 @@ class SocketService{
       this.socket.disconnect();
       this.socket.removeAllListeners();
       this.socket=null;
-      console.log('Socket connection closed.');
      }else{
       console.warn('No socket connection to close.');
      }

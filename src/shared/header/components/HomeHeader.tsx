@@ -26,7 +26,7 @@ import MessageDropdown from './MessageDrpdown';
 // import photo from 'src/assets/jobber-logo-transparent.png'
 const HomeHeaderButton: LazyExoticComponent<FC<IButtonProps>> = lazy(() => import('src/shared/button/Button'));
 const HomeHeaderSettings: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/SettingsDropDown'));
-const OrderDropDown: LazyExoticComponent<FC<IHomeHeaderProps>>=lazy(()=>import('src/shared/header/components/OrderDropDown'))
+const OrderDropDown: LazyExoticComponent<FC<IHomeHeaderProps>> = lazy(() => import('src/shared/header/components/OrderDropDown'));
 const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
   const authUser: IAuthUser | undefined = useAppSelector(useAuthDetails);
   const buyerDetails: IBuyer | undefined = useAppSelector(useGetBuyerDetails);
@@ -51,14 +51,13 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
       if (!result) {
         console.log(error);
       }
-      console.log(result.message);
     }
   };
 
   const handleToggle = (): void => {
     setIsSettingsDropdown(!isSettingsDropdown);
     setIsMessageDropdownOpen(false);
-    setIsOrderDropdownOpen(false)
+    setIsOrderDropdownOpen(false);
   };
 
   const toggleMessageDropDown = (): void => {
@@ -69,7 +68,7 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
   };
 
   const toggleOrdersDropdown = (): void => {
-    setIsOrderDropdownOpen(!isOrderDropdownOpen)
+    setIsOrderDropdownOpen(!isOrderDropdownOpen);
     setIsMessageDropdownOpen(false);
     setIsSettingsDropdown(false);
     dispatch(updateHeader('home'));
@@ -201,9 +200,9 @@ const HomeHeader: FC<IHomeHeaderProps> = ({ showCategoryContainer }) => {
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-1"
                       >
-                      <div className=" absolute -right-48 top-[1.9rem] z-50 mt-5 w-96">
+                        <div className=" absolute -right-48 top-[1.9rem] z-50 mt-5 w-96">
                           <Suspense fallback={'loading...'}>
-                            <OrderDropDown  buyer={buyerDetails} setIsDropdownOpen={setIsOrderDropdownOpen} />
+                            <OrderDropDown buyer={buyerDetails} setIsDropdownOpen={setIsOrderDropdownOpen} />
                           </Suspense>
                         </div>
                       </Transition>

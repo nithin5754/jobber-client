@@ -151,7 +151,7 @@ const TermOfService: FC = (): ReactElement => {
           <h2 className="text-xl font-semibold mb-2">9.CONTACT INFORMATION</h2>
           <p className="text-gray-600">
             For any questions regarding these terms, contact us at{' '}
-            <a href="mailto:support@jobber.phaseex.live" className="text-blue-500">
+            <a href="mailto:support@jobber.phaseex.live" className="text-customPurple">
               support@jobber.phaseex.live
             </a>
             .

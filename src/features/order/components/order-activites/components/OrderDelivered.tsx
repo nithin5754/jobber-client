@@ -10,6 +10,7 @@ import { useApproveOrderMutation } from "src/features/order/services/order.servi
 import ApprovalModal from "src/shared/modal/ApprovalModal";
 import { IApprovalModalContent } from "src/shared/modal/interfaces/modal.interface";
 import { IButtonProps } from "src/shared/shared.interface";
+import { CLOUDINARY_PICTURE_URL } from "src/shared/utils/constant.api";
 import { TimeAgo } from "src/shared/utils/date.utils";
 import { bytesToSize, downloadFile, getFileBlob, showErrorToast, showSuccessToast } from "src/shared/utils/utils.service";
 const Button: FC<IButtonProps>=lazy(()=>import('src/shared/button/Button'))
@@ -19,10 +20,6 @@ const OrderDelivered:ForwardRefExoticComponent<Omit<IOrderDeliveredProps,'ref'>&
   (_,ref) => {
 
     const { order, authUser, viewDeliveryBtnClicked } = useContext(OrderContext);
-
-    console.log(order,"ehhelo")
-
-
     const [orderDeliveredModal, setOrderDeliveredModal] = useState<IOrderDeliveredModal>({
       delivery: viewDeliveryBtnClicked as boolean,
       deliveryApproval: false
@@ -53,13 +50,11 @@ const OrderDelivered:ForwardRefExoticComponent<Omit<IOrderDeliveredProps,'ref'>&
           buyerId: `${order?.buyerId}`,
           ongoingJobs: -1,
           completedJobs: 1,
-          // seller will receiver 80% of original price
-          // 20% goes to the platform
           totalEarnings: 0.8 * parseInt(`${order?.price}`),
           purchasedGigs: `${order?.gigId}`
         };
 
-        console.log("orderMsg",orderMessage)
+        console.log("onDeliveryApprovalHandler",orderMessage)
 
         await approveOrder({ orderId: `${order?.orderId}` }).unwrap()
 
@@ -133,7 +128,7 @@ const OrderDelivered:ForwardRefExoticComponent<Omit<IOrderDeliveredProps,'ref'>&
                             className="border-grey flex w-full cursor-pointer flex-col items-center space-x-4 border-b px-5 pt-2 last:border-none md:flex-row"
                           >
                             <div className="flex w-full justify-center md:w-12 md:self-start">
-                              <img className="h-10 w-10 rounded-full object-cover" src={order.sellerImage} alt="Seller Image" />
+                              <img className="h-10 w-10 rounded-full object-cover" src={CLOUDINARY_PICTURE_URL(order.sellerImage)} alt="Seller Image" />
                             </div>
                             <div className="w-full text-sm dark:text-white">
                               <div className="flex justify-between text-sm font-bold text-[#777d74] md:text-base">
