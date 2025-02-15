@@ -1,21 +1,19 @@
 import { LazyExoticComponent, FC, lazy, useRef, useState, ChangeEvent, ReactElement } from 'react';
 import { NavigateFunction, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-
 import { IButtonProps, IResponse, ITextInputProps } from 'src/shared/shared.interface';
 import { IOffer, IOrder, IOrderInvoice } from '../interfaces/order.interface';
 import { generateRandomNumbers, showErrorToast } from 'src/shared/utils/utils.service';
 import { useGetGigByIdQuery } from 'src/features/gigs/service/gig.service';
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
-
 import { useGetBuyerDetails } from 'src/features/buyer/reducer/buyer.reducer';
 import { TimeAgo } from 'src/shared/utils/date.utils';
 import { useCreateOrderMutation } from '../services/order.service';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { OrderContext } from '../context/OrderContext';
 import Invoice from './Invoice/Invoice';
-
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
 import { useAppSelector } from 'src/store/store';
+import {  PiCurrencyInrBold } from 'react-icons/pi';
 
 const TextAreaInput: LazyExoticComponent<FC<ITextInputProps>> = lazy(() => import('src/shared/inputs/TextAreaInput'));
 
@@ -117,22 +115,18 @@ const Requirements: FC = (): ReactElement => {
             <div className="flex gap-1">
               You can{' '}
               {orderInvoice && (
-  <PDFDownloadLink
-    document={
-      <OrderContext.Provider value={{ orderInvoice }}>
-        <Invoice />
-      </OrderContext.Provider>
-    }
-    fileName={`${orderInvoice.invoiceId || "invoice"}.pdf`}
-    className="cursor-pointer text-customPurple underline"
-  >
-     <div className="cursor-pointer text-customPurple underline">download your invoice</div>
-
-  </PDFDownloadLink>
-)}
-
-
-            
+                <PDFDownloadLink
+                  document={
+                    <OrderContext.Provider value={{ orderInvoice }}>
+                      <Invoice />
+                    </OrderContext.Provider>
+                  }
+                  fileName={`${orderInvoice.invoiceId || 'invoice'}.pdf`}
+                  className="cursor-pointer text-customPurple underline"
+                >
+                  <div className="cursor-pointer text-customPurple underline">download your invoice</div>
+                </PDFDownloadLink>
+              )}
             </div>
           </div>
           <div className="border-grey border">
@@ -187,7 +181,11 @@ const Requirements: FC = (): ReactElement => {
               </li>
               <li className="flex justify-between px-4 pb-4 pt-2">
                 <div className="flex gap-2 text-sm font-normal">Price</div>
-                <span className="text-sm">${offer.price}</span>
+
+                <span className="text-sm  font-normal  md:text-base flex items-center ">
+                  <span> {'  '}</span> <PiCurrencyInrBold className="ml-4" />
+                  {offer.price}
+                </span>
               </li>
             </ul>
           </div>

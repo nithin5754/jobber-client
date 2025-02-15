@@ -10,12 +10,14 @@ import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 
 const GigTabs: FC = (): ReactElement => {
   let categoryList: ISellerGig[] = [];
-  const [activeTab, setActiveTab] = useState<string>('Graphics & Design');
+  const [activeTab, setActiveTab] = useState<string>(categories()[0]);
   const { data: categoryGig, isSuccess } = usePublicCategoryQuery({ category: `${activeTab}`  },{refetchOnMountOrArgChange:true});
   if (isSuccess) {
     categoryList = categoryGig.gigArray as ISellerGig[];
     
   }
+
+
 
   return (
     <div className="relative m-auto mt-8 w-screen px-6 xl:container md:px-12 lg:px-6 ">

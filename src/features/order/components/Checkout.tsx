@@ -4,6 +4,7 @@ import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 import { IOffer } from '../interfaces/order.interface';
 import { FaRegClock, FaRegMoneyBillAlt, FaCog } from 'react-icons/fa';
 import CheckoutForm from './checkout-form/CheckoutForm';
+import {  PiCurrencyInrBold } from 'react-icons/pi';
 
 const Checkout = () => {
   const [searchParams] = useSearchParams({});
@@ -22,7 +23,7 @@ const Checkout = () => {
             <div className="text-xl font-medium mb-3 pt-3 pb-4 px-4">
               <span>Payment</span>
             </div>
-          <CheckoutForm gigId={`${gigId}`} offer={offer}/>
+            <CheckoutForm gigId={`${gigId}`} offer={offer} />
           </div>
         </div>
 
@@ -52,20 +53,32 @@ const Checkout = () => {
                 <div className="text-sm font-normal flex gap-2">
                   <FaRegMoneyBillAlt className="self-center" /> Price
                 </div>
-                <span className="text-sm">${offer.price}</span>
+
+                <span className="text-sm  font-normal md:text-base flex items-center ">
+                  <span> {'  '}</span> <PiCurrencyInrBold className="ml-4" />
+                  {offer.price}
+                </span>
               </li>
               <li className="flex justify-between px-4 pt-2 pb-2">
                 <div className="text-sm font-normal flex gap-2">
                   <FaCog className="self-center" /> Service fee
                 </div>
-                <span className="text-sm">${serviceFees.toFixed(2)}</span>
+
+                <span className="text-sm  font-normal  md:text-base flex items-center ">
+                  <span> {'  '}</span> <PiCurrencyInrBold className="ml-4" />
+                  {serviceFees.toFixed(2)}
+                </span>
               </li>
               <div className="border-b border-grey" />
               <li className="flex justify-between px-4 py-4">
                 <div className="text-sm md:text-base font-semibold flex gap-2">
                   <FaCog className="self-center" /> Total
                 </div>
-                <span className="text-sm md:text-base font-semibold">${offer.price + serviceFees}</span>
+
+                <strong className="text-sm font-bold md:text-base flex items-center ">
+                  <span> {'  '}</span> <PiCurrencyInrBold className="ml-4" />
+                  {(offer.price + serviceFees).toFixed(2)}
+                </strong>
               </li>
             </ul>
           </div>

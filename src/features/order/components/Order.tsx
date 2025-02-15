@@ -11,6 +11,7 @@ import { IAuthUser } from 'src/features/auth/interfaces/auth.interface';
 import { TimeAgo } from 'src/shared/utils/date.utils';
 import DeliveryTimer from './DeliveryTimer';
 import OrderDetailsTable from './OrderDetailsTable';
+import {  PiCurrencyInrBold } from 'react-icons/pi';
 
 const Button: FC<IButtonProps> = lazy(() => import('src/shared/button/Button'));
 const Order: FC = (): ReactElement => {
@@ -116,7 +117,11 @@ const Order: FC = (): ReactElement => {
                   </li>
                   <li className="flex justify-between px-4 pb-4 pt-2">
                     <div className="flex gap-2 text-sm font-normal">Total price</div>
-                    <span className="text-sm font-bold">${order?.price}</span>
+
+                    <strong className="text-sm font-bold md:text-base flex items-center ">
+                      <span> {'  '}</span> <PiCurrencyInrBold className="ml-4" />
+                      {order?.price}
+                    </strong>
                   </li>
                 </ul>
               </div>

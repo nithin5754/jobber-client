@@ -6,6 +6,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer"
 import { TimeAgo } from "src/shared/utils/date.utils"
 import { OrderContext } from "../context/OrderContext"
 import Invoice from "./Invoice/Invoice"
+import { PiCurrencyInr } from "react-icons/pi"
 
 
 
@@ -114,7 +115,7 @@ const OrderDetailsTable:FC<IOrderProps> = ({authUser,order}):ReactElement => {
                           <td className="px-4 py-4">
                             {order.offer.deliveryInDays} day{order.offer.deliveryInDays > 1 ? 's' : ''}
                           </td>
-                          <td className="px-4 py-4">${order.price}</td>
+                          <td className="px-4 py-4"><PiCurrencyInr />{order.price}</td>
                         </tr>
                         <tr className="bg-white">
                           <th scope="row" className="whitespace-wrap px-4 py-4 font-normal">
@@ -132,7 +133,7 @@ const OrderDetailsTable:FC<IOrderProps> = ({authUser,order}):ReactElement => {
                           </th>
                           <td className="px-4 py-3"></td>
                           <td className="px-4 py-3"></td>
-                          <td className="px-4 py-3 font-bold">${order.serviceFee?.toFixed(2)}</td>
+                          <td className="px-4 py-3 font-bold"><PiCurrencyInr />{order.serviceFee?.toFixed(2)}</td>
                         </tr>
                         <tr>
                           <th scope="row" className="px-4 py-3 text-base">
@@ -140,7 +141,7 @@ const OrderDetailsTable:FC<IOrderProps> = ({authUser,order}):ReactElement => {
                           </th>
                           <td className="px-4 py-3"></td>
                           <td className="px-4 py-3"></td>
-                          <td className="px-4 py-3 font-bold">${order.price + parseInt(`${order.serviceFee}`)}</td>
+                          <td className="px-4 py-3 font-bold"><PiCurrencyInr />{order.price + parseInt(`${order.serviceFee}`)}</td>
                         </tr>
                       </tfoot>
                     </table>

@@ -33,10 +33,10 @@ const TableHead:FC = ():ReactElement => {
       <Text>Qty</Text>
     </View>
     <View style={styles.tHeader}>
-      <Text>Price($)</Text>
+      <Text>Price(₹)</Text>
     </View>
     <View style={styles.tHeader}>
-      <Text>Total($)</Text>
+      <Text>Total(₹)</Text>
     </View>
   </View>
   )

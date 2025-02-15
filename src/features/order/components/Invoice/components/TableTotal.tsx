@@ -44,7 +44,7 @@ const TableTotal:FC = ():ReactElement => {
         </View>
         <View style={styles.tbody}>
           <Text>
-            $
+          ₹
             {orderInvoice.orderService
               .reduce((sum: number, item: IOrderInvoiceService) => sum + item.price * item.quantity, 0)
               .toFixed(2)}

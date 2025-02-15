@@ -46,10 +46,7 @@ const ChatList: FC = (): ReactElement => {
   useEffect(() => {
     if (isSuccess) {
       const sortedConversation: IMessage[] = orderBy(data.conversations, ['createdAt'], ['desc']) as IMessage[];
-      setChatList(sortedConversation);
-
-
-      // here should add dispatch for notification
+      setChatList(sortedConversation)
     }   
   }, [isSuccess, data?.conversations]);
 

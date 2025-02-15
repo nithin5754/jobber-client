@@ -20,7 +20,6 @@ const TopGigViews: FC<IGigTopProps> = ({ gigs, title, subTitle, category, width,
     end: false
   });
 
-  // Check scroll position on mount and after content updates
   useEffect(() => {
     checkScrollPosition();
   }, [gigs]);
