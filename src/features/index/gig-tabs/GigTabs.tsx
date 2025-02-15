@@ -1,7 +1,6 @@
-import { FC, ReactElement,  useState } from 'react';
+import { FC, ReactElement, useState } from 'react';
 
 import { categories, replaceSpacesWithDash } from 'src/shared/utils/utils.service';
-
 
 import TopGigsView from './TopGigsView';
 import { usePublicCategoryQuery } from '../service/public.service';
@@ -10,16 +9,13 @@ import { ICONIC_PROJECT_BORDER_AREA, ICONIC_PROJECT_TEXT_COLOR } from 'src/share
 import { ISellerGig } from 'src/features/gigs/interface/gigi.interface';
 
 const GigTabs: FC = (): ReactElement => {
-
-let categoryList:ISellerGig[]=[]
+  let categoryList: ISellerGig[] = [];
   const [activeTab, setActiveTab] = useState<string>('Graphics & Design');
-  const { data: categoryGig,isSuccess } = usePublicCategoryQuery({ category: `${activeTab}` });
-
- 
-
-if(isSuccess){
-  categoryList=categoryGig.gigArray as ISellerGig[]
-}
+  const { data: categoryGig, isSuccess } = usePublicCategoryQuery({ category: `${activeTab}`  },{refetchOnMountOrArgChange:true});
+  if (isSuccess) {
+    categoryList = categoryGig.gigArray as ISellerGig[];
+    
+  }
 
   return (
     <div className="relative m-auto mt-8 w-screen px-6 xl:container md:px-12 lg:px-6 ">
@@ -30,24 +26,21 @@ if(isSuccess){
         </div>
         <div className="mt-6">
           <ul className="flex  flex-wrap justify-center  gap-5 overflow-x-auto scroll-smooth whitespace-nowrap relative  ">
-            {categories()   
-            .slice(0, 5)
-            .map((category: string,index:number) => (
-              <li
-                key={index}
-                onClick={() => setActiveTab(category)}
-            
+            {categories()
+              .slice(0, 5)
+              .map((category: string) => (
+                <li
+                  key={category}
+                  onClick={() => setActiveTab(category)}
                   className={`w-[200px] min-w-0 cursor-pointer rounded-full py-4 my-4
                                  hover:border-cyan-400 hover:shadow-lg  hover:shadow-cyan-600/20 
                                    dark:bg-gray-800 ${ICONIC_PROJECT_BORDER_AREA} ${ICONIC_PROJECT_TEXT_COLOR} `}
-              >
-                <div className="flex justify-center">
-                      <span className={`block truncate font-medium ${activeTab === category ? 'text-black' : 'text-white'}`}>
-                     {category}
-                      </span>
-                    </div>
-              </li>
-            ))}
+                >
+                  <div className="flex justify-center">
+                    <span className={`block truncate font-medium ${activeTab === category ? 'text-black' : 'text-white'}`}>{category}</span>
+                  </div>
+                </li>
+              ))}
           </ul>
         </div>
         <div className="mt-4 h-full overflow-hidden border px-6 py-6">
