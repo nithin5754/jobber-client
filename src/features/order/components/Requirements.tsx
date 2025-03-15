@@ -13,7 +13,7 @@ import { OrderContext } from '../context/OrderContext';
 import Invoice from './Invoice/Invoice';
 import { IBuyer } from 'src/features/buyer/interfaces/buyer.interfaces';
 import { useAppSelector } from 'src/store/store';
-import {  PiCurrencyInrBold } from 'react-icons/pi';
+import { PiCurrencyInrBold } from 'react-icons/pi';
 
 const TextAreaInput: LazyExoticComponent<FC<ITextInputProps>> = lazy(() => import('src/shared/inputs/TextAreaInput'));
 
