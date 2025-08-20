@@ -85,7 +85,7 @@ const OrderDetailsTable:FC<IOrderProps> = ({authUser,order}):ReactElement => {
                   <div className="relative overflow-x-auto">
                     <table className="border-grey w-full border text-left text-sm text-gray-500">
                       <thead className="bg-[#f3f3f3] text-xs uppercase text-gray-700">
-                        <tr>
+                          <tr className="hover:bg-slate-200 transition-all ">
                           <th scope="col" className="px-4 py-3" style={{ width: '60%' }}>
                             Item
                           </th>
@@ -115,7 +115,7 @@ const OrderDetailsTable:FC<IOrderProps> = ({authUser,order}):ReactElement => {
                           <td className="px-4 py-4">
                             {order.offer.deliveryInDays} day{order.offer.deliveryInDays > 1 ? 's' : ''}
                           </td>
-                          <td className="px-4 py-4"><PiCurrencyInr />{order.price}</td>
+                          <td className="px-4 py-4 flex items-center"><PiCurrencyInr />{order.price}</td>
                         </tr>
                         <tr className="bg-white">
                           <th scope="row" className="whitespace-wrap px-4 py-4 font-normal">
@@ -126,22 +126,22 @@ const OrderDetailsTable:FC<IOrderProps> = ({authUser,order}):ReactElement => {
                           <td className="px-4 py-4"></td>
                         </tr>
                       </tbody>
-                      <tfoot className="bg-[#f3f3f3]">
-                        <tr>
+                      <tfoot className="bg-[#f3f3f3] ">
+                        <tr className="hover:bg-slate-200 transition-all ">
                           <th scope="row" className="px-4 py-3 text-base">
                             Service Fee
                           </th>
                           <td className="px-4 py-3"></td>
                           <td className="px-4 py-3"></td>
-                          <td className="px-4 py-3 font-bold"><PiCurrencyInr />{order.serviceFee?.toFixed(2)}</td>
+                          <td className="px-4 py-3 font-bold flex items-center"><PiCurrencyInr />{order.serviceFee?.toFixed(2)}</td>
                         </tr>
-                        <tr>
+                           <tr className="hover:bg-slate-200 transition-all ">
                           <th scope="row" className="px-4 py-3 text-base">
                             Total
                           </th>
                           <td className="px-4 py-3"></td>
                           <td className="px-4 py-3"></td>
-                          <td className="px-4 py-3 font-bold"><PiCurrencyInr />{order.price + parseInt(`${order.serviceFee}`)}</td>
+                          <td className="px-4 py-3 font-bold flex items-center"><PiCurrencyInr />{order.price + parseInt(`${order.serviceFee}`)}</td>
                         </tr>
                       </tfoot>
                     </table>
